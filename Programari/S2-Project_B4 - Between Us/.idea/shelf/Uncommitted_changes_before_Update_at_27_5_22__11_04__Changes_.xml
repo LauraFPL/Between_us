@@ -1,0 +1,44 @@
+<changelist name="Uncommitted_changes_before_Update_at_27_5_22,_11_04_[Changes]" date="1653642265218" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_5_22,_11_04_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 27/5/22, 11:04 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/WarningView.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/WarningView.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_5_22,_11_04_[Changes]/WarningView.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Character.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Character.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_5_22,_11_04_[Changes]/Character.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/PlayerEvolutionView.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/PlayerEvolutionView.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_5_22,_11_04_[Changes]/PlayerEvolutionView.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/GraphDrawer.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/GraphDrawer.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_5_22,_11_04_[Changes]/GraphDrawer.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Impostor.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Impostor.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_5_22,_11_04_[Changes]/Impostor.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/GameManager.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/GameManager.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_5_22,_11_04_[Changes]/GameManager.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/persistance/GameDAO.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/persistance/GameDAO.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_5_22,_11_04_[Changes]/GameDAO.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/Main.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/Main.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_5_22,_11_04_[Changes]/Main.class" />
+  </binary>
+</changelist>

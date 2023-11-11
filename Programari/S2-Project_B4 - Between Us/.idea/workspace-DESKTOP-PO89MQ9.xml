@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3f7dd163-8f7b-4f1f-bcda-425a9680dd53" name="Changes" comment="Canvitos en la creacio de Game">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PlayersManager.uml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/files/SQL_final_CREATESINSERTS.sql" beforeDir="false" afterPath="$PROJECT_DIR$/files/SQL_final_CREATESINSERTS.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/business/ActionType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Character.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/business/CharacterColors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/business/GameManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Impostor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Map.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/business/NPC.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/business/NPCSuspition.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/business/PlayersManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Room.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/business/RoomType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/persistance/GameDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/persistance/MapDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/persistance/PlayerDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/persistance/csv/CSVMapDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/persistance/sql/SQLConnector.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/persistance/sql/SQLGameDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/persistance/sql/SQLPlayerDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/CurrentGameController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/GamesController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/business/Character.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/business/Character.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/business/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/business/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/business/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/business/GameManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/business/Impostor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/business/Impostor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/business/NPC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/business/NPC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/business/NPCSuspition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/business/NPCSuspition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/business/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/business/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/business/PlayersManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/business/PlayersManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/persistance/GameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/persistance/GameDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/persistance/csv/CSVMapDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/persistance/csv/CSVMapDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/persistance/sql/SQLGameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/persistance/sql/SQLGameDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/presentation/controller/GamesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/presentation/controller/GamesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UML_final.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/../UML_final.mdj" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="Class" />
+        <option value="editable-svg" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2818ywNmEheDZDqKzeswEhKAeKQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RunConfigurationTargetLRU" value="0e5d5a82-187c-4aa9-9211-988866fd5c7a" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/salle/url/edu" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="salle.url.edu.presentation.view" />
+      <recent name="salle.url.edu.persistance.csv" />
+      <recent name="salle.url.edu.persistance.sql" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\usuario\OneDrive - La Salle\3r\DPO\2n Semestre\Practica 2\S2-Project_B4 - Between Us\dpoo-2122-s2-b4\S2-Project_B4 - Between Us\files\assets\rooms" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\HP\OneDrive - La Salle\AAA Salle\3r any\DPO\Practiques\Practica2\programa\dpoo-2122-s2-b4\S2-Project_B4 - Between Us\files\assets\Login_Register" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="salle.url.edu.Main" />
+      <module name="S2-Project_B4 - Between Us" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="salle.url.edu.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SQL_final_CREATESINSERTS.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/files/SQL_final_CREATESINSERTS.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="0e5d5a82-187c-4aa9-9211-988866fd5c7a" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Database Script.SQL_final_CREATESINSERTS.sql" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3f7dd163-8f7b-4f1f-bcda-425a9680dd53" name="Changes" comment="" />
+      <created>1650372990058</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1650372990058</updated>
+      <workItem from="1650372991522" duration="49000" />
+      <workItem from="1650373472812" duration="1847000" />
+      <workItem from="1650375406955" duration="3294000" />
+      <workItem from="1650396791812" duration="2039000" />
+      <workItem from="1650438410551" duration="4819000" />
+      <workItem from="1650446110600" duration="32000" />
+      <workItem from="1650462530259" duration="993000" />
+      <workItem from="1650615494403" duration="5692000" />
+      <workItem from="1650700444285" duration="1333000" />
+      <workItem from="1650982051216" duration="17893000" />
+      <workItem from="1651126849904" duration="7154000" />
+      <workItem from="1651342056404" duration="5139000" />
+      <workItem from="1651397399924" duration="10741000" />
+      <workItem from="1651422225218" duration="16031000" />
+      <workItem from="1651489878606" duration="7519000" />
+      <workItem from="1651586966195" duration="1827000" />
+      <workItem from="1651589389918" duration="1421000" />
+      <workItem from="1651675139627" duration="68000" />
+    </task>
+    <task id="LOCAL-00001" summary="Conexio amb la base de dades feta, falta retocar coses i ara llegir la base de dades">
+      <created>1650377036574</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1650377036574</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Alguns arreglitos tontos que feia que no funciones despres del merge. Ara funciona">
+      <created>1650445622908</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1650445622908</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Afegit metodes de SQLPlayerDAO, ara ja esta tot conectat amb la base de dades de part dels players">
+      <created>1650619962135</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1650619962135</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Acabat de fer la conexió amb la BBDD i carregar del maps.csv feta!! :)">
+      <created>1650999742386</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1650999742387</updated>
+    </task>
+    <task id="LOCAL-00005" summary="GameView començada harcodejant la creació d'una game">
+      <created>1651136311063</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1651136311063</updated>
+    </task>
+    <task id="LOCAL-00006" summary="LoginView part1">
+      <created>1651320980369</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1651320980369</updated>
+    </task>
+    <task id="LOCAL-00007" summary="LoginView part1_falta listenesrs i warnings i ns si algo més">
+      <created>1651321071445</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1651321071446</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Listeners amb prints dels botons del login">
+      <created>1651329122074</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1651329122074</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Vista principal register, falta el warning tant del login com el del register. Listeners register també creats amb només prints">
+      <created>1651346232719</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1651346232719</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Vista de la primera pestanya. Connexió entre finestres">
+      <created>1651407145032</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1651407145032</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Javadoc en alguns mètodes del GUI, i algun mètode de més. I StartView">
+      <created>1651422673445</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1651422673445</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Lògica registre finiquitao i login, falta revisar que tot funcioni, he arreglat algunes coses que petaven. El login, el username no es fixa si és minuscula o majuscula per entrar, però la contrassenya si.">
+      <created>1651448191236</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1651448191236</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/master" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="HEAD" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Conexio amb la base de dades feta, falta retocar coses i ara llegir la base de dades" />
+    <MESSAGE value="Alguns arreglitos tontos que feia que no funciones despres del merge. Ara funciona" />
+    <MESSAGE value="Afegit metodes de SQLPlayerDAO, ara ja esta tot conectat amb la base de dades de part dels players" />
+    <MESSAGE value="Acabat de fer la conexió amb la BBDD i carregar del maps.csv feta!! :)" />
+    <MESSAGE value="GameView començada harcodejant la creació d'una game" />
+    <MESSAGE value="LoginView part1" />
+    <MESSAGE value="LoginView part1_falta listenesrs i warnings i ns si algo més" />
+    <MESSAGE value="Listeners amb prints dels botons del login" />
+    <MESSAGE value="Vista principal register, falta el warning tant del login com el del register. Listeners register també creats amb només prints" />
+    <MESSAGE value="Vista de la primera pestanya. Connexió entre finestres" />
+    <MESSAGE value="Javadoc en alguns mètodes del GUI, i algun mètode de més" />
+    <MESSAGE value="Javadoc en alguns mètodes del GUI, i algun mètode de més. I StartView" />
+    <MESSAGE value="Lògica registre finiquitao i login, falta revisar que tot funcioni, he arreglat algunes coses que petaven. El login, el username no es fixa si és minuscula o majuscula per entrar, però la contrassenya si." />
+    <option name="LAST_COMMIT_MESSAGE" value="Lògica registre finiquitao i login, falta revisar que tot funcioni, he arreglat algunes coses que petaven. El login, el username no es fixa si és minuscula o majuscula per entrar, però la contrassenya si." />
+  </component>
+</project>

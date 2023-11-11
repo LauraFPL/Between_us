@@ -1,0 +1,29 @@
+<changelist name="Uncommitted_changes_before_Update_at_29_05_2022_1_51_[Changes]" date="1653781897957" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_05_2022_1_51_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 29/05/2022 1:51 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/RegisterView.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/RegisterView.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_05_2022_1_51_[Changes]/RegisterView.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_05_2022_1_51_[Changes]/PlayersController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/GamesController.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/GamesController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_05_2022_1_51_[Changes]/GamesController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/LoginView.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/LoginView.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_05_2022_1_51_[Changes]/LoginView.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/persistance/sql/SQLPlayerDAO.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/persistance/sql/SQLPlayerDAO.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_05_2022_1_51_[Changes]/SQLPlayerDAO.class" />
+  </binary>
+</changelist>

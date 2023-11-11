@@ -1,0 +1,206 @@
+Index: src/salle/url/edu/presentation/view/LoginView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package salle.url.edu.presentation.view;\nimport salle.url.edu.presentation.JImagePanel;\nimport salle.url.edu.presentation.controller.PlayersController;\n\nimport javax.imageio.ImageIO;\nimport javax.swing.*;\nimport java.awt.*;\nimport java.io.File;\nimport java.io.IOException;\n\npublic class LoginView extends JFrame {\n\n    public static final int WIDTH = 1920;\n    public static final int HEIGHT = 1080;\n\n    public static final String LOGIN_START_BUTTON_COMMAND = \"start_command\";\n    public static final String LOGIN_BACK_BUTTON_COMMAND = \"back_command\";\n    public static final String LOGIN_REGISTER_BUTTON_COMMAND = \"register_command\";\n\n\n    //ATRIBUTS LOGIN\n    private JPanel principal;\n\n    private JButton backButton;\n    private JButton registerButton;\n    private JButton startButton;\n\n    private JTextField writeUserName;\n    private JPasswordField writePassword;\n\n    public LoginView(){\n\n        setTitle(\"Login_view\");\n        setSize(WIDTH,HEIGHT);\n        setLocationRelativeTo(null); //Fica la finestra al mig\n\n        principal = new JImagePanel(\"files/Assets/background.jpg\");\n        //principal.setLayout(new GridBagLayout());\n        principal.setLayout(new BorderLayout());\n        drawAll();\n\n        this.getContentPane().add(principal, BorderLayout.CENTER);\n\n    }\n\n    public void showWindow(){ setVisible(true);}\n\n    public void drawAll(){\n\n        JPanel center = drawCenter();\n        JPanel west = drawWest();\n\n        //WEST-------------------------------------------------------------------------\n        principal.add(west,BorderLayout.WEST);\n\n        //CENTER------------------------------------------------------------------------\n        principal.add(center,BorderLayout.CENTER);\n\n\n    }\n\n    public JPanel drawWest(){\n\n        JPanel west = new JPanel();\n        west.setOpaque(false);\n\n        try {\n            ImageIcon backImg = new ImageIcon(ImageIO.read(new File(\"files/Assets/Back.png\")).getScaledInstance(80,80,0) );\n            this.backButton = new JButton(backImg);\n            this.backButton.setPreferredSize(new Dimension(80,80));\n            this.backButton.setBackground(Color.WHITE);\n            this.backButton.setOpaque(false);\n            this.backButton.setBorderPainted(false);\n\n            west.add(this.backButton);\n\n        } catch (IOException e) {\n            e.printStackTrace();\n        }\n        //back.setPreferredSize(new Dimension(80,80));\n        //back.setOpaque(false);\n\n\n        west.setBorder(BorderFactory.createEmptyBorder(30,30,0,0));\n\n        return west;\n    }\n\n\n    public JPanel drawCenter(){\n\n        JPanel auxRectangle = new JPanel(new BorderLayout());\n        auxRectangle.setBorder(BorderFactory.createEmptyBorder(150,570,150,650));\n\n        auxRectangle.setOpaque(false);\n\n        JImagePanel rectangle = new JImagePanel(\"files/Assets/Login_Register/rectangle.png\");\n        rectangle.setOpaque(false);\n        rectangle.setBorder(BorderFactory.createEmptyBorder(50,50,50,50));\n        rectangle.setPreferredSize(new Dimension(550,650));\n\n        rectangle.setLayout(new GridBagLayout());\n        GridBagConstraints constraints = new GridBagConstraints();\n\n        auxRectangle.add(rectangle, BorderLayout.CENTER);\n\n\n        //LOGIN_________________________________________________________________________________________________________\n        JLabel loginTitle = new JLabel(\"LOGIN\");\n        loginTitle.setFont(new Font(\"Aclonica\", Font.BOLD, 64));\n        loginTitle.setForeground(Color.WHITE);\n        loginTitle.setOpaque(false);\n\n        constraints.gridx = 0;\n        constraints.gridy = 0;\n        constraints.gridwidth = 1;\n        constraints.gridheight = 1;\n        constraints.anchor = GridBagConstraints.NORTH;\n        constraints.weighty = 0.1;\n\n        //constraints.weighty = 0.2;\n\n        //loginTitle.setAlignmentX(rectangle.CENTER_ALIGNMENT);\n        //loginTitle.setBorder(BorderFactory.createEmptyBorder(40,0,10,0));\n\n        rectangle.add(loginTitle, constraints);\n        //constraints.weighty = 0.0;\n\n\n\n        //IMATGE AMOGUS_________________________________________________________________________________________________\n        JImagePanel redAmogus = new JImagePanel(\"files/Assets/Login_Register/RedAmogus.png\");\n        redAmogus.setPreferredSize(new Dimension(200,200));\n        redAmogus.setOpaque(false);\n\n        constraints.gridx = 0;\n        constraints.gridy = 1;\n        constraints.gridwidth = 1;\n        constraints.gridheight = 1;\n\n        rectangle.add(redAmogus, constraints);\n\n        //USER NAME_____________________________________________________________________________________________________\n        JLabel userName = new JLabel(\"User name: \");\n        userName.setFont(new Font(\"Aclonica\", Font.BOLD, 36));\n        userName.setForeground(Color.WHITE);\n        //userName.setBorder(BorderFactory.createEmptyBorder(20,0,10,0));\n\n        constraints.gridx = 0;\n        constraints.gridy = 2;\n        constraints.gridwidth = 1;\n        constraints.gridheight = 1;\n        constraints.anchor = GridBagConstraints.WEST;\n\n        rectangle.add(userName, constraints);\n        constraints.anchor = GridBagConstraints.CENTER;\n\n        this.writeUserName = new JTextField();\n        this.writeUserName.setFont(new Font(\"Aclonica\", Font.BOLD, 20));\n\n        constraints.gridx = 0;\n        constraints.gridy = 3;\n        constraints.gridwidth = 1;\n        constraints.gridheight = 1;\n        constraints.fill = GridBagConstraints.BOTH;\n\n        rectangle.add(this.writeUserName, constraints);\n        constraints.fill = GridBagConstraints.NONE;\n\n        //PASSWORD______________________________________________________________________________________________________\n        JLabel password = new JLabel(\"Password: \");\n        password.setFont(new Font(\"Aclonica\", Font.BOLD, 36));\n        password.setForeground(Color.WHITE);\n\n        constraints.gridx = 0;\n        constraints.gridy = 4;\n        constraints.gridwidth = 1;\n        constraints.gridheight = 1;\n        constraints.anchor = GridBagConstraints.WEST;\n\n        rectangle.add(password, constraints);\n        constraints.anchor = GridBagConstraints.CENTER;\n\n        this.writePassword = new JPasswordField();\n        this.writePassword.setFont(new Font(\"Aclonica\", Font.BOLD, 20));\n        //this.writePassword.setEchoChar((char)0); //mostrar el text de la password\n        this.writePassword.setEchoChar('*'); //mostrar el text de la password com a *\n\n        constraints.gridx = 0;\n        constraints.gridy = 5;\n        constraints.gridwidth = 1;\n        constraints.gridheight = 1;\n        constraints.fill = GridBagConstraints.BOTH;\n\n        rectangle.add(writePassword,constraints);\n        constraints.fill = GridBagConstraints.NONE;\n        //paint component\n\n        //You dont have an account______________________________________________________________________________________\n        JLabel noAccount = new JLabel(\"You don’t have an account?\");\n        this.registerButton = new JButton(\"register here\");\n\n            //noAccount\n            noAccount.setFont(new Font(\"Aclonica\", Font.BOLD, 14));\n            noAccount.setForeground(new Color(89,62,255));\n            noAccount.setForeground(new Color(89,62,255));\n\n            //Register\n            this.registerButton.setFont(new Font(\"Aclonica\", Font.BOLD, 14));\n            this.registerButton.setForeground(new Color(89,62,255));\n            this.registerButton.setBackground(Color.WHITE);\n            this.registerButton.setOpaque(false);\n            this.registerButton.setBorderPainted(false);\n            this.registerButton.setPreferredSize(new Dimension(150,30));\n\n\n        JPanel dontHaveAccount = new JPanel(new FlowLayout());\n        dontHaveAccount.add(noAccount);\n        dontHaveAccount.add(this.registerButton);\n        dontHaveAccount.setOpaque(false);\n\n        constraints.gridx = 0;\n        constraints.gridy = 6;\n        constraints.gridwidth = 1;\n        constraints.gridheight = 1;\n\n        rectangle.add(dontHaveAccount,constraints);\n\n        //BOTÓ__________________________________________________________________________________________________________\n        this.startButton = new JButton(\"Start\");\n        this.startButton.setBackground(new Color(254,222,41));\n        this.startButton.setForeground(Color.WHITE);\n        this.startButton.setFont(new Font(\"Aclonica\", Font.BOLD, 20));\n        this.startButton.setPreferredSize(new Dimension(120,40));\n\n        constraints.gridx = 0;\n        constraints.gridy = 8;\n        constraints.gridwidth = 1;\n        constraints.gridheight = 1;\n\n        rectangle.add(this.startButton, constraints);\n\n\n        return auxRectangle;\n    }\n\n    public void registerController(PlayersController controller){\n\n        this.backButton.setActionCommand(LOGIN_BACK_BUTTON_COMMAND);\n        this.registerButton.setActionCommand(LOGIN_REGISTER_BUTTON_COMMAND);\n        this.startButton.setActionCommand(LOGIN_START_BUTTON_COMMAND);\n\n        this.backButton.addActionListener(controller);\n        this.registerButton.addActionListener(controller);\n        this.startButton.addActionListener(controller);\n\n    }\n\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/salle/url/edu/presentation/view/LoginView.java b/src/salle/url/edu/presentation/view/LoginView.java
+--- a/src/salle/url/edu/presentation/view/LoginView.java	(revision 6da26b4d38721584c0942ab24a70146eb99ac3d0)
++++ b/src/salle/url/edu/presentation/view/LoginView.java	(date 1651433133256)
+@@ -28,10 +28,10 @@
+     private JTextField writeUserName;
+     private JPasswordField writePassword;
+ 
+-    public LoginView(){
++    public LoginView() {
+ 
+         setTitle("Login_view");
+-        setSize(WIDTH,HEIGHT);
++        setSize(WIDTH, HEIGHT);
+         setLocationRelativeTo(null); //Fica la finestra al mig
+ 
+         principal = new JImagePanel("files/Assets/background.jpg");
+@@ -43,31 +43,33 @@
+ 
+     }
+ 
+-    public void showWindow(){ setVisible(true);}
++    public void showWindow() {
++        setVisible(true);
++    }
+ 
+-    public void drawAll(){
++    public void drawAll() {
+ 
+         JPanel center = drawCenter();
+         JPanel west = drawWest();
+ 
+         //WEST-------------------------------------------------------------------------
+-        principal.add(west,BorderLayout.WEST);
++        principal.add(west, BorderLayout.WEST);
+ 
+         //CENTER------------------------------------------------------------------------
+-        principal.add(center,BorderLayout.CENTER);
++        principal.add(center, BorderLayout.CENTER);
+ 
+ 
+     }
+ 
+-    public JPanel drawWest(){
++    public JPanel drawWest() {
+ 
+         JPanel west = new JPanel();
+         west.setOpaque(false);
+ 
+         try {
+-            ImageIcon backImg = new ImageIcon(ImageIO.read(new File("files/Assets/Back.png")).getScaledInstance(80,80,0) );
++            ImageIcon backImg = new ImageIcon(ImageIO.read(new File("files/Assets/Back.png")).getScaledInstance(80, 80, 0));
+             this.backButton = new JButton(backImg);
+-            this.backButton.setPreferredSize(new Dimension(80,80));
++            this.backButton.setPreferredSize(new Dimension(80, 80));
+             this.backButton.setBackground(Color.WHITE);
+             this.backButton.setOpaque(false);
+             this.backButton.setBorderPainted(false);
+@@ -81,23 +83,23 @@
+         //back.setOpaque(false);
+ 
+ 
+-        west.setBorder(BorderFactory.createEmptyBorder(30,30,0,0));
++        west.setBorder(BorderFactory.createEmptyBorder(30, 30, 0, 0));
+ 
+         return west;
+     }
+ 
+ 
+-    public JPanel drawCenter(){
++    public JPanel drawCenter() {
+ 
+         JPanel auxRectangle = new JPanel(new BorderLayout());
+-        auxRectangle.setBorder(BorderFactory.createEmptyBorder(150,570,150,650));
++        auxRectangle.setBorder(BorderFactory.createEmptyBorder(150, 570, 150, 650));
+ 
+         auxRectangle.setOpaque(false);
+ 
+         JImagePanel rectangle = new JImagePanel("files/Assets/Login_Register/rectangle.png");
+         rectangle.setOpaque(false);
+-        rectangle.setBorder(BorderFactory.createEmptyBorder(50,50,50,50));
+-        rectangle.setPreferredSize(new Dimension(550,650));
++        rectangle.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
++        rectangle.setPreferredSize(new Dimension(550, 650));
+ 
+         rectangle.setLayout(new GridBagLayout());
+         GridBagConstraints constraints = new GridBagConstraints();
+@@ -127,10 +129,9 @@
+         //constraints.weighty = 0.0;
+ 
+ 
+-
+         //IMATGE AMOGUS_________________________________________________________________________________________________
+         JImagePanel redAmogus = new JImagePanel("files/Assets/Login_Register/RedAmogus.png");
+-        redAmogus.setPreferredSize(new Dimension(200,200));
++        redAmogus.setPreferredSize(new Dimension(200, 200));
+         redAmogus.setOpaque(false);
+ 
+         constraints.gridx = 0;
+@@ -192,7 +193,7 @@
+         constraints.gridheight = 1;
+         constraints.fill = GridBagConstraints.BOTH;
+ 
+-        rectangle.add(writePassword,constraints);
++        rectangle.add(writePassword, constraints);
+         constraints.fill = GridBagConstraints.NONE;
+         //paint component
+ 
+@@ -200,18 +201,18 @@
+         JLabel noAccount = new JLabel("You don’t have an account?");
+         this.registerButton = new JButton("register here");
+ 
+-            //noAccount
+-            noAccount.setFont(new Font("Aclonica", Font.BOLD, 14));
+-            noAccount.setForeground(new Color(89,62,255));
+-            noAccount.setForeground(new Color(89,62,255));
++        //noAccount
++        noAccount.setFont(new Font("Aclonica", Font.BOLD, 14));
++        noAccount.setForeground(new Color(89, 62, 255));
++        noAccount.setForeground(new Color(89, 62, 255));
+ 
+-            //Register
+-            this.registerButton.setFont(new Font("Aclonica", Font.BOLD, 14));
+-            this.registerButton.setForeground(new Color(89,62,255));
+-            this.registerButton.setBackground(Color.WHITE);
+-            this.registerButton.setOpaque(false);
+-            this.registerButton.setBorderPainted(false);
+-            this.registerButton.setPreferredSize(new Dimension(150,30));
++        //Register
++        this.registerButton.setFont(new Font("Aclonica", Font.BOLD, 14));
++        this.registerButton.setForeground(new Color(89, 62, 255));
++        this.registerButton.setBackground(Color.WHITE);
++        this.registerButton.setOpaque(false);
++        this.registerButton.setBorderPainted(false);
++        this.registerButton.setPreferredSize(new Dimension(150, 30));
+ 
+ 
+         JPanel dontHaveAccount = new JPanel(new FlowLayout());
+@@ -224,14 +225,14 @@
+         constraints.gridwidth = 1;
+         constraints.gridheight = 1;
+ 
+-        rectangle.add(dontHaveAccount,constraints);
++        rectangle.add(dontHaveAccount, constraints);
+ 
+         //BOTÓ__________________________________________________________________________________________________________
+         this.startButton = new JButton("Start");
+-        this.startButton.setBackground(new Color(254,222,41));
++        this.startButton.setBackground(new Color(254, 222, 41));
+         this.startButton.setForeground(Color.WHITE);
+         this.startButton.setFont(new Font("Aclonica", Font.BOLD, 20));
+-        this.startButton.setPreferredSize(new Dimension(120,40));
++        this.startButton.setPreferredSize(new Dimension(120, 40));
+ 
+         constraints.gridx = 0;
+         constraints.gridy = 8;
+@@ -244,7 +245,7 @@
+         return auxRectangle;
+     }
+ 
+-    public void registerController(PlayersController controller){
++    public void registerController(PlayersController controller) {
+ 
+         this.backButton.setActionCommand(LOGIN_BACK_BUTTON_COMMAND);
+         this.registerButton.setActionCommand(LOGIN_REGISTER_BUTTON_COMMAND);
+@@ -255,6 +256,4 @@
+         this.startButton.addActionListener(controller);
+ 
+     }
+-
+-
+ }
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"3f7dd163-8f7b-4f1f-bcda-425a9680dd53\" name=\"Changes\" comment=\"LoginView part1_falta listenesrs i warnings i ns si algo més\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/LoginView.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/LoginView.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/salle/url/edu/presentation/view/LoginView.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/salle/url/edu/presentation/view/LoginView.java\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Interface\" />\n        <option value=\"Enum\" />\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/..\" />\n  </component>\n  <component name=\"ProjectId\" id=\"2818ywNmEheDZDqKzeswEhKAeKQ\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">\n    <property name=\"ASKED_ADD_EXTERNAL_FILES\" value=\"true\" />\n    <property name=\"DatabaseDriversLRU\" value=\"mysql\" />\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\n    <property name=\"aspect.path.notification.shown\" value=\"true\" />\n    <property name=\"dart.analysis.tool.window.visible\" value=\"false\" />\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/files/assets/rooms\" />\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\n    <property name=\"node.js.detected.package.tslint\" value=\"true\" />\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\n    <property name=\"node.js.selected.package.tslint\" value=\"(autodetect)\" />\n    <property name=\"project.structure.last.edited\" value=\"Modules\" />\n    <property name=\"project.structure.proportion\" value=\"0.0\" />\n    <property name=\"project.structure.side.proportion\" value=\"0.2\" />\n    <property name=\"settings.editor.selected.configurable\" value=\"copyright\" />\n  </component>\n  <component name=\"RecentsManager\">\n    <key name=\"CreateClassDialog.RecentsKey\">\n      <recent name=\"salle.url.edu.presentation.view\" />\n      <recent name=\"salle.url.edu.persistance.csv\" />\n      <recent name=\"salle.url.edu.persistance.sql\" />\n    </key>\n    <key name=\"CopyFile.RECENT_KEYS\">\n      <recent name=\"C:\\Users\\usuario\\OneDrive - La Salle\\3r\\DPO\\2n Semestre\\Practica 2\\S2-Project_B4 - Between Us\\dpoo-2122-s2-b4\\S2-Project_B4 - Between Us\\files\\assets\\rooms\" />\n    </key>\n  </component>\n  <component name=\"RunManager\">\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"salle.url.edu.Main\" />\n      <module name=\"S2-Project_B4 - Between Us\" />\n      <extension name=\"coverage\">\n        <pattern>\n          <option name=\"PATTERN\" value=\"salle.url.edu.*\" />\n          <option name=\"ENABLED\" value=\"true\" />\n        </pattern>\n      </extension>\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Application.Main\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"3f7dd163-8f7b-4f1f-bcda-425a9680dd53\" name=\"Changes\" comment=\"\" />\n      <created>1650372990058</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1650372990058</updated>\n      <workItem from=\"1650372991522\" duration=\"49000\" />\n      <workItem from=\"1650373472812\" duration=\"1847000\" />\n      <workItem from=\"1650375406955\" duration=\"3294000\" />\n      <workItem from=\"1650396791812\" duration=\"2039000\" />\n      <workItem from=\"1650438410551\" duration=\"4819000\" />\n      <workItem from=\"1650446110600\" duration=\"32000\" />\n      <workItem from=\"1650462530259\" duration=\"993000\" />\n      <workItem from=\"1650615494403\" duration=\"5692000\" />\n      <workItem from=\"1650700444285\" duration=\"1333000\" />\n      <workItem from=\"1650982051216\" duration=\"17893000\" />\n      <workItem from=\"1651126849904\" duration=\"7154000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Conexio amb la base de dades feta, falta retocar coses i ara llegir la base de dades\">\n      <created>1650377036574</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1650377036574</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"Alguns arreglitos tontos que feia que no funciones despres del merge. Ara funciona\">\n      <created>1650445622908</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1650445622908</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"Afegit metodes de SQLPlayerDAO, ara ja esta tot conectat amb la base de dades de part dels players\">\n      <created>1650619962135</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1650619962135</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"Acabat de fer la conexió amb la BBDD i carregar del maps.csv feta!! :)\">\n      <created>1650999742386</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1650999742387</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"GameView començada harcodejant la creació d'una game\">\n      <created>1651136311063</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1651136311063</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"LoginView part1\">\n      <created>1651320980369</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1651320980369</updated>\n    </task>\n    <task id=\"LOCAL-00007\" summary=\"LoginView part1_falta listenesrs i warnings i ns si algo més\">\n      <created>1651321071445</created>\n      <option name=\"number\" value=\"00007\" />\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1651321071446</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"8\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n    <option name=\"RECENT_FILTERS\">\n      <map>\n        <entry key=\"Branch\">\n          <value>\n            <list>\n              <RecentGroup>\n                <option name=\"FILTER_VALUES\">\n                  <option value=\"origin/master\" />\n                </option>\n              </RecentGroup>\n              <RecentGroup>\n                <option name=\"FILTER_VALUES\">\n                  <option value=\"HEAD\" />\n                </option>\n              </RecentGroup>\n            </list>\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\n    <MESSAGE value=\"Conexio amb la base de dades feta, falta retocar coses i ara llegir la base de dades\" />\n    <MESSAGE value=\"Alguns arreglitos tontos que feia que no funciones despres del merge. Ara funciona\" />\n    <MESSAGE value=\"Afegit metodes de SQLPlayerDAO, ara ja esta tot conectat amb la base de dades de part dels players\" />\n    <MESSAGE value=\"Acabat de fer la conexió amb la BBDD i carregar del maps.csv feta!! :)\" />\n    <MESSAGE value=\"GameView començada harcodejant la creació d'una game\" />\n    <MESSAGE value=\"LoginView part1\" />\n    <MESSAGE value=\"LoginView part1_falta listenesrs i warnings i ns si algo més\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"LoginView part1_falta listenesrs i warnings i ns si algo més\" />\n  </component>\n  <component name=\"XDebuggerManager\">\n    <breakpoint-manager>\n      <breakpoints>\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\n          <url>file://$PROJECT_DIR$/src/salle/url/edu/business/GameManager.java</url>\n          <line>35</line>\n          <option name=\"timeStamp\" value=\"3\" />\n        </line-breakpoint>\n      </breakpoints>\n    </breakpoint-manager>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 6da26b4d38721584c0942ab24a70146eb99ac3d0)
++++ b/.idea/workspace.xml	(date 1651430401998)
+@@ -6,9 +6,6 @@
+   <component name="ChangeListManager">
+     <list default="true" id="3f7dd163-8f7b-4f1f-bcda-425a9680dd53" name="Changes" comment="LoginView part1_falta listenesrs i warnings i ns si algo més">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/LoginView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/LoginView.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/salle/url/edu/presentation/view/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/presentation/view/LoginView.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -190,6 +187,7 @@
+         </entry>
+       </map>
+     </option>
++    <option name="oldMeFiltersMigrated" value="true" />
+   </component>
+   <component name="VcsManagerConfiguration">
+     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

@@ -1,0 +1,24 @@
+<changelist name="Uncommitted_changes_before_Update_at_01_05_2022_17_49_[Changes]" date="1651420156062" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_01_05_2022_17_49_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 01/05/2022 17:49 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_01_05_2022_17_49_[Changes]/PlayersController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Player.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Player.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_01_05_2022_17_49_[Changes]/Player.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/ImagePanel.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/PlayersManager.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/PlayersManager.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_01_05_2022_17_49_[Changes]/PlayersManager.class" />
+  </binary>
+</changelist>

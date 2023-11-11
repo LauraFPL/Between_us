@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3f792435-c586-471b-ad4f-f2f08edec257" name="Changes" comment="Meh, mes modificacions de imatges que no hem convencent i creacio de Game feta correctament amb els NPC i els Impostors">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/39a70804-22e6-4851-8e95-a109fe3b2123.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/39a70804-22e6-4851-8e95-a109fe3b2123.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/S2-Project_B4 - Between Us.iml" beforeDir="false" afterPath="$PROJECT_DIR$/S2-Project_B4 - Between Us.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Character.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Character.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/business/NPC.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/business/NPC.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/GamesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/GamesController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/JImagePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/JImagePanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/business/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/business/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/presentation/controller/CurrentGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/presentation/controller/CurrentGameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/presentation/controller/GamesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/presentation/controller/GamesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/presentation/view/gameView/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/presentation/view/gameView/GameView.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="28fr4eyFCdJsEH2OaXAyPjQh1VM" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RunConfigurationTargetLRU" value="39a70804-22e6-4851-8e95-a109fe3b2123" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="salle.url.edu.Main" />
+      <module name="S2-Project_B4 - Between Us" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="salle.url.edu.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SQL_final_CREATESINSERTS.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/files/SQL_final_CREATESINSERTS.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="39a70804-22e6-4851-8e95-a109fe3b2123" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Database Script.SQL_final_CREATESINSERTS.sql" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Database Script.SQL_final_CREATESINSERTS.sql" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3f792435-c586-471b-ad4f-f2f08edec257" name="Changes" comment="" />
+      <created>1651618301807</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1651618301807</updated>
+      <workItem from="1651618307603" duration="179000" />
+      <workItem from="1651618507628" duration="767000" />
+      <workItem from="1651619306231" duration="491000" />
+      <workItem from="1651659079588" duration="270000" />
+      <workItem from="1651659767935" duration="5757000" />
+      <workItem from="1651675353237" duration="6145000" />
+    </task>
+    <task id="LOCAL-00001" summary="Millora en la creacio de Game">
+      <created>1651622582734</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1651622582734</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Modificat les imatges de les Rooms">
+      <created>1651661155983</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1651661155983</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Meh, mes modificacions de imatges que no hem convencent i creacio de Game feta correctament amb els NPC i els Impostors">
+      <created>1651667023041</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1651667023041</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Arreglats errors del merge" />
+    <MESSAGE value="Millora en la creacio de Game" />
+    <MESSAGE value="Modificat les imatges de les Rooms" />
+    <MESSAGE value="Meh, mes modificacions de imatges que no hem convencent i creacio de Game feta correctament amb els NPC i els Impostors" />
+    <option name="LAST_COMMIT_MESSAGE" value="Meh, mes modificacions de imatges que no hem convencent i creacio de Game feta correctament amb els NPC i els Impostors" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java</url>
+          <line>110</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/salle/url/edu/business/PlayersManager.java</url>
+          <line>92</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/salle/url/edu/business/PlayersManager.java</url>
+          <line>95</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/salle/url/edu/business/PlayersManager.java</url>
+          <line>102</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java</url>
+          <line>106</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/salle/url/edu/business/PlayersManager.java</url>
+          <line>93</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

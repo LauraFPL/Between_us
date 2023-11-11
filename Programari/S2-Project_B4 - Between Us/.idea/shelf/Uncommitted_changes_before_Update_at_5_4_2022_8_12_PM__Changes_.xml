@@ -1,0 +1,24 @@
+<changelist name="Uncommitted_changes_before_Update_at_5_4_2022_8_12_PM_[Changes]" date="1651687960685" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_4_2022_8_12_PM_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 5/4/2022 8:12 PM [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/persistance/PlayersDAO.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/persistance/PlayersDAO.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_4_2022_8_12_PM_[Changes]/PlayersDAO.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/persistance/sql/SQLPlayerDAO.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/persistance/sql/SQLPlayerDAO.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_4_2022_8_12_PM_[Changes]/SQLPlayerDAO.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/PlayersManager.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/PlayersManager.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_4_2022_8_12_PM_[Changes]/PlayersManager.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/persistance/PlayerDAO.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/persistance/PlayerDAO.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_4_2022_8_12_PM_[Changes]/PlayerDAO.class" />
+  </binary>
+</changelist>

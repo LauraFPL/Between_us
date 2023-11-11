@@ -1,0 +1,819 @@
+Index: src/salle/url/edu/presentation/view/GraphDrawer.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package salle.url.edu.presentation.view;\n\nimport salle.url.edu.presentation.controller.PlayersController;\n\nimport javax.swing.*;\nimport java.awt.*;\nimport java.util.ArrayList;\n\nclass GraphDrawer extends JPanel {\n    private int[] numWins;\n    private int[] yCoords;\n    private int startX = 100;\n    private int startY = 100;\n    private int endX = 400;\n    private int endY = 400;\n    private int unitX = (endX - startX) / 10;\n    private int unitY = (endY - startY) / 10;\n    private int prevX = startX;\n    private int prevY = endY;\n\n   /* public GraphDrawer(int[] yCoords) {\n        this.yCoords = yCoords;\n    }*/\n\n    public GraphDrawer(int[] numWins) {\n        this.numWins = numWins;\n    }\n\n    public void paintComponent(Graphics g) {\n        super.paintComponent(g);\n        Graphics2D g2d = (Graphics2D) g;\n\n        // PlayersController p = new PlayersController(new MasterView());\n        // p.getWinValue();\n\n        //We draw in the following 2 loops the grid so it's visible what I explained before about each \"unit\"\n        g2d.setColor(Color.WHITE);\n        for (int i = startX; i <= endX; i += unitX) {\n            g2d.drawLine(i, startY, i, endY);\n        }\n\n        for (int i = startY; i <= endY; i += unitY) {\n            g2d.drawLine(startX, i, endX, i);\n        }\n\n        //We draw the axis here instead of before because otherwise they would become blue colored.\n        g2d.setColor(Color.WHITE);\n        g2d.drawLine(startX, startY, startX, endY);\n        g2d.drawLine(startX, endY, endX, endY);\n\n        //We draw each of our coords in red color\n        g2d.setColor(Color.RED);\n        for (int y : yCoords) {\n            g2d.drawLine(prevX, prevY, prevX += unitX, prevY = endY - (y * unitY));\n        }\n    }\n}\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/salle/url/edu/presentation/view/GraphDrawer.java b/src/salle/url/edu/presentation/view/GraphDrawer.java
+--- a/src/salle/url/edu/presentation/view/GraphDrawer.java	
++++ b/src/salle/url/edu/presentation/view/GraphDrawer.java	
+@@ -6,36 +6,81 @@
+ import java.awt.*;
+ import java.util.ArrayList;
+ 
++import java.awt.*;
++import java.lang.reflect.Array;
++import java.util.ArrayList;
++
++import javax.swing.JFrame;
++import javax.swing.JPanel;
++import javax.swing.SwingUtilities;
++
+ class GraphDrawer extends JPanel {
+-    private int[] numWins;
+-    private int[] yCoords;
+     private int startX = 100;
+     private int startY = 100;
+     private int endX = 400;
+     private int endY = 400;
+-    private int unitX = (endX - startX) / 10;
+-    private int unitY = (endY - startY) / 10;
++    private int unitX;
++    private int unitY;
+     private int prevX = startX;
+     private int prevY = endY;
++    private ArrayList<Boolean> numWins = new ArrayList<>();
++    private ArrayList<Boolean> winsInfo = new ArrayList<>();
++    private double percentage;
++    private int resultat;
++    private int separacio;
++    private int s;
++
++    public GraphDrawer(ArrayList<Boolean> numWins) {
++        this.winsInfo = numWins;
++        System.out.println("player"+this.winsInfo.toString());
++        System.out.println("winsGRaf"+winsInfo);
++        calculateWins();
++    }
++
++    public ArrayList<Integer> calculateWins(){
++
++        ArrayList<Integer> winsXGame = new ArrayList<Integer>();
++        for (int i = 0; i < winsInfo.size(); i++) {
++            if (winsInfo.get(i)) {
++                winsXGame.add(1);
++            } else {
++                winsXGame.add(0);
++            }
++        }
++        return winsXGame;
++    }
+ 
+-   /* public GraphDrawer(int[] yCoords) {
+-        this.yCoords = yCoords;
+-    }*/
++    public ArrayList<Integer> booleanToInt(){
++        ArrayList<Integer> winsXGame = new ArrayList<>();
++        for (int i = 0; i < winsInfo.size(); i++) {
++            if (winsInfo.get(i)) {
++                winsXGame.add(1);
++            } else {
++                winsXGame.add(0);
++            }
++        }
++        return winsXGame;
++    }
+ 
+-    public GraphDrawer(int[] numWins) {
+-        this.numWins = numWins;
++    public int calculatePercentage(){
++        float sumaWins = 0;
++
++        for (int i  = 1; i < booleanToInt().size(); i++) {
++            sumaWins = sumaWins + booleanToInt().get(i);
++        }
++        return 0;
+     }
+ 
+     public void paintComponent(Graphics g) {
+         super.paintComponent(g);
+         Graphics2D g2d = (Graphics2D) g;
+ 
+-        // PlayersController p = new PlayersController(new MasterView());
+-        // p.getWinValue();
++        //Quantitat de separacions
++        unitY = (endY - startY) / 10;
++        unitX = (endX - startX) / booleanToInt().size();
+ 
+-        //We draw in the following 2 loops the grid so it's visible what I explained before about each "unit"
+         g2d.setColor(Color.WHITE);
+-        for (int i = startX; i <= endX; i += unitX) {
++        for (int i = startX; i <= endX; i += unitX*2) {
+             g2d.drawLine(i, startY, i, endY);
+         }
+ 
+@@ -43,16 +88,52 @@
+             g2d.drawLine(startX, i, endX, i);
+         }
+ 
+-        //We draw the axis here instead of before because otherwise they would become blue colored.
+         g2d.setColor(Color.WHITE);
+         g2d.drawLine(startX, startY, startX, endY);
+         g2d.drawLine(startX, endY, endX, endY);
+ 
+-        //We draw each of our coords in red color
+         g2d.setColor(Color.RED);
+-        for (int y : yCoords) {
+-            g2d.drawLine(prevX, prevY, prevX += unitX, prevY = endY - (y * unitY));
+-        }
+-    }
+-}
++        float sumaWins = 0;
++        int m = 100;
++        for (int i  = 0; i <= 10; i++) {
++            String xLabel = m + "%";
++            FontMetrics metrics = g2d.getFontMetrics();
++            int labelWidth2 = metrics.stringWidth(xLabel);
++            g2d.setFont(new Font("TimesRoman", Font.PLAIN, 8));
++            if(i == 0){
++                g2d.drawString(xLabel,startX-unitX*4, startY);
++            }else{
++                g2d.drawString(xLabel, startX - unitX*4, startY += unitY);
++            }
++            m = m - 10;
++        }
++        for (int i  = 0; i < booleanToInt().size(); i++) {
++            sumaWins = sumaWins + booleanToInt().get(i);
++            percentage = (float)(sumaWins / (i+1))*10;
++            System.out.println(percentage);
++            String yLabel = ((int) (((booleanToInt().size()) * ((i * 1.0) / booleanToInt().size())) * 100)) / 100.0 + "";
++            FontMetrics metrics = g2d.getFontMetrics();
++            int labelWidth = metrics.stringWidth(yLabel);
++            g2d.setFont(new Font("TimesRoman", Font.PLAIN, 8));
++            if(booleanToInt().size() < 20) {
++                if (i % 2 == 0) {
++                    g2d.drawString(yLabel, prevX, endY + 20);
++                }
++            }
++            if(booleanToInt().size() >= 20 && booleanToInt().size() < 40) {
++                if (i % 3 == 0) {
++                    g2d.drawString(yLabel, prevX, endY + 20);
++                }
++            }
++            if(booleanToInt().size() >= 40 && booleanToInt().size() < 60) {
++                if (i % 4 == 0) {
++                    g2d.drawString(yLabel, prevX, endY + 20);
++                }
++            }
++            System.out.println("la i :"+i);
++            g2d.drawLine(prevX, prevY, prevX = prevX + (unitX), prevY = endY - (unitY * ((int) (percentage))));
++        }
++    }
++}
++
+ 
+Index: src/salle/url/edu/business/Impostor.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package salle.url.edu.business;\n\nimport salle.url.edu.business.NPC;\nimport salle.url.edu.business.CharacterColors;\n\nimport java.util.ArrayList;\nimport java.util.Random;\nimport java.util.concurrent.ThreadLocalRandom;\n\npublic class Impostor extends NPC {\n    private int lastKill;\n\n    /**\n     * Constructor that is called when a new game is created and creates a new impostor\n     * @param color is the color of this impostor\n     * @param alive is a boolean that returns if the impostor is alive (true) or dead (false)\n     * @param position integer of two positions that has the x and y position of the impostor\n     * @param assignedRol tells if this impostor is sus, unknown or not sus\n     * @param gameLogs arraylist that saves the color the position and the instant of the impostor\n     * @param instant variable of type time that saves the second of the game\n     */\n    public Impostor(CharacterColors color, boolean alive, int[] position, NPCSuspition assignedRol, ArrayList<GameLogs> gameLogs, TimeGame instant, Game game) {\n        super(color, alive, position, assignedRol, gameLogs, instant, game);\n        this.lastKill = 0;\n    }\n\n    /**\n     * Constructor that is called when the user resumes an already created game\n     * @param color is the color of this impostor\n     * @param position integer of two positions that has the x and y position of the impostor\n     * @param gameLogs arraylist that saves the color the position and the instant of the impostor\n     * @param instant variable of type time that saves the second of the game\n     */\n    public Impostor(CharacterColors color, int[] position, ArrayList<GameLogs> gameLogs, TimeGame instant, Game game) {\n        super(color, position, gameLogs, instant, game);\n        this.lastKill = 0;\n\n    }\n\n    //METHODS-----------------------------------------------------------------------------------------------------------\n\n    /**\n     * Method run, it is implemented by Runnable. Threads work because of it.\n     */\n\n\n\n    public void run() {\n\n        boolean upPossible;\n        boolean downPossible;\n        boolean rightPossible;\n        boolean leftPossible;\n        boolean moved;\n        int move;\n        int canviSala;\n        int maxIteracions = 0;\n\n        // En un interval entre 6 i 8 segons un IMPOSTOR decideix si canviar de sala o no\n        int intervalGeneral = ThreadLocalRandom.current().nextInt(6000, 8000);\n        System.out.println(stop);\n        Random rand1 = new Random();\n        Random rand2 = new Random();\n\n        while (!stop && maxIteracions < 5) {\n\n            System.out.println(\"Thread impostor START!\");\n            canviSala = 1 + rand1.nextInt(100);\n\n\n            try {\n                Thread.sleep(intervalGeneral);\n                if (instant.getTime() < 25 || !impostorCanKill(position, game.getCharacters())) {\n                    if (canviSala < 46) {\n\n                        Random rand3 = new Random();\n                        int esVentila = 1 + rand3.nextInt(100);\n                        // TODO: cap npc tripu a la sala\n                        /*\n                        if (game.getMap().roomHasVent(position) == true && esVentila < 51 && impostorAlone(position, game.getCharacters())\n                        && (impostorAlone(useVent(position), game.getCharacters()) || (impostorCanKill(useVent(position), game.getCharacters())) && instant.getTime() > 25)){\n                            System.out.println(\"ventilado\");\n                            int[] moveVent = useVent(position);\n                            this.position[0] = moveVent[0];\n                            this.position[1] = moveVent[1];\n                            // TODO: map.impostorCanKill(map.useVent(position)comprovar si ha de matar, ferho i canviar de sala\n                            lastKill = 0;\n                        } else {*/\n                            System.out.println(this.getColorString() + \" canvia de sala\");\n                            moved = false;\n\n                            do {\n                                move = rand2.nextInt(4);\n\n                                if (move == CurrentGameManager.UP) {\n                                    System.out.println(\"UP\");\n                                    upPossible = game.getMap().canMove(position, CurrentGameManager.UP);\n\n                                    if (upPossible) {\n                                        moveCharacter(CurrentGameManager.UP);\n\n                                        gameLogs.add(new GameLogs(color.colorToString(), game.getMap().getNameRoomPosition(position), instant.getTime()));\n                                        moved = true;\n                                    } else {\n                                        System.out.println(\" no es pot\");\n                                    }\n                                }\n\n                                if (move == CurrentGameManager.DOWN) {\n                                    System.out.println(\"DOWN amb 15 percent de probabilitats\");\n                                    downPossible = game.getMap().canMove(position, CurrentGameManager.DOWN);\n\n                                    if (downPossible) {\n                                        moveCharacter(CurrentGameManager.DOWN);\n\n                                        gameLogs.add(new GameLogs(color.colorToString(), game.getMap().getNameRoomPosition(position), instant.getTime()));\n                                        moved = true;\n                                    } else {\n                                        System.out.println(\" no es pot\");\n                                    }\n                                }\n\n                                if (move == CurrentGameManager.LEFT) {\n                                    System.out.println(\"LEFT\");\n                                    leftPossible = game.getMap().canMove(position, CurrentGameManager.LEFT);\n\n                                    if (leftPossible) {\n                                        moveCharacter(CurrentGameManager.LEFT);\n\n                                        gameLogs.add(new GameLogs(color.colorToString(), game.getMap().getNameRoomPosition(position), instant.getTime()));\n                                        moved = true;\n                                    } else {\n                                        System.out.println(\" no es pot\");\n                                    }\n                                }\n\n                                if (move == CurrentGameManager.RIGHT) {\n                                    System.out.println(\"RIGHT\");\n                                    rightPossible = game.getMap().canMove(position, CurrentGameManager.RIGHT);\n\n                                    if (rightPossible) {\n                                        moveCharacter(CurrentGameManager.RIGHT);\n\n                                        gameLogs.add(new GameLogs(color.colorToString(), game.getMap().getNameRoomPosition(position), instant.getTime()));\n                                        moved = true;\n                                    } else {\n                                        System.out.println(\" no es pot\");\n                                    }\n                                }\n\n                            } while (!moved);\n                        //}//System.out.println(\"NPCs position: \" + position[0] + \", \" + position[1] + \" --> COLOR: \" + color);\n                } else {\n                    System.out.println(this.getColorString() + \" no canvia de sala\");\n                }\n             } else {\n                        // TODO: que mate, cambie de sala y ponga imagen npc\n                        lastKill = 0;\n              }\n            } catch (InterruptedException e) {\n                e.printStackTrace();\n            }\n            maxIteracions++;\n        }\n    }\n\n    public int[] useVent(int[] position) {\n        boolean found = false;\n        int[] positionVent = new int[2];\n        Room room = game.getMap().getRooms().get(position[0] + position[1] * 4);\n        for (int i = 0; i < 4 && !found; i++) {\n            for (int j = 0; j < 4 && !found; j++) {\n                Room roomVent = game.getMap().getRooms().get(i+j*4);\n                if (((i+j*4) != position[0] + position[1] * 4) && roomVent.getHasVent()) {\n                    found = true;\n                    positionVent[0] = i;\n                    positionVent[1] = j;\n                }\n            }\n        }\n        return positionVent;\n    }\n\n    public boolean impostorAlone (int[] position, ArrayList<Character> characters) {\n        boolean alone = true;\n\n        for (int i = 0; i < characters.size(); i++) {\n            Character character = characters.get(i);\n            if (character.getPosition()[0] == position[0] && character.getPosition()[1] == position[1]) {\n                alone = false;\n            }\n        }\n\n        return alone;\n    }\n\n    public boolean impostorCanKill (int[] position, ArrayList<Character> characters) {\n        boolean canKill = false;\n        int count = 0;\n\n        for (int i = 0; i < characters.size(); i++) {\n            Character character = characters.get(i);\n            if (character.getPosition()[0] == position[0] && character.getPosition()[1] == position[1] && !(character instanceof Impostor)) {\n                count = count +1;\n            }\n        }\n\n        if (count == 1){\n            canKill = true;\n        }\n\n        return canKill;\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/salle/url/edu/business/Impostor.java b/src/salle/url/edu/business/Impostor.java
+--- a/src/salle/url/edu/business/Impostor.java	
++++ b/src/salle/url/edu/business/Impostor.java	
+@@ -2,22 +2,24 @@
+ 
+ import salle.url.edu.business.NPC;
+ import salle.url.edu.business.CharacterColors;
+-
++import salle.url.edu.business.TimeGame;
+ import java.util.ArrayList;
+ import java.util.Random;
+ import java.util.concurrent.ThreadLocalRandom;
+ 
+ public class Impostor extends NPC {
+     private int lastKill;
++    private int j = 0;
+ 
+     /**
+      * Constructor that is called when a new game is created and creates a new impostor
+-     * @param color is the color of this impostor
+-     * @param alive is a boolean that returns if the impostor is alive (true) or dead (false)
+-     * @param position integer of two positions that has the x and y position of the impostor
++     *
++     * @param color       is the color of this impostor
++     * @param alive       is a boolean that returns if the impostor is alive (true) or dead (false)
++     * @param position    integer of two positions that has the x and y position of the impostor
+      * @param assignedRol tells if this impostor is sus, unknown or not sus
+-     * @param gameLogs arraylist that saves the color the position and the instant of the impostor
+-     * @param instant variable of type time that saves the second of the game
++     * @param gameLogs    arraylist that saves the color the position and the instant of the impostor
++     * @param instant     variable of type time that saves the second of the game
+      */
+     public Impostor(CharacterColors color, boolean alive, int[] position, NPCSuspition assignedRol, ArrayList<GameLogs> gameLogs, TimeGame instant, Game game) {
+         super(color, alive, position, assignedRol, gameLogs, instant, game);
+@@ -26,10 +28,11 @@
+ 
+     /**
+      * Constructor that is called when the user resumes an already created game
+-     * @param color is the color of this impostor
++     *
++     * @param color    is the color of this impostor
+      * @param position integer of two positions that has the x and y position of the impostor
+      * @param gameLogs arraylist that saves the color the position and the instant of the impostor
+-     * @param instant variable of type time that saves the second of the game
++     * @param instant  variable of type time that saves the second of the game
+      */
+     public Impostor(CharacterColors color, int[] position, ArrayList<GameLogs> gameLogs, TimeGame instant, Game game) {
+         super(color, position, gameLogs, instant, game);
+@@ -44,7 +47,6 @@
+      */
+ 
+ 
+-
+     public void run() {
+ 
+         boolean upPossible;
+@@ -55,6 +57,7 @@
+         int move;
+         int canviSala;
+         int maxIteracions = 0;
++        int countAlive = 0;
+ 
+         // En un interval entre 6 i 8 segons un IMPOSTOR decideix si canviar de sala o no
+         int intervalGeneral = ThreadLocalRandom.current().nextInt(6000, 8000);
+@@ -70,93 +73,102 @@
+ 
+             try {
+                 Thread.sleep(intervalGeneral);
+-                if (instant.getTime() < 25 || !impostorCanKill(position, game.getCharacters())) {
++                if (impostorCanKill(position, game.getCharacters()) && (instant.getTime() - lastKill) > 25) {
++                    impostorKill(game.getCharacters());
++                    lastKill = instant.getTime();
++
++                    for(int i = 0; i < game.getCharacters().size(); i++) {
++                        if (game.getCharacters().get(i).getAlive()) {
++                            countAlive++;
++                        }
++                    }
++                    if ((countAlive - game.getNumImpostors()) == game.getNumImpostors() || !game.getAliveFromPlayer()){
++                       //TODO: ACABAR PARTIDA
++                    }
++                    //TODO: CANVIAR DE SALA: funció
++                } else {
+                     if (canviSala < 46) {
+ 
+                         Random rand3 = new Random();
+                         int esVentila = 1 + rand3.nextInt(100);
+                         // TODO: cap npc tripu a la sala
+-                        /*
+                         if (game.getMap().roomHasVent(position) == true && esVentila < 51 && impostorAlone(position, game.getCharacters())
+-                        && (impostorAlone(useVent(position), game.getCharacters()) || (impostorCanKill(useVent(position), game.getCharacters())) && instant.getTime() > 25)){
++                        && (impostorAlone(useVent(position), game.getCharacters()) || (impostorCanKill(useVent(position), game.getCharacters())) && (instant.getTime() - lastKill) > 25)){
+                             System.out.println("ventilado");
+                             int[] moveVent = useVent(position);
+                             this.position[0] = moveVent[0];
+                             this.position[1] = moveVent[1];
+                             // TODO: map.impostorCanKill(map.useVent(position)comprovar si ha de matar, ferho i canviar de sala
+                             lastKill = 0;
+-                        } else {*/
+-                            System.out.println(this.getColorString() + " canvia de sala");
+-                            moved = false;
++                        } else {
++                        System.out.println(this.getColorString() + " canvia de sala");
++                        moved = false;
+ 
+-                            do {
+-                                move = rand2.nextInt(4);
++                        do {
++                            move = rand2.nextInt(4);
+ 
+-                                if (move == CurrentGameManager.UP) {
+-                                    System.out.println("UP");
+-                                    upPossible = game.getMap().canMove(position, CurrentGameManager.UP);
++                            if (move == CurrentGameManager.UP) {
++                                System.out.println("UP");
++                                upPossible = game.getMap().canMove(position, CurrentGameManager.UP);
+ 
+-                                    if (upPossible) {
+-                                        moveCharacter(CurrentGameManager.UP);
++                                if (upPossible) {
++                                    moveCharacter(CurrentGameManager.UP);
+ 
+-                                        gameLogs.add(new GameLogs(color.colorToString(), game.getMap().getNameRoomPosition(position), instant.getTime()));
+-                                        moved = true;
+-                                    } else {
+-                                        System.out.println(" no es pot");
+-                                    }
+-                                }
++                                    gameLogs.add(new GameLogs(color.colorToString(), game.getMap().getNameRoomPosition(position), instant.getTime()));
++                                    moved = true;
++                                } else {
++                                    System.out.println(" no es pot");
++                                }
++                            }
+ 
+-                                if (move == CurrentGameManager.DOWN) {
+-                                    System.out.println("DOWN amb 15 percent de probabilitats");
+-                                    downPossible = game.getMap().canMove(position, CurrentGameManager.DOWN);
++                            if (move == CurrentGameManager.DOWN) {
++                                System.out.println("DOWN amb 15 percent de probabilitats");
++                                downPossible = game.getMap().canMove(position, CurrentGameManager.DOWN);
+ 
+-                                    if (downPossible) {
+-                                        moveCharacter(CurrentGameManager.DOWN);
++                                if (downPossible) {
++                                    moveCharacter(CurrentGameManager.DOWN);
+ 
+-                                        gameLogs.add(new GameLogs(color.colorToString(), game.getMap().getNameRoomPosition(position), instant.getTime()));
+-                                        moved = true;
+-                                    } else {
+-                                        System.out.println(" no es pot");
+-                                    }
+-                                }
++                                    gameLogs.add(new GameLogs(color.colorToString(), game.getMap().getNameRoomPosition(position), instant.getTime()));
++                                    moved = true;
++                                } else {
++                                    System.out.println(" no es pot");
++                                }
++                            }
+ 
+-                                if (move == CurrentGameManager.LEFT) {
+-                                    System.out.println("LEFT");
+-                                    leftPossible = game.getMap().canMove(position, CurrentGameManager.LEFT);
++                            if (move == CurrentGameManager.LEFT) {
++                                System.out.println("LEFT");
++                                leftPossible = game.getMap().canMove(position, CurrentGameManager.LEFT);
+ 
+-                                    if (leftPossible) {
+-                                        moveCharacter(CurrentGameManager.LEFT);
++                                if (leftPossible) {
++                                    moveCharacter(CurrentGameManager.LEFT);
+ 
+-                                        gameLogs.add(new GameLogs(color.colorToString(), game.getMap().getNameRoomPosition(position), instant.getTime()));
+-                                        moved = true;
+-                                    } else {
+-                                        System.out.println(" no es pot");
+-                                    }
+-                                }
++                                    gameLogs.add(new GameLogs(color.colorToString(), game.getMap().getNameRoomPosition(position), instant.getTime()));
++                                    moved = true;
++                                } else {
++                                    System.out.println(" no es pot");
++                                }
++                            }
+ 
+-                                if (move == CurrentGameManager.RIGHT) {
+-                                    System.out.println("RIGHT");
+-                                    rightPossible = game.getMap().canMove(position, CurrentGameManager.RIGHT);
++                            if (move == CurrentGameManager.RIGHT) {
++                                System.out.println("RIGHT");
++                                rightPossible = game.getMap().canMove(position, CurrentGameManager.RIGHT);
+ 
+-                                    if (rightPossible) {
+-                                        moveCharacter(CurrentGameManager.RIGHT);
++                                if (rightPossible) {
++                                    moveCharacter(CurrentGameManager.RIGHT);
+ 
+-                                        gameLogs.add(new GameLogs(color.colorToString(), game.getMap().getNameRoomPosition(position), instant.getTime()));
+-                                        moved = true;
+-                                    } else {
+-                                        System.out.println(" no es pot");
+-                                    }
+-                                }
++                                    gameLogs.add(new GameLogs(color.colorToString(), game.getMap().getNameRoomPosition(position), instant.getTime()));
++                                    moved = true;
++                                } else {
++                                    System.out.println(" no es pot");
++                                }
++                            }
+ 
+-                            } while (!moved);
+-                        //}//System.out.println("NPCs position: " + position[0] + ", " + position[1] + " --> COLOR: " + color);
+-                } else {
+-                    System.out.println(this.getColorString() + " no canvia de sala");
+-                }
+-             } else {
+-                        // TODO: que mate, cambie de sala y ponga imagen npc
+-                        lastKill = 0;
+-              }
++                        } while (!moved);
++                        }//System.out.println("NPCs position: " + position[0] + ", " + position[1] + " --> COLOR: " + color);
++                    } else {
++                        System.out.println(this.getColorString() + " no canvia de sala");
++                    }
++                }
+             } catch (InterruptedException e) {
+                 e.printStackTrace();
+             }
+@@ -170,8 +182,8 @@
+         Room room = game.getMap().getRooms().get(position[0] + position[1] * 4);
+         for (int i = 0; i < 4 && !found; i++) {
+             for (int j = 0; j < 4 && !found; j++) {
+-                Room roomVent = game.getMap().getRooms().get(i+j*4);
+-                if (((i+j*4) != position[0] + position[1] * 4) && roomVent.getHasVent()) {
++                Room roomVent = game.getMap().getRooms().get(i + j * 4);
++                if (((i + j * 4) != position[0] + position[1] * 4) && roomVent.getHasVent()) {
+                     found = true;
+                     positionVent[0] = i;
+                     positionVent[1] = j;
+@@ -181,35 +193,50 @@
+         return positionVent;
+     }
+ 
+-    public boolean impostorAlone (int[] position, ArrayList<Character> characters) {
++    public boolean impostorAlone(int[] position, ArrayList<Character> characters) {
+         boolean alone = true;
+ 
+         for (int i = 0; i < characters.size(); i++) {
+             Character character = characters.get(i);
+             if (character.getPosition()[0] == position[0] && character.getPosition()[1] == position[1]) {
+-                alone = false;
++                if(characters.get(i).getAlive()) {
++                    alone = false;
++                }
+             }
+         }
+ 
+         return alone;
+     }
+ 
+-    public boolean impostorCanKill (int[] position, ArrayList<Character> characters) {
++    public boolean impostorCanKill(int[] position, ArrayList<Character> characters) {
+         boolean canKill = false;
+         int count = 0;
+ 
+         for (int i = 0; i < characters.size(); i++) {
+             Character character = characters.get(i);
+             if (character.getPosition()[0] == position[0] && character.getPosition()[1] == position[1] && !(character instanceof Impostor)) {
+-                count = count +1;
+-            }
+-        }
+-
+-        if (count == 1){
++                if(characters.get(i).getAlive()) {
++                    count = count + 1;
++                    if (count == 1) {
++                        j = i;
++                    }
++                }
++            }
++        }
++        if (count == 1) {
+             canKill = true;
++            System.out.println("Num character: " + j);
+         }
+-
++        System.out.println("pot matar");
+         return canKill;
+     }
+ 
++    public boolean impostorKill(ArrayList<Character> characters) {
++        boolean kill = false;
++        ((NPC) characters.get(j)).stop();
++        characters.get(j).setAlive(false);
++        kill = true;
++        System.out.println("Ha matat");
++        return kill;
++    }
+ }
+Index: src/salle/url/edu/presentation/view/WarningView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package salle.url.edu.presentation.view;\nimport salle.url.edu.presentation.controller.GamesController;\nimport salle.url.edu.presentation.view.JImagePanel;\nimport salle.url.edu.presentation.controller.PlayersController;\n\nimport javax.imageio.ImageIO;\nimport javax.swing.*;\nimport java.awt.*;\nimport java.io.File;\nimport java.io.IOException;\n\n\npublic class WarningView extends JDialog {\n    public static final String WARNING_ACCEPT = \"Accept button\";\n    private JButton acceptButton;\n    //private JImagePanel backgroundImage;\n    private JLabel incorrectTitle;\n    private JLabel errorTitle;\n\n    private JOptionPane jop;\n    private JImagePanel rectangleBackground;\n\n    public WarningView(){\n        //setLayout(new BorderLayout());\n        rectangleBackground = new JImagePanel(\"files/Assets/Login_Register/rectangleBackground.png\");\n\n        GridBagConstraints gbc = new GridBagConstraints();\n\n\n        rectangleBackground.setLayout(new GridBagLayout());\n        rectangleBackground.setOpaque(false);\n        rectangleBackground.setPreferredSize(new Dimension(600,350));\n        rectangleBackground.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));\n        //backgroundImage.add(rectangleBackground);\n\n\n        //FOTO WARNING_______________________________________________________________________________\n        gbc.gridx = 0;\n        gbc.gridy = 0;\n        gbc.gridwidth = 2;\n        gbc.gridheight = 4;\n        gbc.insets = new Insets(30,0,10,10);\n        gbc.anchor = GridBagConstraints.LINE_START;\n\n        JImagePanel image = new JImagePanel(\"files/Assets/Login_Register/warning.png\");\n        image.setPreferredSize(new Dimension(250,250));\n        image.setSize(new Dimension(250,250));\n        image.setMaximumSize(new Dimension(250,250));\n        image.setMinimumSize(new Dimension(250,250));\n\n        image.setBorder(BorderFactory.createEmptyBorder(0,0,0,30));\n        image.setOpaque(false);\n        rectangleBackground.add(image, gbc);\n\n\n        //TEXT ERROR_________________________________________________________________________________\n        gbc.gridx = 4;\n        gbc.gridy = 0;\n        gbc.gridwidth  = 3;\n        gbc.gridheight = 1;\n        gbc.anchor = GridBagConstraints.LINE_START;\n        errorTitle = new JLabel(\"ERROR\");\n        errorTitle.setFont(new Font(\"Aclonica\", Font.BOLD, 30));\n        errorTitle.setBackground(Color.BLACK);\n        rectangleBackground.add(errorTitle, gbc);\n\n\n        incorrectTitle = new JLabel(\"\");\n        incorrectTitle.setFont(new Font(\"Aclonica\", Font.BOLD, 15));\n        incorrectTitle.setBackground(Color.BLACK);\n        incorrectTitle.setPreferredSize(new Dimension(400,300));\n        incorrectTitle.setSize(new Dimension(400,300));\n        incorrectTitle.setMaximumSize(new Dimension(400,300));\n        incorrectTitle.setMinimumSize(new Dimension(400,300));\n\n        //BUTTON ACCEPT_________________________________________________________________________________\n        gbc.gridx = 4;\n        gbc.gridy = 3;\n        gbc.gridwidth  = 3;\n        gbc.gridheight = 1;\n        gbc.anchor = GridBagConstraints.LINE_END;\n        this.acceptButton = new JButton(\"Accept\");\n        this.acceptButton.setFont(new Font(\"Aclonica\", Font.BOLD, 20));\n        this.acceptButton.setPreferredSize(new Dimension(140, 50));\n        rectangleBackground.add(this.acceptButton, gbc);\n\n\n\n        jop = new JOptionPane(rectangleBackground, JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);\n        //JOptionPane optionPane = new JOptionPane(\"Hello world\", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);\n\n        setBackground(Color.WHITE);\n        jop.setOpaque(false);\n        jop.setBackground(new Color(0,0,0,0));\n        setPreferredSize(new Dimension(800,500));\n        setUndecorated(true);\n        setTitle(\"Error\");\n        setModal(true);\n        setContentPane(jop);\n        pack();\n        setLocationRelativeTo(null);\n\n    }\n\n    public void showWindow(boolean visible){\n        setVisible(visible);\n    }\n\n    public void registerController(PlayersController controller){\n        this.acceptButton.setActionCommand(WARNING_ACCEPT);\n        this.acceptButton.addActionListener(controller);\n        this.acceptButton.addKeyListener(controller);\n    }\n\n    public void updateWarning(String error){\n\n        //TEXT INCORRECT_______________________________________________________________________________\n        GridBagConstraints gbc = new GridBagConstraints();\n        gbc.gridx = 4;\n        gbc.gridy = 1;\n        gbc.gridwidth  = 6;\n        gbc.gridheight = 1;\n        gbc.anchor = GridBagConstraints.CENTER;\n        incorrectTitle.setText(\"<html>\" + error + \"</html>\");\n        rectangleBackground.add(incorrectTitle, gbc);\n        pack();\n        setLocationRelativeTo(null);\n\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/salle/url/edu/presentation/view/WarningView.java b/src/salle/url/edu/presentation/view/WarningView.java
+--- a/src/salle/url/edu/presentation/view/WarningView.java	
++++ b/src/salle/url/edu/presentation/view/WarningView.java	
+@@ -21,7 +21,6 @@
+     private JImagePanel rectangleBackground;
+ 
+     public WarningView(){
+-        //setLayout(new BorderLayout());
+         rectangleBackground = new JImagePanel("files/Assets/Login_Register/rectangleBackground.png");
+ 
+         GridBagConstraints gbc = new GridBagConstraints();
+@@ -31,7 +30,6 @@
+         rectangleBackground.setOpaque(false);
+         rectangleBackground.setPreferredSize(new Dimension(600,350));
+         rectangleBackground.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+-        //backgroundImage.add(rectangleBackground);
+ 
+ 
+         //FOTO WARNING_______________________________________________________________________________
+@@ -85,9 +83,7 @@
+         rectangleBackground.add(this.acceptButton, gbc);
+ 
+ 
+-
+         jop = new JOptionPane(rectangleBackground, JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+-        //JOptionPane optionPane = new JOptionPane("Hello world", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+ 
+         setBackground(Color.WHITE);
+         jop.setOpaque(false);
+Index: src/salle/url/edu/presentation/controller/PlayersController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package salle.url.edu.presentation.controller;\n\nimport salle.url.edu.business.PlayersManager;\n\nimport java.awt.event.ActionEvent;\nimport java.awt.event.ActionListener;\nimport java.awt.event.KeyEvent;\nimport java.awt.event.KeyListener;\nimport java.io.IOException;\nimport java.sql.SQLException;\nimport java.util.ArrayList;\nimport java.util.EventListener;\nimport java.util.List;\n\nimport salle.url.edu.presentation.view.*;\nimport salle.url.edu.persistance.sql.SQLPlayerDAO;\n\npublic class PlayersController implements ActionListener, KeyListener {\n\n    //ERRORS____________________________________________________________________________________________________________\n    //LOGIN\n    public static final String LOGIN_ERROR = \"The username or the password are incorrect\";\n\n    //REGISTER\n    public static final String EMAIL_FORMAT_ERROR = \"Incorrect format of the email. It musn't contain ( ) and it must contain an (@) and a (.) after it\";\n    public static final String PASSWORD_FORMAT_ERROR = \"Incorrect format of the password. It must have minimum 1 capital letter, 1 number and 8 character length\";\n    public static final String PASSWORD_CONFIRMATION_ERROR = \"The password and the confirmation password don't coincide\";\n    public static final String USER_NAME_ALREADY_EXISTS = \"This user name is already taken\";\n    public static final String EMAIL_ALREADY_EXISTS = \"This email is already used\";\n\n\n\n    //ATRIBUTS__________________________________________________________________________________________________________\n    private final PlayersManager playersManager;\n    private final StartView startView;\n    private final LoginView loginView;\n    private final RegisterView registerView;\n    private final AccountView accountView;\n    private final SettingsView settingsView;\n    private final MasterView masterView;\n    private PlayerEvolutionView playerEvolutionView;\n    private final WarningView warningView;\n    private final ConfirmationView confirmationView;\n    private GamesController gamesController;\n\n    private boolean isWarningActive = false;\n    private final boolean createdOK = false;\n    private final boolean removedOK = false;\n    private final boolean accountExists = false;\n\n    private String userName;\n\n    //private Player loggedPlayer; NO HAURIA D'HAVER UN PLAYER AQUÍ\n\n    //CONSTRUCTORS______________________________________________________________________________________________________\n    public PlayersController(MasterView masterView) {\n\n        this.masterView = masterView;\n        masterView.showWindow(true);\n\n        //CONNEXIÓ AMB BUSSINESS\n        this.playersManager = new PlayersManager(new SQLPlayerDAO());\n        //INTERFICIE GRÀFICA\n\n            //Start View\n            this.startView = new StartView();\n            startView.registerController(this);\n            masterView.addView( startView, MasterView.START_VIEW);\n            masterView.changeView(MasterView.START_VIEW);\n\n\n            //Login\n            this.loginView = new LoginView();\n            masterView.addView(loginView, MasterView.LOGIN_VIEW);\n            loginView.registerController(this);\n\n\n            //registre\n            this.registerView = new RegisterView();\n            registerView.registerController(this);\n            masterView.addView( registerView, MasterView.REGISTER_VIEW);\n\n            //account view\n            this.accountView = new AccountView();\n            accountView.registerController(this);\n            masterView.addView( accountView, MasterView.ACCOUNT_VIEW);\n\n            //Settings\n            this.settingsView = new SettingsView();\n            settingsView.registerController(this);\n            masterView.addView( settingsView, MasterView.SETTINGS_VIEW);\n\n            //Warning\n            this.warningView = new WarningView();\n            warningView.registerController(this);\n            //masterView.addView( warningView, MasterView.WARNING_VIEW);\n\n            //Confirm\n            this.confirmationView = new ConfirmationView();\n            this.confirmationView.showWindow(true);\n            this.confirmationView.registerController(this);\n            masterView.addView(confirmationView, MasterView.CONFIRMATION_VIEW);\n\n            //PlayerEvolution\n            /*this.playerEvolutionView = new PlayerEvolutionView(playersManager.getWinsValue(userName));\n            this.playerEvolutionView.showWindow(true);\n            this.playerEvolutionView.registerController(this);*/\n            //masterView.addView(playerEvolutionView, MasterView.PLAYER_EVOLUTION_VIEW);\n    }\n\n    //INTERFICIE GRÀFICA________________________________________________________________________________________________\n    @Override\n    public void actionPerformed(ActionEvent e) {\n\n        //START VIEW ---------------------------------------------------------------------------------------------------------\n        if (e.getActionCommand().equals(StartView.START_LEAVE_BUTTON_COMMAND)) { //Exit Program\n            System.exit(0);\n            return;\n\n        }\n        if (e.getActionCommand().equals(StartView.START_PLAY_BUTTON_COMMAND)) { // Start\n            masterView.changeView(MasterView.LOGIN_VIEW);\n            return;\n        }\n\n        //LOGIN VIEW ---------------------------------------------------------------------------------------------------------\n        if (e.getActionCommand().equals(LoginView.LOGIN_BACK_BUTTON_COMMAND)) { //Back\n            masterView.changeView(MasterView.START_VIEW);\n            return;\n        }\n\n        if (e.getActionCommand().equals(LoginView.LOGIN_START_BUTTON_COMMAND)) { //LOGIN CHECK\n\n            checkLogin();\n            return;\n        }\n\n        //REGISTER HERE\n        if (e.getActionCommand().equals(LoginView.LOGIN_REGISTER_BUTTON_COMMAND)) { //GO TO REGISTER VIEW\n            masterView.changeView(MasterView.REGISTER_VIEW);\n\n        }\n\n\n        //REGISTER------------------------------------------------------------------------------------------------------\n        if (e.getActionCommand().equals(RegisterView.REGISTER_BACK_BUTTON_COMMAND)) { //BACK TO START VIEW\n            masterView.changeView(MasterView.START_VIEW);\n            return;\n        }\n\n        if (e.getActionCommand().equals(RegisterView.REGISTER_START_BUTTON_COMMAND)) { //CHECK REGISTER\n\n            checkRegister();\n            return;\n        }\n        if (e.getActionCommand().equals(RegisterView.REGISTER_LOGIN_BUTTON_COMMAND)) {//BACK TO LOGIN VIEW\n            System.out.println(\"REGISTER, LOGIN HERE PRESSED\");\n            masterView.changeView(MasterView.LOGIN_VIEW);\n        }\n\n        //PLAYER_EVOLUTION----------------------------------------------------------------------------------------------\n        if (e.getActionCommand().equals(PlayerEvolutionView.PLAYER_EVOLUTION_BACK_BUTTON_COMMAND)) {\n            masterView.changeView(MasterView.ACCOUNT_VIEW);\n            ///playerEvolutionView.drawGraf(playersManager.getGamesWins(userName));\n        }\n\n        //ACCOUNT-------------------------------------------------------------------------------------------------------\n        if (e.getActionCommand().equals(AccountView.ACCOUNT_BACK)) {\n            //System.out.println(\"Start, LEAVE PRESSED\");\n            //FER QUE LA INFO DEL JUGADOR QUE ABANS HA INICIAT SESSIÓ ES TREGUI DE LA MEMÒRIA\n            gamesController = null;\n            userName = null;\n            //tornem a la pestanya per iniciar sessió\n            masterView.changeView(MasterView.LOGIN_VIEW);\n\n        } else if (e.getActionCommand().equals(AccountView.ACCOUNT_CONFIG)) {\n            //System.out.println(\"Start, PLAY TRIANG PRESSED\");\n\n            masterView.changeView(MasterView.SETTINGS_VIEW);\n\n\n        } else if (e.getActionCommand().equals(AccountView.ACCOUNT_GAMES)) {\n            //System.out.println(\"Hellou\");\n\n            masterView.changeView(MasterView.GAMES_MANAGER_VIEW);\n            //A partir d'aqui ja pot crear un joc\n            //Fico el metode aqui tot i que primer ha de anar el MainMEnu View I el Game Manager View\n            //I despres el GameCreation GUI Pero ara fico el metode de create Game ja que encara no esta fet\n            //TODO: Discutir sobre si s'ha de fer aixi o no:\n            // Opcio 1: Tornar al Main i desde alla cridar el GamesController\n            // Opcio 2: Crear el GamesController aqui mateix\n            //De moment faig la opcio 2 ja que es mes senzilla i aixi puc avançar\n\n            //startGamesController();\n\n        } else if (e.getActionCommand().equals(AccountView.ACCOUNT_STATS)) {\n\n            //TODO: VISTA DE ELS STATS\n            masterView.changeView(MasterView.PLAYER_EVOLUTION_VIEW);\n        }\n\n        //SETTINGS------------------------------------------------------------------------------------------------------\n        if (e.getActionCommand().equals(SettingsView.SETTINGS_BACK_BUTTON_COMMAND)) {\n            masterView.changeView(MasterView.ACCOUNT_VIEW);\n\n        } else if (e.getActionCommand().equals(SettingsView.SETTINGS_DELETE_BUTTON_COMMAND)) {\n            //TODO: FER QUE LA INFO DEL JUGADOR EN CUESTIO ES TREGUI DE LA MEMÒRIA\n            confirmationView.registerController(this);\n            confirmationView.updateConfirmationPlayer(userName);\n            confirmationView.updateUI();\n            masterView.changeView(MasterView.CONFIRMATION_VIEW);\n        }\n\n        //WARNING_CLOSE_________________________________________________________________________________________________\n        if(e.getActionCommand().equals(WarningView.WARNING_ACCEPT)){\n            warningView.dispose();\n            isWarningActive = false;\n\n        }\n\n        //CONFIRMATION__________________________________________________________________________________________________\n        if (e.getActionCommand().equals(ConfirmationView.YES_BUTTON_PLAYERS)) {\n            System.out.println(\"YES_player\");\n            playersManager.deletePlayer(userName);\n            masterView.changeView(MasterView.SETTINGS_VIEW);\n        } else if(e.getActionCommand().equals(ConfirmationView.NO_BUTTON_PLAYERS)){\n            System.out.println(\"NO\");\n            masterView.changeView(MasterView.SETTINGS_VIEW);\n        }\n\n    }\n\n\n    //Mètodes de verificació____________________________________________________________________________________________\n\n    private void checkRegister() {\n        if (checkEmailFormat(registerView.getEmail()) ){ // Email té el format correcte\n\n            if (checkPasswordFormat(registerView.getPassword())) { //La contrassenya també té el format correcte\n\n                if (registerView.getPassword().equals(registerView.getConfirmedPassword())) { //La contrassenya és igual a la confirmació de contrassenya\n\n                    if (playersManager.checkUserNamePlayer(registerView.getUserName())) { //ja existeix el nom d'usuari i per tant no el volem ficar\n\n                        //ERROR USERNAME EXISTS\n                        isWarningActive = true;\n                        warningView.updateWarning(USER_NAME_ALREADY_EXISTS);\n                        warningView.showWindow(true);\n                        return;\n                    }\n\n                    if (playersManager.checkEmailPlayer(registerView.getEmail())) { //No existeix el nom d'usuari però si el email, i per tant no el volem ficar\n\n                        //ERROR EMAIL EXISTS\n                        isWarningActive = true;\n                        warningView.updateWarning(EMAIL_ALREADY_EXISTS);\n                        warningView.showWindow(true);\n                        return;\n\n                    }\n                    if (registerView.getUserName() != null && registerView.getPassword() != null && registerView.getEmail() != null) { // TOT CORRECTE\n\n                        userName = registerView.getUserName();\n                        playersManager.createPlayer(userName, registerView.getEmail(), registerView.getPassword());\n                        //Entra a la seva conta\n                        gamesController = new GamesController(masterView, userName);\n                        //mostrem la seva conta\n                        masterView.changeView(MasterView.ACCOUNT_VIEW);\n                        return;\n\n                    }\n                }else{ //La contrassenya introduida és diferent a la confirmació de contrassenya introduida\n\n                    //ERROR PASSWORD MISMATCH\n                    isWarningActive = true;\n                    warningView.updateWarning(PASSWORD_CONFIRMATION_ERROR);\n                    warningView.showWindow(true);\n                    return;\n\n                }\n\n            } else { // La contrassenya té un format incorrecte\n\n                //ERROR PASSWORD INCORRECT FORMAT\n                isWarningActive = true;\n                warningView.updateWarning(PASSWORD_FORMAT_ERROR);\n                warningView.showWindow(true);\n                return;\n\n            }\n\n        } else { // El mail té un format incorrecte\n\n            //ERROR INCORRECT EMAIL FORMAT\n            isWarningActive = true;\n            warningView.updateWarning(EMAIL_FORMAT_ERROR);\n            warningView.showWindow(true);\n            return;\n\n        }\n    }\n\n    private void checkLogin() {\n        if (playersManager.checkUserNamePlayer(loginView.getUserName())){ //CHECK BBDD userName\n\n            if (playersManager.checkPasswordFromPlayer(loginView.getUserName(), loginView.getPassword())) { //check BBDD Password\n\n                userName = loginView.getUserName();\n                //Entra a la seva conta\n                gamesController = new GamesController(masterView, userName);\n                //mostrem la seva conta\n                masterView.changeView(MasterView.ACCOUNT_VIEW);\n\n            }else{\n                //ERROR WRONG PASSWORD\n                isWarningActive = true;\n                warningView.updateWarning(LOGIN_ERROR);\n                warningView.showWindow(true);\n            }\n        }else{\n            //ERROR WRONG USERNAME\n            isWarningActive = true;\n            warningView.updateWarning(LOGIN_ERROR);\n            warningView.showWindow(true);\n        }\n    }\n\n\n\n\n\n\n    /**\n     * Method that checks if the mail format is correct\n     * @param email The email we want to check\n     * @return true if the mail format is correct\n     *         false if the mail is incorrect\n     */\n    private boolean checkEmailFormat(String email){\n\n        boolean format = false;\n\n        int total_arrova = 0;\n        for (int i = 0; i < email.length(); i++) {\n\n            if (email.charAt(i) == '@'){\n                total_arrova++;\n            }\n        }\n\n        if (total_arrova == 1 && !email.contains(\" \")) {\n            String[] dividedMail = email.split(\"@\");\n            if (dividedMail[1].contains(\".\")) {\n                format = true;\n            }\n        }\n\n        return format;\n\n    }\n\n    /**\n     * Method that checks if the password format is correct\n     *      * @param email The email we want to check\n     *      * @return true if the mail format is correct\n     *      *         false if the mail is incorrect\n     */\n    public boolean checkPasswordFormat(String password) {\n        int mayus = 0;\n        int min = 0;\n        if (password.length() < 8) {\n            System.out.println(\"Must be 8 in length\");\n            return false;\n        }\n        if (!password.matches(\".*[0-9].*\")) {\n            System.out.println(\"Must contain numbers\");\n            return false;\n        }\n        for (int i = 0; i < password.length(); i++) {\n            if(Character.isUpperCase(password.charAt(i))){\n                mayus++;\n            }\n            if(Character.isLowerCase(password.charAt(i))){\n                min++;\n            }\n        }\n        if(mayus < 1 || min < 1){\n            System.out.println(\"Must contain uppercase and lowercase letters\");\n            return false;\n        }\n        return true;\n    }\n\n    @Override\n    public void keyTyped(KeyEvent e) {\n\n    }\n\n    @Override\n    public void keyPressed(KeyEvent e) {\n        System.out.println(\"Hello\");\n\n        if (e.getKeyChar() == KeyEvent.VK_ENTER){\n            if (isWarningActive) {\n                warningView.dispose();\n                isWarningActive = false;\n                return;\n            }\n            if (masterView.getCurrentView() == MasterView.LOGIN_VIEW){\n                checkLogin();\n                return;\n            }\n            if (masterView.getCurrentView() == MasterView.REGISTER_VIEW){\n                checkRegister();\n                return;\n            }\n\n        }\n    }\n\n    @Override\n    public void keyReleased(KeyEvent e) {\n\n    }\n\n\n    //Metodes interconexió amb GamesController__________________________________________________________________________\n\n    /*//TODO: Mirar si fer-ho aixi o no\n    private void startGamesController() {\n        System.out.println(\"Hellou\");\n        GamesController gamesController = new GamesController(masterView);\n        gamesController.gameMenu(this.loggedPlayer);\n\n    }*/\n\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/salle/url/edu/presentation/controller/PlayersController.java b/src/salle/url/edu/presentation/controller/PlayersController.java
+--- a/src/salle/url/edu/presentation/controller/PlayersController.java	
++++ b/src/salle/url/edu/presentation/controller/PlayersController.java	
+@@ -29,7 +29,6 @@
+     public static final String EMAIL_ALREADY_EXISTS = "This email is already used";
+ 
+ 
+-
+     //ATRIBUTS__________________________________________________________________________________________________________
+     private final PlayersManager playersManager;
+     private final StartView startView;
+@@ -53,7 +52,7 @@
+     //private Player loggedPlayer; NO HAURIA D'HAVER UN PLAYER AQUÍ
+ 
+     //CONSTRUCTORS______________________________________________________________________________________________________
+-    public PlayersController(MasterView masterView) {
++    public PlayersController(MasterView masterView) throws SQLException, IOException {
+ 
+         this.masterView = masterView;
+         masterView.showWindow(true);
+@@ -102,10 +101,10 @@
+             masterView.addView(confirmationView, MasterView.CONFIRMATION_VIEW);
+ 
+             //PlayerEvolution
+-            /*this.playerEvolutionView = new PlayerEvolutionView(playersManager.getWinsValue(userName));
++            this.playerEvolutionView = new PlayerEvolutionView(playersManager.getWinsValue(userName));
+             this.playerEvolutionView.showWindow(true);
+-            this.playerEvolutionView.registerController(this);*/
+-            //masterView.addView(playerEvolutionView, MasterView.PLAYER_EVOLUTION_VIEW);
++            this.playerEvolutionView.registerController(this);
++            masterView.addView(playerEvolutionView, MasterView.PLAYER_EVOLUTION_VIEW);
+     }
+ 
+     //INTERFICIE GRÀFICA________________________________________________________________________________________________
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_5_18_2022_11_04_PM__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_5_18_2022_11_04_PM__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_5_18_2022_11_04_PM__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_5_18_2022_11_04_PM__Changes_.xml	
++++ /dev/null	
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_5_18_2022_11_04_PM_[Changes]" date="1652907877408" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_18_2022_11_04_PM_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 5/18/2022 11:04 PM [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_18_5_22,_21_32_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_18_5_22,_21_32_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_18_5_22,_21_32_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_18_5_22,_21_32_[Changes]/shelved.patch	
++++ /dev/null	
+@@ -1,156 +0,0 @@
+-Index: .idea/shelf/Uncommitted_changes_before_Update_at_5_9_2022_11_42_PM__Changes_.xml
+-===================================================================
+-diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_5_9_2022_11_42_PM__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_5_9_2022_11_42_PM__Changes_.xml
+-deleted file mode 100644
+---- a/.idea/shelf/Uncommitted_changes_before_Update_at_5_9_2022_11_42_PM__Changes_.xml	(revision 99bee0d93fa12a2cfb9bf6fd82f5d34d60358430)
+-+++ /dev/null	(revision 99bee0d93fa12a2cfb9bf6fd82f5d34d60358430)
+-@@ -1,4 +0,0 @@
+--<changelist name="Uncommitted_changes_before_Update_at_5_9_2022_11_42_PM_[Changes]" date="1652132573914" recycled="true" deleted="true">
+--  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_9_2022_11_42_PM_[Changes]/shelved.patch" />
+--  <option name="DESCRIPTION" value="Uncommitted changes before Update at 5/9/2022 11:42 PM [Changes]" />
+--</changelist>
+-\ No newline at end of file
+-Index: .idea/shelf/Uncommitted_changes_before_Update_at_5_9_2022_11_42_PM_[Changes]/shelved.patch
+-===================================================================
+-diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_5_9_2022_11_42_PM_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_5_9_2022_11_42_PM_[Changes]/shelved.patch
+-deleted file mode 100644
+---- a/.idea/shelf/Uncommitted_changes_before_Update_at_5_9_2022_11_42_PM_[Changes]/shelved.patch	(revision 99bee0d93fa12a2cfb9bf6fd82f5d34d60358430)
+-+++ /dev/null	(revision 99bee0d93fa12a2cfb9bf6fd82f5d34d60358430)
+-@@ -1,137 +0,0 @@
+--Index: src/salle/url/edu/business/Room.java
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+--<+>package salle.url.edu.business;\r\n\r\nimport java.util.ArrayList;\r\n\r\npublic class Room {\r\n\r\n    //ATRIBUTS----------------------------------------------------------------------------------------------------------\r\n    private RoomType room;\r\n    private boolean hasVent;\r\n    private ActionType action;\r\n\r\n\r\n\r\n    //CONSTRUCTORS------------------------------------------------------------------------------------------------------\r\n\r\n    public Room(RoomType room, boolean hasVent, ActionType action) {\r\n        this.room = room;\r\n        this.hasVent = hasVent;\r\n        this.action = action;\r\n    }\r\n\r\n\r\n    //METHODS-----------------------------------------------------------------------------------------------------------\r\n\r\n    public RoomType getRoomType(){\r\n        return this.room;\r\n    }\r\n}\r\n
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/src/salle/url/edu/business/Room.java b/src/salle/url/edu/business/Room.java
+----- a/src/salle/url/edu/business/Room.java	(revision 6b8f1ae4e1556db988dc5020f73ee854ab356f5b)
+--+++ b/src/salle/url/edu/business/Room.java	(date 1652132484069)
+--@@ -9,17 +9,13 @@
+--     private boolean hasVent;
+--     private ActionType action;
+-- 
+---
+---
+--     //CONSTRUCTORS------------------------------------------------------------------------------------------------------
+---
+--     public Room(RoomType room, boolean hasVent, ActionType action) {
+--         this.room = room;
+--         this.hasVent = hasVent;
+--         this.action = action;
+--     }
+-- 
+---
+--     //METHODS-----------------------------------------------------------------------------------------------------------
+-- 
+--     public RoomType getRoomType(){
+--Index: src/salle/url/edu/business/NPC.java
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+--<+>package salle.url.edu.business;\r\n\r\nimport java.util.ArrayList;\r\n\r\npublic class NPC extends Character implements Runnable{\r\n\r\n    //ATRIBUTS----------------------------------------------------------------------------------------------------------\r\n    protected NPCSuspition suspitionRol;\r\n\r\n    //CONSTRUCTORS------------------------------------------------------------------------------------------------------\r\n    public NPC(CharacterColors color, boolean alive, int[] position, NPCSuspition assignedRol) {\r\n        super(color, alive, position);\r\n        this.suspitionRol = assignedRol;\r\n    }\r\n\r\n    public NPC(CharacterColors color, int[] position ) {\r\n        super(color, true, position);\r\n        this.suspitionRol = NPCSuspition.UNKNOWN;\r\n    }\r\n\r\n    //METHODS-----------------------------------------------------------------------------------------------------------\r\n    public void run(){}\r\n\r\n    public NPCSuspition getSuspitionRol() {\r\n        return suspitionRol;\r\n    }\r\n\r\n    public void moveSuspitionRol (int direction){\r\n        int number = NPCSuspition.valueOf(suspitionRol.name()).ordinal() + direction;\r\n        if (number > 2) number = 0;\r\n        if (number < 0) number = 2;\r\n        suspitionRol = NPCSuspition.values()[number];\r\n        System.out.println(this.color.colorToString() + \" \" + suspitionRol.toString());\r\n    }\r\n}\r\n
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/src/salle/url/edu/business/NPC.java b/src/salle/url/edu/business/NPC.java
+----- a/src/salle/url/edu/business/NPC.java	(revision 6b8f1ae4e1556db988dc5020f73ee854ab356f5b)
+--+++ b/src/salle/url/edu/business/NPC.java	(date 1652132565027)
+--@@ -2,7 +2,7 @@
+-- 
+-- import java.util.ArrayList;
+-- 
+---public class NPC extends Character implements Runnable{
+--+public class NPC extends Character implements Runnable {
+-- 
+--     //ATRIBUTS----------------------------------------------------------------------------------------------------------
+--     protected NPCSuspition suspitionRol;
+--@@ -19,7 +19,9 @@
+--     }
+-- 
+--     //METHODS-----------------------------------------------------------------------------------------------------------
+---    public void run(){}
+--+    public void run() {
+--+
+--+    }
+-- 
+--     public NPCSuspition getSuspitionRol() {
+--         return suspitionRol;
+--Index: .idea/workspace.xml
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+--<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"3f7dd163-8f7b-4f1f-bcda-425a9680dd53\" name=\"Changes\" comment=\"Commit no funcionava\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/Main.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/Main.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/GamesController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/GamesController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/GameCreationView.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/GameCreationView.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/LogsView.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/LogsView.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/MasterView.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/MasterView.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/SettingsView.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/SettingsView.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/salle/url/edu/Main.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/salle/url/edu/Main.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/salle/url/edu/presentation/controller/GamesController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/salle/url/edu/presentation/controller/GamesController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/salle/url/edu/presentation/view/GameCreationView.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/salle/url/edu/presentation/view/GameCreationView.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/..\" />\r\n  </component>\r\n  <component name=\"GitSEFilterConfiguration\">\r\n    <file-type-list>\r\n      <filtered-out-file-type name=\"LOCAL_BRANCH\" />\r\n      <filtered-out-file-type name=\"REMOTE_BRANCH\" />\r\n      <filtered-out-file-type name=\"TAG\" />\r\n      <filtered-out-file-type name=\"COMMIT_BY_MESSAGE\" />\r\n    </file-type-list>\r\n  </component>\r\n  <component name=\"HighlightingSettingsPerFile\">\r\n    <setting file=\"jar://$PROJECT_DIR$/lib/mysql-connector-java-8.0.23.jar!/com/mysql/cj/jdbc/result/ResultSetImpl.class\" root0=\"SKIP_INSPECTION\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"28fr4eyFCdJsEH2OaXAyPjQh1VM\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"DatabaseDriversLRU\" value=\"mysql\" />\r\n    <property name=\"RunConfigurationTargetLRU\" value=\"39a70804-22e6-4851-8e95-a109fe3b2123\" />\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"aspect.path.notification.shown\" value=\"true\" />\r\n    <property name=\"dart.analysis.tool.window.visible\" value=\"false\" />\r\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\r\n    <property name=\"node.js.detected.package.tslint\" value=\"true\" />\r\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\r\n    <property name=\"node.js.selected.package.tslint\" value=\"(autodetect)\" />\r\n    <property name=\"project.structure.last.edited\" value=\"Project\" />\r\n    <property name=\"project.structure.proportion\" value=\"0.15\" />\r\n    <property name=\"project.structure.side.proportion\" value=\"0.2\" />\r\n    <property name=\"restartRequiresConfirmation\" value=\"false\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"project.propVCSSupport.Mappings\" />\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.Main\">\r\n    <configuration default=\"true\" type=\"ArquillianJUnit\" factoryName=\"\" nameIsGenerated=\"true\">\r\n      <option name=\"arquillianRunConfiguration\">\r\n        <value>\r\n          <option name=\"containerStateName\" value=\"\" />\r\n        </value>\r\n      </option>\r\n      <option name=\"TEST_OBJECT\" value=\"class\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"ALTERNATIVE_JRE_PATH\" value=\"openjdk-17\" />\r\n      <option name=\"ALTERNATIVE_JRE_PATH_ENABLED\" value=\"true\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"salle.url.edu.Main\" />\r\n      <module name=\"S2-Project_B4 - Between Us\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"salle.url.edu.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"SQL_final_CREATESINSERTS.sql\" type=\"DatabaseScript\" editBeforeRun=\"true\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <script-file value=\"$PROJECT_DIR$/files/SQL_final_CREATESINSERTS.sql\" />\r\n      <script-mode>FILE</script-mode>\r\n      <data-source id=\"39a70804-22e6-4851-8e95-a109fe3b2123\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <list>\r\n      <item itemvalue=\"Application.Main\" />\r\n    </list>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Main\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"3f7dd163-8f7b-4f1f-bcda-425a9680dd53\" name=\"Changes\" comment=\"prueba\" />\r\n      <created>1651618301807</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1651618301807</updated>\r\n      <workItem from=\"1651618307603\" duration=\"179000\" />\r\n      <workItem from=\"1651618507628\" duration=\"767000\" />\r\n      <workItem from=\"1651619306231\" duration=\"491000\" />\r\n      <workItem from=\"1651659079588\" duration=\"270000\" />\r\n      <workItem from=\"1651659767935\" duration=\"5757000\" />\r\n      <workItem from=\"1651675353237\" duration=\"4817000\" />\r\n      <workItem from=\"1651709766113\" duration=\"12000\" />\r\n      <workItem from=\"1651745087743\" duration=\"15060000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Millora en la creacio de Game\">\r\n      <created>1651622582734</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651622582734</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Modificat les imatges de les Rooms\">\r\n      <created>1651661155983</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651661155983</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"Meh, mes modificacions de imatges que no hem convencent i creacio de Game feta correctament amb els NPC i els Impostors\">\r\n      <created>1651667023041</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651667023041</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"prueba\">\r\n      <created>1651867829279</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651867829279</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"prueba\">\r\n      <created>1651867843695</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651867843695</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"settings(settingview masterview playerscontroller)\">\r\n      <created>1651868060575</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651868060575</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"settings(settingview masterview playerscontroller)\">\r\n      <created>1651868272684</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651868272684</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"settings(settingview masterview playerscontroller)\">\r\n      <created>1651868706950</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651868706950</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"settings(settingview masterview playerscontroller)\">\r\n      <created>1651868764938</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651868764938</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"settings ARREGLAO(settingview masterview playerscontroller)\">\r\n      <created>1651921476062</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651921476063</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\"logsView en proceso(logsview masterview gamescontroller)\">\r\n      <created>1652048724294</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652048724294</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"12\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Arreglats errors del merge\" />\r\n    <MESSAGE value=\"Millora en la creacio de Game\" />\r\n    <MESSAGE value=\"Modificat les imatges de les Rooms\" />\r\n    <MESSAGE value=\"Meh, mes modificacions de imatges que no hem convencent i creacio de Game feta correctament amb els NPC i els Impostors\" />\r\n    <MESSAGE value=\"prueba\" />\r\n    <MESSAGE value=\"settings(settingview masterview playerscontroller)\" />\r\n    <MESSAGE value=\"settings ARREGLAO(settingview masterview playerscontroller)\" />\r\n    <MESSAGE value=\"logsView en proceso(logsview masterview gamescontroller)\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"logsView en proceso(logsview masterview gamescontroller)\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java</url>\r\n          <line>113</line>\r\n          <option name=\"timeStamp\" value=\"6\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/salle/url/edu/business/PlayersManager.java</url>\r\n          <line>92</line>\r\n          <option name=\"timeStamp\" value=\"14\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/salle/url/edu/business/PlayersManager.java</url>\r\n          <line>95</line>\r\n          <option name=\"timeStamp\" value=\"15\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/salle/url/edu/business/PlayersManager.java</url>\r\n          <line>102</line>\r\n          <option name=\"timeStamp\" value=\"16\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java</url>\r\n          <line>109</line>\r\n          <option name=\"timeStamp\" value=\"17\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/salle/url/edu/business/PlayersManager.java</url>\r\n          <line>93</line>\r\n          <option name=\"timeStamp\" value=\"18\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+----- a/.idea/workspace.xml	(revision 6b8f1ae4e1556db988dc5020f73ee854ab356f5b)
+--+++ b/.idea/workspace.xml	(date 1652132484435)
+--@@ -4,18 +4,11 @@
+--     <option name="autoReloadType" value="SELECTIVE" />
+--   </component>
+--   <component name="ChangeListManager">
+---    <list default="true" id="3f7dd163-8f7b-4f1f-bcda-425a9680dd53" name="Changes" comment="Commit no funcionava">
+--+    <list default="true" id="3f7dd163-8f7b-4f1f-bcda-425a9680dd53" name="Changes" comment="Mapes canviats, GameCreationView acabada.">
+--+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_05_2022_13_15__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_05_2022_13_15__Changes_.xml" afterDir="false" />
+--       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/Main.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/GamesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/GamesController.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/GameCreationView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/GameCreationView.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/LogsView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/LogsView.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/MasterView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/MasterView.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/SettingsView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/SettingsView.class" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/Main.java" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/presentation/controller/GamesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/presentation/controller/GamesController.java" afterDir="false" />
+---      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/presentation/view/GameCreationView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/presentation/view/GameCreationView.java" afterDir="false" />
+--+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/business/NPC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/business/NPC.java" afterDir="false" />
+--+      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/business/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/business/Room.java" afterDir="false" />
+--     </list>
+--     <option name="SHOW_DIALOG" value="false" />
+--     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+--@@ -59,7 +52,6 @@
+--     <property name="RunConfigurationTargetLRU" value="39a70804-22e6-4851-8e95-a109fe3b2123" />
+--     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+--     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+---    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+--     <property name="WebServerToolWindowFactoryState" value="false" />
+--     <property name="aspect.path.notification.shown" value="true" />
+--     <property name="dart.analysis.tool.window.visible" value="false" />
+--@@ -72,6 +64,11 @@
+--     <property name="project.structure.side.proportion" value="0.2" />
+--     <property name="restartRequiresConfirmation" value="false" />
+--     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+--+  </component>
+--+  <component name="RecentsManager">
+--+    <key name="MoveFile.RECENT_KEYS">
+--+      <recent name="C:\Users\alber\P2 DPOO\dpoo-2122-s2-b4\S2-Project_B4 - Between Us\files\maps" />
+--+    </key>
+--   </component>
+--   <component name="RunManager" selected="Application.Main">
+--     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+--@@ -209,7 +206,14 @@
+--       <option name="project" value="LOCAL" />
+--       <updated>1652048724294</updated>
+--     </task>
+---    <option name="localTasksCounter" value="12" />
+--+    <task id="LOCAL-00012" summary="Mapes canviats, GameCreationView acabada.">
+--+      <created>1652130993397</created>
+--+      <option name="number" value="00012" />
+--+      <option name="presentableId" value="LOCAL-00012" />
+--+      <option name="project" value="LOCAL" />
+--+      <updated>1652130993397</updated>
+--+    </task>
+--+    <option name="localTasksCounter" value="13" />
+--     <servers />
+--   </component>
+--   <component name="TypeScriptGeneratedFilesManager">
+--@@ -236,7 +240,8 @@
+--     <MESSAGE value="settings(settingview masterview playerscontroller)" />
+--     <MESSAGE value="settings ARREGLAO(settingview masterview playerscontroller)" />
+--     <MESSAGE value="logsView en proceso(logsview masterview gamescontroller)" />
+---    <option name="LAST_COMMIT_MESSAGE" value="logsView en proceso(logsview masterview gamescontroller)" />
+--+    <MESSAGE value="Mapes canviats, GameCreationView acabada." />
+--+    <option name="LAST_COMMIT_MESSAGE" value="Mapes canviats, GameCreationView acabada." />
+--   </component>
+--   <component name="XDebuggerManager">
+--     <breakpoint-manager>
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_18_5_22__21_32__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_18_5_22__21_32__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_18_5_22__21_32__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_18_5_22__21_32__Changes_.xml	
++++ /dev/null	
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_18_5_22,_21_32_[Changes]" date="1652902534567" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_5_22,_21_32_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 18/5/22, 21:32 [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_5_18_2022_11_04_PM_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_5_18_2022_11_04_PM_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_5_18_2022_11_04_PM_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_5_18_2022_11_04_PM_[Changes]/shelved.patch	
++++ /dev/null	
+@@ -1,59 +0,0 @@
+-Index: .idea/workspace.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"3f7dd163-8f7b-4f1f-bcda-425a9680dd53\" name=\"Changes\" comment=\"Warnings arreglats, confirmationView tambe :)\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_9_2022_11_42_PM_[Changes]/shelved.patch\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_9_2022_11_42_PM__Changes_.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/ConfirmationView.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/ConfirmationView.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/salle/url/edu/business/Map.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/salle/url/edu/business/Map.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/..\" />\r\n  </component>\r\n  <component name=\"GitSEFilterConfiguration\">\r\n    <file-type-list>\r\n      <filtered-out-file-type name=\"LOCAL_BRANCH\" />\r\n      <filtered-out-file-type name=\"REMOTE_BRANCH\" />\r\n      <filtered-out-file-type name=\"TAG\" />\r\n      <filtered-out-file-type name=\"COMMIT_BY_MESSAGE\" />\r\n    </file-type-list>\r\n  </component>\r\n  <component name=\"HighlightingSettingsPerFile\">\r\n    <setting file=\"jar://$PROJECT_DIR$/lib/mysql-connector-java-8.0.23.jar!/com/mysql/cj/jdbc/result/ResultSetImpl.class\" root0=\"SKIP_INSPECTION\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"28fr4eyFCdJsEH2OaXAyPjQh1VM\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"ASKED_ADD_EXTERNAL_FILES\" value=\"true\" />\r\n    <property name=\"DatabaseDriversLRU\" value=\"mysql\" />\r\n    <property name=\"RunConfigurationTargetLRU\" value=\"39a70804-22e6-4851-8e95-a109fe3b2123\" />\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"aspect.path.notification.shown\" value=\"true\" />\r\n    <property name=\"dart.analysis.tool.window.visible\" value=\"false\" />\r\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\r\n    <property name=\"node.js.detected.package.tslint\" value=\"true\" />\r\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\r\n    <property name=\"node.js.selected.package.tslint\" value=\"(autodetect)\" />\r\n    <property name=\"project.structure.last.edited\" value=\"Project\" />\r\n    <property name=\"project.structure.proportion\" value=\"0.15\" />\r\n    <property name=\"project.structure.side.proportion\" value=\"0.2\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"project.propVCSSupport.Mappings\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\alber\\P2 DPOO\\dpoo-2122-s2-b4\\S2-Project_B4 - Between Us\\files\\assets\\Login_Register\" />\r\n      <recent name=\"C:\\Users\\alber\\P2 DPOO\\dpoo-2122-s2-b4\\S2-Project_B4 - Between Us\\files\\maps\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.Main\">\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"ALTERNATIVE_JRE_PATH\" value=\"openjdk-17\" />\r\n      <option name=\"ALTERNATIVE_JRE_PATH_ENABLED\" value=\"true\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"salle.url.edu.Main\" />\r\n      <module name=\"S2-Project_B4 - Between Us\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"salle.url.edu.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"SQL_final_CREATESINSERTS.sql\" type=\"DatabaseScript\" editBeforeRun=\"true\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <script-file value=\"$PROJECT_DIR$/files/SQL_final_CREATESINSERTS.sql\" />\r\n      <script-mode>FILE</script-mode>\r\n      <data-source id=\"39a70804-22e6-4851-8e95-a109fe3b2123\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <list>\r\n      <item itemvalue=\"Application.Main\" />\r\n    </list>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Main\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"3f7dd163-8f7b-4f1f-bcda-425a9680dd53\" name=\"Changes\" comment=\"Unversioned\" />\r\n      <created>1651618301807</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1651618301807</updated>\r\n      <workItem from=\"1651618307603\" duration=\"179000\" />\r\n      <workItem from=\"1651618507628\" duration=\"767000\" />\r\n      <workItem from=\"1651619306231\" duration=\"491000\" />\r\n      <workItem from=\"1651659079588\" duration=\"270000\" />\r\n      <workItem from=\"1651659767935\" duration=\"5757000\" />\r\n      <workItem from=\"1651675353237\" duration=\"4817000\" />\r\n      <workItem from=\"1651709766113\" duration=\"12000\" />\r\n      <workItem from=\"1651745087743\" duration=\"15060000\" />\r\n      <workItem from=\"1652300046504\" duration=\"7107000\" />\r\n      <workItem from=\"1652366312428\" duration=\"6647000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Millora en la creacio de Game\">\r\n      <created>1651622582734</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651622582734</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Modificat les imatges de les Rooms\">\r\n      <created>1651661155983</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651661155983</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"Meh, mes modificacions de imatges que no hem convencent i creacio de Game feta correctament amb els NPC i els Impostors\">\r\n      <created>1651667023041</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651667023041</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"prueba\">\r\n      <created>1651867829279</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651867829279</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"prueba\">\r\n      <created>1651867843695</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651867843695</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"settings(settingview masterview playerscontroller)\">\r\n      <created>1651868060575</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651868060575</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"settings(settingview masterview playerscontroller)\">\r\n      <created>1651868272684</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651868272684</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"settings(settingview masterview playerscontroller)\">\r\n      <created>1651868706950</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651868706950</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"settings(settingview masterview playerscontroller)\">\r\n      <created>1651868764938</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651868764938</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"settings ARREGLAO(settingview masterview playerscontroller)\">\r\n      <created>1651921476062</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651921476063</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\"logsView en proceso(logsview masterview gamescontroller)\">\r\n      <created>1652048724294</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652048724294</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00012\" summary=\"Mapes canviats, GameCreationView acabada.\">\r\n      <created>1652130993397</created>\r\n      <option name=\"number\" value=\"00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652130993397</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00013\" summary=\"Copiat el que ha tret el merge, ara hauria d'estat tot correcte\">\r\n      <created>1652286499804</created>\r\n      <option name=\"number\" value=\"00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652286499804</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00014\" summary=\"Ja es veuen les partides amb la informació de les partides que té l'usuari\">\r\n      <created>1652292080833</created>\r\n      <option name=\"number\" value=\"00014\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00014\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652292080833</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00015\" summary=\"GAME MANAGER VIEW COMPLETAMENT OPERATIU\">\r\n      <created>1652311714311</created>\r\n      <option name=\"number\" value=\"00015\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00015\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652311714311</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00016\" summary=\"Nous assets afegits per el GAME MANAGER VIEW\">\r\n      <created>1652311747987</created>\r\n      <option name=\"number\" value=\"00016\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00016\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652311747987</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00017\" summary=\"CANVIS EN LA BBDD\">\r\n      <created>1652311778373</created>\r\n      <option name=\"number\" value=\"00017\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00017\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652311778373</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00018\" summary=\"Eliminat un dels JImagePanel que sobraven\">\r\n      <created>1652355399032</created>\r\n      <option name=\"number\" value=\"00018\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00018\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652355399032</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00019\" summary=\"Eliminat un dels JImagePanel que sobraven\">\r\n      <created>1652355428586</created>\r\n      <option name=\"number\" value=\"00019\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00019\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652355428586</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00020\" summary=\"Conectat GameCreationView amb GameView\">\r\n      <created>1652358295255</created>\r\n      <option name=\"number\" value=\"00020\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00020\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652358295255</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00021\" summary=\"GameCreationView ara si acabada amb l'opció de triar color\">\r\n      <created>1652395541754</created>\r\n      <option name=\"number\" value=\"00021\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00021\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652395541754</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00022\" summary=\"Unversioned\">\r\n      <created>1652395569639</created>\r\n      <option name=\"number\" value=\"00022\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00022\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652395569639</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00023\" summary=\"NPCs logic advanced\">\r\n      <created>1652550620150</created>\r\n      <option name=\"number\" value=\"00023\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00023\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652550620150</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00024\" summary=\"NPCs logic, movement almost. Falta arreglar SQLGameDAO\">\r\n      <created>1652556857646</created>\r\n      <option name=\"number\" value=\"00024\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00024\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652556857646</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00025\" summary=\"Pull de Marta, coses a canviar. Tmabé modificacions de NPC (guillem m'has d'explicar cositas :))&#10;&#10;- Arreglar GameDAO (delete game and readAllGames)\">\r\n      <created>1652637047246</created>\r\n      <option name=\"number\" value=\"00025\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00025\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652637047246</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00026\" summary=\"commit perque no em deixa fer pull\">\r\n      <created>1652643351550</created>\r\n      <option name=\"number\" value=\"00026\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00026\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652643351550</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00027\" summary=\"commit perque no em deixa fer pull\">\r\n      <created>1652643389246</created>\r\n      <option name=\"number\" value=\"00027\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00027\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652643389246</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00028\" summary=\"Coses canviadetes uwu &lt;3\">\r\n      <created>1652648295081</created>\r\n      <option name=\"number\" value=\"00028\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00028\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652648295081</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00029\" summary=\"Comportament NPC ja funciona, falta impostors\">\r\n      <created>1652691455534</created>\r\n      <option name=\"number\" value=\"00029\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00029\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652691455534</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00030\" summary=\"Threads ben encapsulats i cridats a CurrentGameManager\">\r\n      <created>1652701153694</created>\r\n      <option name=\"number\" value=\"00030\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00030\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652701153696</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00031\" summary=\"Warnings arreglats, confirmationView tambe :)\">\r\n      <created>1652741084261</created>\r\n      <option name=\"number\" value=\"00031\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00031\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1652741084261</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"32\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_FILTERS\">\r\n      <map>\r\n        <entry key=\"User\">\r\n          <value>\r\n            <list>\r\n              <RecentGroup>\r\n                <option name=\"FILTER_VALUES\">\r\n                  <option value=\"*\" />\r\n                </option>\r\n              </RecentGroup>\r\n            </list>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n    <MESSAGE value=\"Millora en la creacio de Game\" />\r\n    <MESSAGE value=\"Modificat les imatges de les Rooms\" />\r\n    <MESSAGE value=\"Meh, mes modificacions de imatges que no hem convencent i creacio de Game feta correctament amb els NPC i els Impostors\" />\r\n    <MESSAGE value=\"prueba\" />\r\n    <MESSAGE value=\"settings(settingview masterview playerscontroller)\" />\r\n    <MESSAGE value=\"settings ARREGLAO(settingview masterview playerscontroller)\" />\r\n    <MESSAGE value=\"logsView en proceso(logsview masterview gamescontroller)\" />\r\n    <MESSAGE value=\"Mapes canviats, GameCreationView acabada.\" />\r\n    <MESSAGE value=\"Copiat el que ha tret el merge, ara hauria d'estat tot correcte\" />\r\n    <MESSAGE value=\"Ja es veuen les partides amb la informació de les partides que té l'usuari\" />\r\n    <MESSAGE value=\"GAME MANAGER VIEW COMPLETAMENT OPERATIU\" />\r\n    <MESSAGE value=\"Nous assets afegits per el GAME MANAGER VIEW\" />\r\n    <MESSAGE value=\"CANVIS EN LA BBDD\" />\r\n    <MESSAGE value=\"Eliminat un dels JImagePanel que sobraven\" />\r\n    <MESSAGE value=\"Conectat GameCreationView amb GameView\" />\r\n    <MESSAGE value=\"GameCreationView ara si acabada amb l'opció de triar color\" />\r\n    <MESSAGE value=\"Unversioned\" />\r\n    <MESSAGE value=\"NPCs logic advanced\" />\r\n    <MESSAGE value=\"NPCs logic, movement almost. Falta arreglar SQLGameDAO\" />\r\n    <MESSAGE value=\"Pull de Marta, coses a canviar. Tmabé modificacions de NPC (guillem m'has d'explicar cositas :))&#10;&#10;- Arreglar GameDAO (delete game and readAllGames)\" />\r\n    <MESSAGE value=\"commit perque no em deixa fer pull\" />\r\n    <MESSAGE value=\"Coses canviadetes uwu &lt;3\" />\r\n    <MESSAGE value=\"Comportament NPC ja funciona, falta impostors\" />\r\n    <MESSAGE value=\"Threads ben encapsulats i cridats a CurrentGameManager\" />\r\n    <MESSAGE value=\"Warnings arreglats, confirmationView tambe :)\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Warnings arreglats, confirmationView tambe :)\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <watches-manager>\r\n      <configuration name=\"Application\">\r\n        <watch expression=\"roomPositions.get(8)[1]\" />\r\n      </configuration>\r\n    </watches-manager>\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+---- a/.idea/workspace.xml	(revision a14bd668374a9b4c67f27048732755aad45b3116)
+-+++ b/.idea/workspace.xml	(date 1652794327895)
+-@@ -4,13 +4,7 @@
+-     <option name="autoReloadType" value="SELECTIVE" />
+-   </component>
+-   <component name="ChangeListManager">
+--    <list default="true" id="3f7dd163-8f7b-4f1f-bcda-425a9680dd53" name="Changes" comment="Warnings arreglats, confirmationView tambe :)">
+--      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_9_2022_11_42_PM_[Changes]/shelved.patch" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_9_2022_11_42_PM__Changes_.xml" beforeDir="false" />
+--      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/ConfirmationView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/ConfirmationView.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/business/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/business/Map.java" afterDir="false" />
+--    </list>
+-+    <list default="true" id="3f7dd163-8f7b-4f1f-bcda-425a9680dd53" name="Changes" comment="Idea de penalització a sala de la que ve un NPC" />
+-     <option name="SHOW_DIALOG" value="false" />
+-     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+-     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+-@@ -339,7 +333,14 @@
+-       <option name="project" value="LOCAL" />
+-       <updated>1652741084261</updated>
+-     </task>
+--    <option name="localTasksCounter" value="32" />
+-+    <task id="LOCAL-00032" summary="Idea de penalització a sala de la que ve un NPC">
+-+      <created>1652794288927</created>
+-+      <option name="number" value="00032" />
+-+      <option name="presentableId" value="LOCAL-00032" />
+-+      <option name="project" value="LOCAL" />
+-+      <updated>1652794288927</updated>
+-+    </task>
+-+    <option name="localTasksCounter" value="33" />
+-     <servers />
+-   </component>
+-   <component name="TypeScriptGeneratedFilesManager">
+-@@ -374,7 +375,6 @@
+-   </component>
+-   <component name="VcsManagerConfiguration">
+-     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+--    <MESSAGE value="Millora en la creacio de Game" />
+-     <MESSAGE value="Modificat les imatges de les Rooms" />
+-     <MESSAGE value="Meh, mes modificacions de imatges que no hem convencent i creacio de Game feta correctament amb els NPC i els Impostors" />
+-     <MESSAGE value="prueba" />
+-@@ -399,7 +399,8 @@
+-     <MESSAGE value="Comportament NPC ja funciona, falta impostors" />
+-     <MESSAGE value="Threads ben encapsulats i cridats a CurrentGameManager" />
+-     <MESSAGE value="Warnings arreglats, confirmationView tambe :)" />
+--    <option name="LAST_COMMIT_MESSAGE" value="Warnings arreglats, confirmationView tambe :)" />
+-+    <MESSAGE value="Idea de penalització a sala de la que ve un NPC" />
+-+    <option name="LAST_COMMIT_MESSAGE" value="Idea de penalització a sala de la que ve un NPC" />
+-   </component>
+-   <component name="XDebuggerManager">
+-     <watches-manager>
+Index: src/salle/url/edu/business/Game.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package salle.url.edu.business;\n\nimport java.util.ArrayList;\nimport java.util.Random;\n\npublic class Game {\n\n    //ATRIBUTS----------------------------------------------------------------------------------------------------------\n    private String name;\n    private int numJugadors;\n    private int numImpostors;\n    private boolean started;\n    private boolean finished;\n    private String winner;\n    private TimeGame instant;\n    private ArrayList<Character> characters;\n    private ArrayList<GameLogs> gameLogs;\n    private Map map;\n\n    //Auxiliars\n    private CharacterColors[] colors;\n\n    //CONSTRUCTORS------------------------------------------------------------------------------------------------------\n\n    /**\n     * Constructor that is called when we want to create a new Game\n     * @param name name of the game\n     * @param numJugadors number of tripulants\n     * @param numImpostors number of impostors\n     * @param playerColor color chosen by the player\n     * @param currentPlayer Player\n     * @param map map of the game\n     */\n    public Game(String name, int numJugadors, int  numImpostors, CharacterColors playerColor, Player currentPlayer, Map map) {\n        this.name = name;\n        this.numJugadors = numJugadors;\n        this.numImpostors = numImpostors;\n        this.started = false;\n        this.finished = false;\n        this.winner = null;\n\n        gameLogs = new ArrayList<GameLogs>();\n        instant = new TimeGame();\n\n        //Generem els jugadors de la partida\n        this.characters = new ArrayList<>();\n        Player player = new Player(playerColor, true, new int[]{map.getInitialRoom()[0], map.getInitialRoom()[1]}, currentPlayer.getName(), currentPlayer.getEmail(), currentPlayer.getPassword(), this);\n        characters.add(player);\n\n        colors = CharacterColors.values();\n\n        for (int i = 0; i < numJugadors - 1 - numImpostors; i++){\n            NPC npc = new NPC(chooseRandomColor(player.getColor()), new int[]{map.getInitialRoom()[0], map.getInitialRoom()[1]}, gameLogs,  instant, this);\n            characters.add(npc);\n        }\n\n        for (int i = 0; i < numImpostors; i++){\n            Impostor imp = new Impostor(chooseRandomColor(player.getColor()), new int[]{map.getInitialRoom()[0], map.getInitialRoom()[1]}, gameLogs,  instant, this);\n            characters.add(imp);\n        }\n\n        this.map = map;\n        System.out.println(currentPlayer);\n\n    }\n\n    /**\n     * Constructor that is called when we want to read all the games from SQL, we don't need GamesLogs neither instant\n     * @param name name of the game\n     * @param numJugadors number of tripulants\n     * @param numImpostors number of impostors\n     * @param characters all the characters of the game (Player, tripulants and impostors)\n     * @param map map of the game\n     * @param started boolean that indicates if it has been started\n     * @param finished boolean that indicates if it has been finished\n     * @param winner winner of the game if it has been finished\n     */\n    public Game(String name, int numJugadors, int  numImpostors, ArrayList<Character> characters, Map map, boolean started, boolean finished, String winner) {\n        this.name = name;\n        this.numJugadors = numJugadors;\n        this.numImpostors = numImpostors;\n        this.characters = characters;\n        this.started = started;\n        this.finished = finished;\n        this.winner = winner;\n\n        this.map = map;\n        gameLogs = new ArrayList<GameLogs>();\n    }\n\n    /**\n     * Constructor that is called when we want to read the current game\n     * @param name\n     * @param numJugadors\n     * @param numImpostors\n     * @param characters\n     * @param map\n     * @param started\n     * @param finished\n     * @param winner\n     * @param gameLogs\n     * @param instant\n     */\n    public Game(String name, int numJugadors, int  numImpostors, ArrayList<Character> characters, Map map, boolean started, boolean finished, String winner, ArrayList<GameLogs> gameLogs, TimeGame instant) {\n        this.name = name;\n        this.numJugadors = numJugadors;\n        this.numImpostors = numImpostors;\n        this.characters = characters;\n        this.started = started;\n        this.finished = finished;\n        this.winner = winner;\n\n        this.map = map;\n        this.instant = instant;\n        this.gameLogs = gameLogs;\n    }\n\n    //METHODS-----------------------------------------------------------------------------------------------------------\n\n    /**\n     * Selects an existing CharacterColor that hasn't been chosen already and that is diferent\n     * from the color of the player\n     * @param playerColor color of the player\n     * @return CharacterColor\n     */\n\n    private CharacterColors chooseRandomColor(CharacterColors playerColor) {\n        while (true) {\n            int rand = new Random().nextInt(CharacterColors.values().length);\n            if (colors[rand] != null && colors[rand] != playerColor) {\n                CharacterColors pick = colors[rand];\n                colors[rand] = null;\n                return pick;\n            }\n        }\n    }\n\n    public void movePlayer(int direction){\n\n       Player player = (Player) characters.get(getIndexPlayer());\n       player.move(direction);\n    }\n\n    public boolean checkResultsFromPlayer(){\n\n        boolean correct = true;\n\n        for (int i = 0; i < characters.size() && correct; i++) {\n\n            if (characters.get(i) instanceof NPC) {\n                correct = correct && ((NPC) characters.get(i)).checkRoleSusRole();\n            }\n\n        }\n        return correct;\n    }\n\n    /*public void stopNPC() {\n        for (int i = 0; i < threadArrayList.size(); i++) {\n            threadArrayList.get(i).interrupt();\n            System.out.println(\"Thread Stopped\");\n        }\n\n        threadInstant.interrupt();\n    }*/\n\n    public void stopGame() {\n        for (int i = 0; i < characters.size(); i++) {\n            if (characters.get(i) instanceof NPC) {\n                ((NPC) characters.get(i)).stop();\n            }\n        }\n\n        instant.stop();\n        System.out.println(\"rip\");\n\n    }\n\n    public void startThreads () {\n\n        for (int i = 0; i < characters.size(); i++) {\n            if (characters.get(i) instanceof NPC) {\n                if (characters.get(i) instanceof Impostor) {\n                    Thread impostorNPC = new Thread((Impostor)characters.get(i));\n                    impostorNPC.start();\n                } else {\n                    Thread threadNPC = new Thread((NPC)characters.get(i));\n                    threadNPC.start();\n                }\n            }\n        }\n\n        Thread instantThread = new Thread(instant);\n        instantThread.start();\n    }\n\n\n    //GETTERS I SETTERS-----------------------------------------------------------------------------------------------------------\n\n    //Atributs normals de la classe-------------------------------------------\n    public String getName() {return name;}\n    public boolean getStarted() {return started;}\n    public boolean getFinished() {return finished;}\n    public String getWinner() {return winner;}\n    public int getInstant(){ return instant.getTime();}\n    public Map getMap() {\n        return map;\n    }\n    public ArrayList<Character> getCharacters() {\n        return characters;\n    }\n    public ArrayList<GameLogs> getGameLogs() { return gameLogs; }\n\n    //Variacions dels atributs normals de la classe---------------------------\n    public int getMapId(){ return map.getMapId();}\n    public int [] getPositionFromCharacter(int index){\n\n        if (index > -1 && index < characters.size()) {\n            return characters.get(index).getPosition();\n        }\n\n        return null;\n    }\n\n\n    public int getNumCharacters(){return  characters.size();}\n\n    /**\n     * Method that get the Color of the character indicated\n     * @param index index of the character you want to know his color.\n     * @return String with the name of the color of the character\n     */\n    public String getColorFromCharacter(int index){\n\n        if (index > -1 && index < characters.size()) {\n            return characters.get(index).getColorString();\n        }\n\n        return null;\n    }\n\n    /**\n     * Method that get the Color of the player\n     * @return String with the name of the color of the character\n     */\n    public String getColorPlayerString(){\n\n        return getColorFromCharacter(getIndexPlayer());\n\n    }\n\n    public int[] getPositionFromPlayer(){\n\n        return getPositionFromCharacter(getIndexPlayer());\n    }\n\n    public boolean getAliveFromPlayer(){\n\n        return getAliveFromCharacter(getIndexPlayer());\n    }\n\n    /**\n     * Method that get the role of the character indicated\n     * @param index index of the character you want to know his role.\n     * @return String with: \"Impostor\", \"Player\" or \"Tripulant\" depending on the role of the character\n     */\n    public String getRoleCharacter(int index){\n\n        if (index > -1 && index < characters.size()) {\n\n            Character character = characters.get(index);\n\n            if (character instanceof Impostor){\n                return \"Impostor\";\n            }else if (character instanceof  Player){\n                return \"Player\";\n            }else{ return \"Tripulant\";}\n        }\n\n        return null;\n\n    }\n\n    public String getSuspicionRoleFromCharacter(int index){\n\n        if (index > -1 && index < characters.size()) {\n\n            if (characters.get(index) instanceof NPC) {\n                NPC npc = (NPC) characters.get(index);\n                return npc.getSuspicionRoleString();\n            }\n\n        }\n\n        return null;\n    }\n\n    public boolean getAliveFromCharacter(int index){\n\n        if (index > -1 && index < characters.size()) {\n            return characters.get(index).getAlive();\n        }\n\n        return false;\n    }\n\n    public int getNumTripulants(){ return  numJugadors;}\n    public int getNumImpostors(){ return numImpostors; }\n    public int getNumJugadors(){ return numJugadors; }\n\n    /**\n     * Method that finds the index of the player on the character of the game\n     * @return index of the player\n     */\n    public int getIndexPlayer(){\n\n        for (int i = 0; i < characters.size(); i++) {\n\n            if(getRoleCharacter(i).equals(\"Player\")){\n                return i;\n            }\n        }\n\n        return -1;\n    }\n\n    public String getPlayerUserName(){\n\n        Player player =  (Player) characters.get(getIndexPlayer());\n        return player.getName();\n\n    }\n\n    public Character getCharacter(String name){\n        for (Character character: characters) {\n            if (name.equals(character.getColor().colorToString())) return character;\n        }\n        return null;\n    }\n\n    public boolean roomIsActionLogs(int[] position) {\n        return map.roomIsActionLogs(position);\n    }\n\n    public boolean roomIsActionClassification(int[] position) {\n        return map.roomIsActionClassification(position);\n    }\n\n    public String getSusRolFromCharacter(String colorNPC) {\n        for (Character character: characters) {\n            if (character instanceof NPC) {\n                if (name.equals(character.getColor().colorToString())) {\n                    return ((NPC) character).getSuspicionRoleString();\n                }\n            }\n        }\n        return \"\";\n    }\n}\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/salle/url/edu/business/Game.java b/src/salle/url/edu/business/Game.java
+--- a/src/salle/url/edu/business/Game.java	
++++ b/src/salle/url/edu/business/Game.java	
+@@ -356,6 +356,7 @@
+         }
+         return "";
+     }
++
+ }
+ 
+ 

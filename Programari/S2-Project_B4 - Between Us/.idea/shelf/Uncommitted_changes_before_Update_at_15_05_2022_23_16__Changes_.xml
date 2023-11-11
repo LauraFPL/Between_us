@@ -1,0 +1,374 @@
+<changelist name="Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]" date="1652649406813" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 15/05/2022 23:16 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/NPC.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/NPC.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/NPC.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/persistance/GameDAO.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/persistance/GameDAO.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/GameDAO.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/PlayersController.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/persistance/sql/SQLConnector.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/persistance/sql/SQLConnector.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/SQLConnector.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/Impostor.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/Impostor.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/Impostor.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/CSVMapDAO.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/NPC.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/NPC.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/NPC1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/GamesController.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/GamesController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/GamesController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/GamesController.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/GameManager.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/GameManager.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/GameManager.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/MapDAO.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/CharacterColors.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/CharacterColors.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/CharacterColors.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/StartView.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/Room.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/persistance/csv/CSVMapDAO.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/persistance/csv/CSVMapDAO.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/CSVMapDAO.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/NPCSuspition.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/Character.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/Character.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/Character.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/JImagePanel1.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/gameView/SusCardPanel.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/gameView/SusCardPanel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/SusCardPanel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/Impostor.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/gameView/GameView.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/gameView/GameView.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/GameView.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/PlayersManager.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/PlayersManager.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/PlayersManager.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/CharacterColors.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/LoginView.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/Map.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/controller/CurrentGameController.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/controller/CurrentGameController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/CurrentGameController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/SusCardPanel.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/controller/GamesController.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/controller/GamesController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/GamesController1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/PlayerDAO.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/SusSectionPanel.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/RoomType.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/JImagePanel.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/Game.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/Game.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/Game.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/Game.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/LoginView.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/LoginView.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/LoginView.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/Character.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/Main.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/PlayersManager.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/PlayersManager.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/PlayersManager1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/GameDAO.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Player.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Player.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/Player.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/RegisterView.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/RegisterView.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/RegisterView.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/persistance/sql/SQLGameDAO.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/persistance/sql/SQLGameDAO.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/SQLGameDAO.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/JImagePanel.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/JImagePanel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/JImagePanel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/persistance/MapDAO.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/persistance/MapDAO.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/MapDAO.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/Room.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/Room.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/Room.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/gameView/SusSectionPanel.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/gameView/SusSectionPanel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/SusSectionPanel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/CurrentGameController.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/RoomType.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/RoomType.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/RoomType.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/Map.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/Map.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/Map.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/GameCreationView.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/GameCreationView.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/GameCreationView.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/.name" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Character.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/business/Character.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/Character1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/controller/PlayersController.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/controller/PlayersController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/PlayersController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/ActionType.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/GameManager.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/RegisterView.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/StartView.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/StartView.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/StartView.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/persistance/sql/SQLPlayerDAO.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/persistance/sql/SQLPlayerDAO.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/SQLPlayerDAO.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/NPCSuspition.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/NPCSuspition.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/NPCSuspition.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/SQLGameDAO.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/SQLPlayerDAO.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/Player.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/ActionType.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/ActionType.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/ActionType.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/persistance/PlayerDAO.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/persistance/PlayerDAO.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/PlayerDAO.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/SQLConnector.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/persistance/sql/SQLGameDAO.class" />
+    <option name="AFTER_PATH" value="out/production/S2-Project_B4 - Between Us/salle/url/edu/persistance/sql/SQLGameDAO.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/SQLGameDAO1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/AccountView.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/AccountView.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/AccountView.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/MasterView.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/presentation/view/MasterView.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/MasterView.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/Main.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/Main.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/Main.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/Player.class" />
+    <option name="AFTER_PATH" value="../out/production/dpoo-2122-s2-b4/salle/url/edu/business/Player.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_05_2022_23_16_[Changes]/Player1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/PlayersManager.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/GameView.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/JImagePanel.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../.idea/shelf/Uncommitted_changes_before_Update_at_04_05_2022_1_25_[Default_Changelist]/NPC.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+</changelist>

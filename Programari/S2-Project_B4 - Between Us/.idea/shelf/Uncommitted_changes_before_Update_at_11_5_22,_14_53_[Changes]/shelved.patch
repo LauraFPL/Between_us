@@ -1,0 +1,768 @@
+Index: src/salle/url/edu/persistance/GameDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package salle.url.edu.persistance;\n\nimport salle.url.edu.business.Game;\n\nimport java.io.IOException;\nimport java.util.ArrayList;\n\npublic interface GameDAO {\n\n    public ArrayList<Game> getAllGames();\n\n    public void addGame(Game game);\n\n    public void duplicateGame(String name);\n\n    public Game getGame(String name);\n\n    public void deleteGame(String game);\n\n    public boolean checkGame(String game) throws IOException;\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/salle/url/edu/persistance/GameDAO.java b/src/salle/url/edu/persistance/GameDAO.java
+--- a/src/salle/url/edu/persistance/GameDAO.java	(revision 12f81968f741ec7b5fefba1dd741076d33a7b2c1)
++++ b/src/salle/url/edu/persistance/GameDAO.java	(date 1652096484806)
+@@ -9,7 +9,7 @@
+ 
+     public ArrayList<Game> getAllGames();
+ 
+-    public void addGame(Game game);
++    public void addGame(Game game) throws IOException;
+ 
+     public void duplicateGame(String name);
+ 
+Index: src/salle/url/edu/business/GameManager.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package salle.url.edu.business;\n\nimport salle.url.edu.persistance.GameDAO;\nimport salle.url.edu.persistance.MapDAO;\nimport salle.url.edu.persistance.csv.CSVMapDAO;\nimport salle.url.edu.persistance.sql.SQLGameDAO;\n\nimport java.io.IOException;\nimport java.util.ArrayList;\n\npublic class GameManager {\n\n    //ATRIBUTS----------------------------------------------------------------------------------------------------------\n\n    private final GameDAO gameDAO;\n    private final MapDAO mapDAO;\n\n    //CONSTRUCTORS------------------------------------------------------------------------------------------------------\n\n    public GameManager(GameDAO gameDAO, MapDAO mapDAO){\n        this.gameDAO = gameDAO;\n        this.mapDAO = mapDAO;\n    }\n\n    public Map getMap(int id) {\n        Map map = null;\n        try {\n\n            map =  mapDAO.getMap(id);\n            return map;\n        } catch (IOException e) {\n            e.printStackTrace();\n        }\n        return map;\n    }\n\n    public Map getMap(String path) {\n        Map map = null;\n        try {\n\n            map =  mapDAO.getMap(path);\n            return map;\n        } catch (IOException e) {\n            e.printStackTrace();\n        }\n        return map;\n    }\n\n    /**\n     * Method that checks if a gamesExists usign gameDAO interface\n     * @param name String representing the name of the game to be checked\n     * @return true if an existing game was found\n     *          false if no one was found or if an exception was found\n     */\n    public boolean checkGameExists(String name){\n\n        try {\n            return gameDAO.checkGame(name);\n        } catch (IOException e) {\n            e.printStackTrace();\n        }\n\n        return false;\n    }\n\n    public void addGame(Game game){\n        gameDAO.addGame(game);\n    }\n\n    //METHODS-----------------------------------------------------------------------------------------------------------\n\n\n\n\n\n\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/salle/url/edu/business/GameManager.java b/src/salle/url/edu/business/GameManager.java
+--- a/src/salle/url/edu/business/GameManager.java	(revision 12f81968f741ec7b5fefba1dd741076d33a7b2c1)
++++ b/src/salle/url/edu/business/GameManager.java	(date 1652078413138)
+@@ -67,6 +67,19 @@
+         gameDAO.addGame(game);
+     }
+ 
++    public void deleteGame(String game){
++        //anar al array de games a la posició del nom i eliminar
++    }
++
++    /*public void duplicateGame(String name){
++        if(checkGameExists(name)){
++            System.out.println("Error el nom ja existeix");
++        }else{
++            gameDAO.addGame(game);
++        }
++    }*/
++
++
+     //METHODS-----------------------------------------------------------------------------------------------------------
+ 
+ 
+Index: src/salle/url/edu/persistance/sql/SQLGameDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package salle.url.edu.persistance.sql;\n\nimport salle.url.edu.business.Game;\nimport salle.url.edu.business.Player;\nimport salle.url.edu.persistance.GameDAO;\nimport salle.url.edu.persistance.MapDAO;\nimport salle.url.edu.persistance.csv.CSVMapDAO;\n\nimport java.io.IOException;\nimport java.sql.ResultSet;\nimport java.sql.SQLException;\nimport java.util.ArrayList;\n\npublic class SQLGameDAO implements GameDAO {\n\n\n    public SQLGameDAO() {\n\n    }\n\n    @Override\n    public ArrayList<Game> getAllGames() {\n\n        ArrayList<Game> games = new ArrayList<>();\n        String query = \"SELECT name, player_color, posY_player, map, player, state, winner, start_date FROM game;\";\n\n        try {\n            ResultSet result = SQLConnector.getInstance().selectQuery(query);\n\n            try {\n\n                while(result.next()){\n\n                    String name = result.getString(\"name\");\n                    //String playerColor =\n                    //TODO: Acabar de agafar les dades de la query\n\n                }\n            } catch (SQLException e) {\n                e.printStackTrace();\n            }\n        } catch (IOException e) {\n            e.printStackTrace();\n        }\n\n\n\n        return null;\n    }\n\n    @Override\n    public void addGame(Game game) {\n        //TODO: afegir el game a la BBDD\n\n    }\n\n    @Override\n    public void duplicateGame(String name) {\n\n    }\n\n    @Override\n    public Game getGame(String name) {\n        return null;\n    }\n\n\n\n    @Override\n    public void deleteGame(String game) {\n\n    }\n\n    /**\n     * Checks if a game with a specific name exists in the Database\n     * @param name of the game to check\n     * @return true if the game exists\n     *         false if the game doesnt\n     * @throws IOException thrown if an error ocurred while loading a file\n     */\n    @Override\n    public boolean checkGame(String name) throws IOException {\n        String query = \"SELECT name FROM game WHERE name = '\" + name + \"';\";\n        Game game = null;\n        ResultSet result = SQLConnector.getInstance().selectQuery(query);\n\n\n        try {\n\n            if(result.next()) {\n                return true;\n            }\n\n        } catch (SQLException throwables) {\n            throwables.printStackTrace();\n        }\n\n        return false;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/salle/url/edu/persistance/sql/SQLGameDAO.java b/src/salle/url/edu/persistance/sql/SQLGameDAO.java
+--- a/src/salle/url/edu/persistance/sql/SQLGameDAO.java	(revision 12f81968f741ec7b5fefba1dd741076d33a7b2c1)
++++ b/src/salle/url/edu/persistance/sql/SQLGameDAO.java	(date 1652098219735)
+@@ -6,10 +6,10 @@
+ import salle.url.edu.persistance.MapDAO;
+ import salle.url.edu.persistance.csv.CSVMapDAO;
+ 
+-import java.io.IOException;
+ import java.sql.ResultSet;
+ import java.sql.SQLException;
+ import java.util.ArrayList;
++import java.io.IOException;
+ 
+ public class SQLGameDAO implements GameDAO {
+ 
+@@ -49,14 +49,22 @@
+     }
+ 
+     @Override
+-    public void addGame(Game game) {
++    public void addGame(Game game) throws IOException {
+         //TODO: afegir el game a la BBDD
++       /* String query = "INSERT INTO game() VALUES('" +
++                game.getName() + "', '" +
++                game.getMap() + "', '" +
++             //   game.() + "');";
++
++        SQLConnector.getInstance().insertQuery(query);*/
+ 
+     }
+ 
+     @Override
+     public void duplicateGame(String name) {
+ 
++
++
+     }
+ 
+     @Override
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_01_05_2022_17_51__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_01_05_2022_17_51__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_01_05_2022_17_51__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_01_05_2022_17_51__Changes_.xml	(revision 12f81968f741ec7b5fefba1dd741076d33a7b2c1)
++++ /dev/null	(revision 12f81968f741ec7b5fefba1dd741076d33a7b2c1)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_01_05_2022_17_51_[Changes]" date="1651420305219" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_01_05_2022_17_51_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 01/05/2022 17:51 [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_01_05_2022_17_51_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_01_05_2022_17_51_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_01_05_2022_17_51_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_01_05_2022_17_51_[Changes]/shelved.patch	(revision 12f81968f741ec7b5fefba1dd741076d33a7b2c1)
++++ /dev/null	(revision 12f81968f741ec7b5fefba1dd741076d33a7b2c1)
+@@ -1,59 +0,0 @@
+-Index: .idea/workspace.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"3f7dd163-8f7b-4f1f-bcda-425a9680dd53\" name=\"Changes\" comment=\"LoginView part1_falta listenesrs i warnings i ns si algo més\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/LoginView.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/LoginView.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/salle/url/edu/presentation/view/LoginView.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/salle/url/edu/presentation/view/LoginView.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"Enum\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/..\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2818ywNmEheDZDqKzeswEhKAeKQ\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"ASKED_ADD_EXTERNAL_FILES\" value=\"true\" />\r\n    <property name=\"DatabaseDriversLRU\" value=\"mysql\" />\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"aspect.path.notification.shown\" value=\"true\" />\r\n    <property name=\"dart.analysis.tool.window.visible\" value=\"false\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/files/assets/rooms\" />\r\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\r\n    <property name=\"node.js.detected.package.tslint\" value=\"true\" />\r\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\r\n    <property name=\"node.js.selected.package.tslint\" value=\"(autodetect)\" />\r\n    <property name=\"project.structure.last.edited\" value=\"Modules\" />\r\n    <property name=\"project.structure.proportion\" value=\"0.0\" />\r\n    <property name=\"project.structure.side.proportion\" value=\"0.2\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"copyright\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CreateClassDialog.RecentsKey\">\r\n      <recent name=\"salle.url.edu.presentation.view\" />\r\n      <recent name=\"salle.url.edu.persistance.csv\" />\r\n      <recent name=\"salle.url.edu.persistance.sql\" />\r\n    </key>\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\usuario\\OneDrive - La Salle\\3r\\DPO\\2n Semestre\\Practica 2\\S2-Project_B4 - Between Us\\dpoo-2122-s2-b4\\S2-Project_B4 - Between Us\\files\\assets\\rooms\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"salle.url.edu.Main\" />\r\n      <module name=\"S2-Project_B4 - Between Us\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"salle.url.edu.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Main\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"3f7dd163-8f7b-4f1f-bcda-425a9680dd53\" name=\"Changes\" comment=\"\" />\r\n      <created>1650372990058</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1650372990058</updated>\r\n      <workItem from=\"1650372991522\" duration=\"49000\" />\r\n      <workItem from=\"1650373472812\" duration=\"1847000\" />\r\n      <workItem from=\"1650375406955\" duration=\"3294000\" />\r\n      <workItem from=\"1650396791812\" duration=\"2039000\" />\r\n      <workItem from=\"1650438410551\" duration=\"4819000\" />\r\n      <workItem from=\"1650446110600\" duration=\"32000\" />\r\n      <workItem from=\"1650462530259\" duration=\"993000\" />\r\n      <workItem from=\"1650615494403\" duration=\"5692000\" />\r\n      <workItem from=\"1650700444285\" duration=\"1333000\" />\r\n      <workItem from=\"1650982051216\" duration=\"17893000\" />\r\n      <workItem from=\"1651126849904\" duration=\"7154000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Conexio amb la base de dades feta, falta retocar coses i ara llegir la base de dades\">\r\n      <created>1650377036574</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1650377036574</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Alguns arreglitos tontos que feia que no funciones despres del merge. Ara funciona\">\r\n      <created>1650445622908</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1650445622908</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"Afegit metodes de SQLPlayerDAO, ara ja esta tot conectat amb la base de dades de part dels players\">\r\n      <created>1650619962135</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1650619962135</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"Acabat de fer la conexió amb la BBDD i carregar del maps.csv feta!! :)\">\r\n      <created>1650999742386</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1650999742387</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"GameView començada harcodejant la creació d'una game\">\r\n      <created>1651136311063</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651136311063</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"LoginView part1\">\r\n      <created>1651320980369</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651320980369</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"LoginView part1_falta listenesrs i warnings i ns si algo més\">\r\n      <created>1651321071445</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1651321071446</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"8\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_FILTERS\">\r\n      <map>\r\n        <entry key=\"Branch\">\r\n          <value>\r\n            <list>\r\n              <RecentGroup>\r\n                <option name=\"FILTER_VALUES\">\r\n                  <option value=\"origin/master\" />\r\n                </option>\r\n              </RecentGroup>\r\n              <RecentGroup>\r\n                <option name=\"FILTER_VALUES\">\r\n                  <option value=\"HEAD\" />\r\n                </option>\r\n              </RecentGroup>\r\n            </list>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n    <MESSAGE value=\"Conexio amb la base de dades feta, falta retocar coses i ara llegir la base de dades\" />\r\n    <MESSAGE value=\"Alguns arreglitos tontos que feia que no funciones despres del merge. Ara funciona\" />\r\n    <MESSAGE value=\"Afegit metodes de SQLPlayerDAO, ara ja esta tot conectat amb la base de dades de part dels players\" />\r\n    <MESSAGE value=\"Acabat de fer la conexió amb la BBDD i carregar del maps.csv feta!! :)\" />\r\n    <MESSAGE value=\"GameView començada harcodejant la creació d'una game\" />\r\n    <MESSAGE value=\"LoginView part1\" />\r\n    <MESSAGE value=\"LoginView part1_falta listenesrs i warnings i ns si algo més\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"LoginView part1_falta listenesrs i warnings i ns si algo més\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/salle/url/edu/business/GameManager.java</url>\r\n          <line>35</line>\r\n          <option name=\"timeStamp\" value=\"3\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+---- a/.idea/workspace.xml	(revision b17f1e56b4f9e4b98a47bd3b4326a5b3df4d5806)
+-+++ b/.idea/workspace.xml	(date 1651420241223)
+-@@ -4,13 +4,7 @@
+-     <option name="autoReloadType" value="SELECTIVE" />
+-   </component>
+-   <component name="ChangeListManager">
+--    <list default="true" id="3f7dd163-8f7b-4f1f-bcda-425a9680dd53" name="Changes" comment="LoginView part1_falta listenesrs i warnings i ns si algo més">
+--      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/LoginView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/LoginView.class" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/presentation/view/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/presentation/view/LoginView.java" afterDir="false" />
+--    </list>
+-+    <list default="true" id="3f7dd163-8f7b-4f1f-bcda-425a9680dd53" name="Changes" comment="prueba" />
+-     <option name="SHOW_DIALOG" value="false" />
+-     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+-     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+-@@ -154,7 +148,14 @@
+-       <option name="project" value="LOCAL" />
+-       <updated>1651321071446</updated>
+-     </task>
+--    <option name="localTasksCounter" value="8" />
+-+    <task id="LOCAL-00008" summary="prueba">
+-+      <created>1651420224786</created>
+-+      <option name="number" value="00008" />
+-+      <option name="presentableId" value="LOCAL-00008" />
+-+      <option name="project" value="LOCAL" />
+-+      <updated>1651420224786</updated>
+-+    </task>
+-+    <option name="localTasksCounter" value="9" />
+-     <servers />
+-   </component>
+-   <component name="TypeScriptGeneratedFilesManager">
+-@@ -190,6 +191,7 @@
+-         </entry>
+-       </map>
+-     </option>
+-+    <option name="oldMeFiltersMigrated" value="true" />
+-   </component>
+-   <component name="VcsManagerConfiguration">
+-     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+-@@ -200,7 +202,8 @@
+-     <MESSAGE value="GameView començada harcodejant la creació d'una game" />
+-     <MESSAGE value="LoginView part1" />
+-     <MESSAGE value="LoginView part1_falta listenesrs i warnings i ns si algo més" />
+--    <option name="LAST_COMMIT_MESSAGE" value="LoginView part1_falta listenesrs i warnings i ns si algo més" />
+-+    <MESSAGE value="prueba" />
+-+    <option name="LAST_COMMIT_MESSAGE" value="prueba" />
+-   </component>
+-   <component name="XDebuggerManager">
+-     <breakpoint-manager>
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_30_04_2022_20_20__Changes_1.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_30_04_2022_20_20__Changes_1.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_30_04_2022_20_20__Changes_1.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_30_04_2022_20_20__Changes_1.xml	(revision 12f81968f741ec7b5fefba1dd741076d33a7b2c1)
++++ /dev/null	(revision 12f81968f741ec7b5fefba1dd741076d33a7b2c1)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_30_04_2022_20_20_[Changes]1" date="1651342833052" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_04_2022_20_20_[Changes]1/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 30/04/2022 20:20 [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_30_04_2022_20_20_[Changes]1/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_30_04_2022_20_20_[Changes]1/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_30_04_2022_20_20_[Changes]1/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_30_04_2022_20_20_[Changes]1/shelved.patch	(revision 12f81968f741ec7b5fefba1dd741076d33a7b2c1)
++++ /dev/null	(revision 12f81968f741ec7b5fefba1dd741076d33a7b2c1)
+@@ -1,179 +0,0 @@
+-Index: S2-Project_B4 - Between Us.iml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\" LANGUAGE_LEVEL=\"JDK_17\" inherit-compiler-output=\"true\">\r\n    <exclude-output />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src\" isTestSource=\"false\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n    <orderEntry type=\"library\" name=\"gson-2.8.9\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"mysql-connector-java-8.0.23\" level=\"project\" />\r\n  </component>\r\n</module>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/S2-Project_B4 - Between Us.iml b/S2-Project_B4 - Between Us.iml
+---- a/S2-Project_B4 - Between Us.iml	
+-+++ b/S2-Project_B4 - Between Us.iml	
+-@@ -1,6 +1,6 @@
+- <?xml version="1.0" encoding="UTF-8"?>
+- <module type="JAVA_MODULE" version="4">
+--  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_17" inherit-compiler-output="true">
+-+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_16" inherit-compiler-output="true">
+-     <exclude-output />
+-     <content url="file://$MODULE_DIR$">
+-       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+-Index: src/salle/url/edu/presentation/controller/PlayersController.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package salle.url.edu.presentation.controller;\r\n\r\nimport salle.url.edu.business.PlayersManager;\r\n\r\nimport java.util.Scanner;\r\n\r\nimport salle.url.edu.business.PlayersManager;\r\n\r\npublic class PlayersController {\r\n\r\n    private PlayersManager playersManager;\r\n    private boolean createdOK = false;\r\n    private boolean removedOK = false;\r\n    private boolean accountExists = false;\r\n\r\n    public PlayersController(){\r\n        this.playersManager = new PlayersManager();\r\n    }\r\n\r\n    public void run() {\r\n        Scanner scanner = new Scanner(System.in);\r\n        int option = 0;\r\n\r\n        System.out.println(\"What do you want to do?\");\r\n        System.out.println(\"1) Create account\");\r\n        System.out.println(\"2) Remove account\");\r\n        System.out.println(\"3) Check account\");\r\n        System.out.println(\"Enter option: \");\r\n        option = scanner.nextInt();\r\n\r\n        switch (option) {\r\n            case 1:\r\n                createdOK = playersManager.createPlayer(\"Anna\", \"anna@gmail.com\", \"Amogus0\");\r\n\r\n                if (createdOK) {\r\n                    System.out.println(\"Account created successfully!\");\r\n                } else {\r\n                    System.out.println(\"Could not create the account :(\");\r\n                }\r\n            break;\r\n\r\n            case 2:\r\n\r\n                removedOK = playersManager.deletePlayer(\"marta@gmail.com\");\r\n\r\n                if (removedOK) {\r\n                    System.out.println(\"Account removed successfully!\");\r\n                } else {\r\n                    System.out.println(\"Could not remove the account :(\");\r\n                }\r\n            break;\r\n\r\n            case 3:\r\n                accountExists = playersManager.checkPlayer(\"prova@gmail.com\");\r\n\r\n                if (accountExists) {\r\n                    System.out.println(\"This account is already registered!\");\r\n                } else {\r\n                    System.out.println(\"This account is not registered!\");\r\n                }\r\n            break;\r\n        }\r\n    }\r\n\r\n\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/salle/url/edu/presentation/controller/PlayersController.java b/src/salle/url/edu/presentation/controller/PlayersController.java
+---- a/src/salle/url/edu/presentation/controller/PlayersController.java	
+-+++ b/src/salle/url/edu/presentation/controller/PlayersController.java	
+-@@ -51,7 +51,7 @@
+-             break;
+- 
+-             case 3:
+--                accountExists = playersManager.checkPlayer("prova@gmail.com");
+-+                accountExists = playersManager.checkExistancePlayer("prova@gmail.com");
+- 
+-                 if (accountExists) {
+-                     System.out.println("This account is already registered!");
+-Index: src/salle/url/edu/business/Player.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package salle.url.edu.business;\r\n\r\npublic class Player extends Character{\r\n\r\n    //ATRIBUTS----------------------------------------------------------------------------------------------------------\r\n    private String name;\r\n    private String email;\r\n    private String password;\r\n\r\n    //CONSTRUCTORS------------------------------------------------------------------------------------------------------\r\n    public Player(CharacterColors color, boolean alive, String name, String email, String password) {\r\n        super(color, alive);\r\n        this.name = name;\r\n        this.email = email;\r\n        this.password = password;\r\n    }\r\n\r\n    public Player(String name, String email, String password) {\r\n        this.name = name;\r\n        this.email = email;\r\n        this.password = password;\r\n    }\r\n\r\n    // METHODS-----------------------------------------------------------------------------------------------------------\r\n    // Getters i Setters\r\n    public String getName() {\r\n        return name;\r\n    }\r\n\r\n    public String getEmail() {\r\n        return email;\r\n    }\r\n\r\n    public String getPassword() {\r\n        return password;\r\n    }\r\n\r\n\r\n\r\n    /*public void setName(String name) {\r\n        this.name = name;\r\n    }\r\n\r\n    public void setEmail(String email) {\r\n        this.email = email;\r\n    }*/\r\n\r\n    public void setPassword(String password) {\r\n        this.password = password;\r\n    }\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/salle/url/edu/business/Player.java b/src/salle/url/edu/business/Player.java
+---- a/src/salle/url/edu/business/Player.java	
+-+++ b/src/salle/url/edu/business/Player.java	
+-@@ -36,8 +36,7 @@
+-     }
+- 
+- 
+--
+--    /*public void setName(String name) {
+-+/*public void setName(String name) {
+-         this.name = name;
+-     }
+- 
+-Index: src/salle/url/edu/business/PlayersManager.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package salle.url.edu.business;\r\n\r\nimport salle.url.edu.persistance.PlayerDAO;\r\nimport salle.url.edu.persistance.sql.SQLPlayerDAO;\r\n\r\nimport java.io.IOException;\r\nimport java.util.ArrayList;\r\n\r\npublic class PlayersManager {\r\n\r\n    //ATRIBUTS----------------------------------------------------------------------------------------------------------\r\n\r\n    private ArrayList <Player> players;\r\n    private final PlayerDAO playerDAO;\r\n\r\n    //CONSTRUCTORS------------------------------------------------------------------------------------------------------\r\n    public PlayersManager(ArrayList<Player> players, PlayerDAO playerDAO) {\r\n        this.players = players;\r\n        this.playerDAO = playerDAO;\r\n    }\r\n    public PlayersManager() {\r\n        playerDAO = new SQLPlayerDAO();\r\n        players = playerDAO.getAllPlayers();\r\n\r\n    }\r\n\r\n    //METHODS-----------------------------------------------------------------------------------------------------------\r\n    public boolean createPlayer (String name, String email, String password){\r\n        Player player = new Player(null, false, name, email, password);\r\n\r\n        try {\r\n            playerDAO.addPlayer(player);\r\n            return true;\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n            return false;\r\n        }\r\n\r\n    }\r\n\r\n\r\n    /**\r\n     * Deletes a player from the database\r\n     * @param email\r\n     * @return\r\n     */\r\n\r\n    public boolean deletePlayer (String email) {\r\n\r\n        try{\r\n            playerDAO.deletePlayer(email);\r\n            return true;\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n            return false;\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Checks if a player with a specific email is already in the Database\r\n     * @param email of the player to be checked\r\n     * @return true if is already in the database\r\n     *         false if it is not\r\n     */\r\n    public boolean checkPlayer (String email) {\r\n\r\n        try {\r\n            Player player = playerDAO.getPlayer(email);\r\n            if (player != null) {\r\n                return true;\r\n            } else{\r\n                return false;\r\n            }\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n\r\n        return false;\r\n    }\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/salle/url/edu/business/PlayersManager.java b/src/salle/url/edu/business/PlayersManager.java
+---- a/src/salle/url/edu/business/PlayersManager.java	
+-+++ b/src/salle/url/edu/business/PlayersManager.java	
+-@@ -41,14 +41,14 @@
+- 
+-     /**
+-      * Deletes a player from the database
+--     * @param email
+-+     * @param user
+-      * @return
+-      */
+- 
+--    public boolean deletePlayer (String email) {
+-+    public boolean deletePlayer (String user) {
+- 
+-         try{
+--            playerDAO.deletePlayer(email);
+-+            playerDAO.deletePlayer(user);
+-             return true;
+-         } catch (IOException e) {
+-             e.printStackTrace();
+-@@ -58,14 +58,14 @@
+- 
+-     /**
+-      * Checks if a player with a specific email is already in the Database
+--     * @param email of the player to be checked
+-+     * @param user of the player to be checked
+-      * @return true if is already in the database
+-      *         false if it is not
+-      */
+--    public boolean checkPlayer (String email) {
+-+    public boolean checkExistancePlayer (String user) {
+- 
+-         try {
+--            Player player = playerDAO.getPlayer(email);
+-+            Player player = playerDAO.getPlayer(user);
+-             if (player != null) {
+-                 return true;
+-             } else{
+-@@ -73,8 +73,10 @@
+-             }
+-         } catch (IOException e) {
+-             e.printStackTrace();
+--        }
+--
+--        return false;
+-+            return false;
+-+        }
+-+
+-     }
+-+
+-+
+- }
+-Index: src/salle/url/edu/persistance/PlayerDAO.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package salle.url.edu.persistance;\r\n\r\nimport salle.url.edu.business.Player;\r\n\r\nimport java.io.IOException;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic interface PlayerDAO {\r\n\r\n\r\n\r\n    public void addPlayer(Player player) throws IOException;\r\n\r\n\r\n    public ArrayList<Player> getAllPlayers();\r\n\r\n    public void deletePlayer(String email) throws IOException;\r\n\r\n\r\n    public Player getPlayer(String email) throws IOException;\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/salle/url/edu/persistance/PlayerDAO.java b/src/salle/url/edu/persistance/PlayerDAO.java
+---- a/src/salle/url/edu/persistance/PlayerDAO.java	
+-+++ b/src/salle/url/edu/persistance/PlayerDAO.java	
+-@@ -15,8 +15,10 @@
+- 
+-     public ArrayList<Player> getAllPlayers();
+- 
+--    public void deletePlayer(String email) throws IOException;
+-+    public void deletePlayer(String user) throws IOException;
+- 
+-+    public Player getPlayer(String user) throws IOException;
+- 
+--    public Player getPlayer(String email) throws IOException;
+-+    /*public void newPassword(String user) throws IOException;*/
+-+
+- }
+-Index: .idea/shelf/Uncommitted_changes_before_Update_at_19_04_2022_15_27_[Changes]/shelved.patch
+-===================================================================
+-diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_19_04_2022_15_27_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_19_04_2022_15_27_[Changes]/shelved.patch
+-deleted file mode 100644
+---- a/.idea/shelf/Uncommitted_changes_before_Update_at_19_04_2022_15_27_[Changes]/shelved.patch	
+-+++ /dev/null	
+-@@ -1,20 +0,0 @@
+--Index: .idea/misc.xml
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+--<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectKey\">\r\n    <option name=\"state\" value=\"project://e2804f05-5315-4fc6-a121-c522a6c26470\" />\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_X\" default=\"true\" project-jdk-name=\"openjdk-17\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/.idea/misc.xml b/.idea/misc.xml
+----- a/.idea/misc.xml	(revision f08c7434c884d559a00c9dc7519fcbdf6e416700)
+--+++ b/.idea/misc.xml	(date 1650374656146)
+--@@ -3,7 +3,7 @@
+--   <component name="ProjectKey">
+--     <option name="state" value="project://e2804f05-5315-4fc6-a121-c522a6c26470" />
+--   </component>
+---  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" default="true" project-jdk-name="openjdk-17" project-jdk-type="JavaSDK">
+--+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="openjdk-17" project-jdk-type="JavaSDK">
+--     <output url="file://$PROJECT_DIR$/out" />
+--   </component>
+-- </project>
+--\ No newline at end of file
+-Index: .idea/shelf/Uncommitted_changes_before_Update_at_19_04_2022_15_27__Changes_.xml
+-===================================================================
+-diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_19_04_2022_15_27__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_19_04_2022_15_27__Changes_.xml
+-deleted file mode 100644
+---- a/.idea/shelf/Uncommitted_changes_before_Update_at_19_04_2022_15_27__Changes_.xml	
+-+++ /dev/null	
+-@@ -1,4 +0,0 @@
+--<changelist name="Uncommitted_changes_before_Update_at_19_04_2022_15_27_[Changes]" date="1650374841213" recycled="true" deleted="true">
+--  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_04_2022_15_27_[Changes]/shelved.patch" />
+--  <option name="DESCRIPTION" value="Uncommitted changes before Update at 19/04/2022 15:27 [Changes]" />
+--</changelist>
+-\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"3f7dd163-8f7b-4f1f-bcda-425a9680dd53\" name=\"Changes\" comment=\"settings(settingview masterview playerscontroller)\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/MasterView.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/MasterView.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/SettingsView.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/SettingsView.class\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/salle/url/edu/presentation/view/SettingsView.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/salle/url/edu/presentation/view/SettingsView.java\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/..\" />\n  </component>\n  <component name=\"GitSEFilterConfiguration\">\n    <file-type-list>\n      <filtered-out-file-type name=\"LOCAL_BRANCH\" />\n      <filtered-out-file-type name=\"REMOTE_BRANCH\" />\n      <filtered-out-file-type name=\"TAG\" />\n      <filtered-out-file-type name=\"COMMIT_BY_MESSAGE\" />\n    </file-type-list>\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProjectId\" id=\"28fr4eyFCdJsEH2OaXAyPjQh1VM\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">\n    <property name=\"DatabaseDriversLRU\" value=\"mysql\" />\n    <property name=\"RunConfigurationTargetLRU\" value=\"39a70804-22e6-4851-8e95-a109fe3b2123\" />\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\n    <property name=\"aspect.path.notification.shown\" value=\"true\" />\n    <property name=\"dart.analysis.tool.window.visible\" value=\"false\" />\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\n    <property name=\"node.js.detected.package.tslint\" value=\"true\" />\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\n    <property name=\"node.js.selected.package.tslint\" value=\"(autodetect)\" />\n    <property name=\"project.structure.last.edited\" value=\"Project\" />\n    <property name=\"project.structure.proportion\" value=\"0.15\" />\n    <property name=\"project.structure.side.proportion\" value=\"0.2\" />\n    <property name=\"settings.editor.selected.configurable\" value=\"project.propVCSSupport.Mappings\" />\n  </component>\n  <component name=\"RunManager\" selected=\"Application.Main\">\n    <configuration default=\"true\" type=\"ArquillianJUnit\" factoryName=\"\" nameIsGenerated=\"true\">\n      <option name=\"arquillianRunConfiguration\">\n        <value>\n          <option name=\"containerStateName\" value=\"\" />\n        </value>\n      </option>\n      <option name=\"TEST_OBJECT\" value=\"class\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"ALTERNATIVE_JRE_PATH\" value=\"openjdk-17\" />\n      <option name=\"ALTERNATIVE_JRE_PATH_ENABLED\" value=\"true\" />\n      <option name=\"MAIN_CLASS_NAME\" value=\"salle.url.edu.Main\" />\n      <module name=\"S2-Project_B4 - Between Us\" />\n      <extension name=\"coverage\">\n        <pattern>\n          <option name=\"PATTERN\" value=\"salle.url.edu.*\" />\n          <option name=\"ENABLED\" value=\"true\" />\n        </pattern>\n      </extension>\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration name=\"SQL_final_CREATESINSERTS.sql\" type=\"DatabaseScript\" editBeforeRun=\"true\" temporary=\"true\" nameIsGenerated=\"true\">\n      <script-file value=\"$PROJECT_DIR$/files/SQL_final_CREATESINSERTS.sql\" />\n      <script-mode>FILE</script-mode>\n      <data-source id=\"39a70804-22e6-4851-8e95-a109fe3b2123\" />\n      <method v=\"2\" />\n    </configuration>\n    <list>\n      <item itemvalue=\"Application.Main\" />\n    </list>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Application.Main\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"3f7dd163-8f7b-4f1f-bcda-425a9680dd53\" name=\"Changes\" comment=\"prueba\" />\n      <created>1651618301807</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1651618301807</updated>\n      <workItem from=\"1651618307603\" duration=\"179000\" />\n      <workItem from=\"1651618507628\" duration=\"767000\" />\n      <workItem from=\"1651619306231\" duration=\"491000\" />\n      <workItem from=\"1651659079588\" duration=\"270000\" />\n      <workItem from=\"1651659767935\" duration=\"5757000\" />\n      <workItem from=\"1651675353237\" duration=\"4817000\" />\n      <workItem from=\"1651709766113\" duration=\"12000\" />\n      <workItem from=\"1651745087743\" duration=\"15060000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Millora en la creacio de Game\">\n      <created>1651622582734</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1651622582734</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"Modificat les imatges de les Rooms\">\n      <created>1651661155983</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1651661155983</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"Meh, mes modificacions de imatges que no hem convencent i creacio de Game feta correctament amb els NPC i els Impostors\">\n      <created>1651667023041</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1651667023041</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"prueba\">\n      <created>1651867829279</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1651867829279</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"prueba\">\n      <created>1651867843695</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1651867843695</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"settings(settingview masterview playerscontroller)\">\n      <created>1651868060575</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1651868060575</updated>\n    </task>\n    <task id=\"LOCAL-00007\" summary=\"settings(settingview masterview playerscontroller)\">\n      <created>1651868272684</created>\n      <option name=\"number\" value=\"00007\" />\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1651868272684</updated>\n    </task>\n    <task id=\"LOCAL-00008\" summary=\"settings(settingview masterview playerscontroller)\">\n      <created>1651868706950</created>\n      <option name=\"number\" value=\"00008\" />\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1651868706950</updated>\n    </task>\n    <task id=\"LOCAL-00009\" summary=\"settings(settingview masterview playerscontroller)\">\n      <created>1651868764938</created>\n      <option name=\"number\" value=\"00009\" />\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1651868764938</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"10\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"Arreglats errors del merge\" />\n    <MESSAGE value=\"Millora en la creacio de Game\" />\n    <MESSAGE value=\"Modificat les imatges de les Rooms\" />\n    <MESSAGE value=\"Meh, mes modificacions de imatges que no hem convencent i creacio de Game feta correctament amb els NPC i els Impostors\" />\n    <MESSAGE value=\"prueba\" />\n    <MESSAGE value=\"settings(settingview masterview playerscontroller)\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"settings(settingview masterview playerscontroller)\" />\n  </component>\n  <component name=\"XDebuggerManager\">\n    <breakpoint-manager>\n      <breakpoints>\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\n          <url>file://$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java</url>\n          <line>114</line>\n          <option name=\"timeStamp\" value=\"6\" />\n        </line-breakpoint>\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\n          <url>file://$PROJECT_DIR$/src/salle/url/edu/business/PlayersManager.java</url>\n          <line>92</line>\n          <option name=\"timeStamp\" value=\"14\" />\n        </line-breakpoint>\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\n          <url>file://$PROJECT_DIR$/src/salle/url/edu/business/PlayersManager.java</url>\n          <line>95</line>\n          <option name=\"timeStamp\" value=\"15\" />\n        </line-breakpoint>\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\n          <url>file://$PROJECT_DIR$/src/salle/url/edu/business/PlayersManager.java</url>\n          <line>102</line>\n          <option name=\"timeStamp\" value=\"16\" />\n        </line-breakpoint>\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\n          <url>file://$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java</url>\n          <line>110</line>\n          <option name=\"timeStamp\" value=\"17\" />\n        </line-breakpoint>\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\n          <url>file://$PROJECT_DIR$/src/salle/url/edu/business/PlayersManager.java</url>\n          <line>93</line>\n          <option name=\"timeStamp\" value=\"18\" />\n        </line-breakpoint>\n      </breakpoints>\n    </breakpoint-manager>\n  </component>\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\n    <expand />\n    <select />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 12f81968f741ec7b5fefba1dd741076d33a7b2c1)
++++ b/.idea/workspace.xml	(date 1652178128988)
+@@ -4,13 +4,19 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="3f7dd163-8f7b-4f1f-bcda-425a9680dd53" name="Changes" comment="settings(settingview masterview playerscontroller)">
++    <list default="true" id="3f7dd163-8f7b-4f1f-bcda-425a9680dd53" name="Changes" comment="Warning View modificat (view)">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/controller/PlayersController.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/ErrorView.class" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/MasterView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/MasterView.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/SettingsView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/S2-Project_B4 - Between Us/salle/url/edu/presentation/view/SettingsView.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/business/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/business/Game.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/business/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/business/GameManager.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/persistance/GameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/persistance/GameDAO.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/persistance/sql/SQLGameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/persistance/sql/SQLGameDAO.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/presentation/controller/GamesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/presentation/controller/GamesController.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/presentation/view/SettingsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/presentation/view/SettingsView.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/presentation/view/MasterView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/presentation/view/MasterView.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/salle/url/edu/presentation/view/WarningView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salle/url/edu/presentation/view/WarningView.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -216,11 +222,6 @@
+   <component name="XDebuggerManager">
+     <breakpoint-manager>
+       <breakpoints>
+-        <line-breakpoint enabled="true" type="java-line">
+-          <url>file://$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java</url>
+-          <line>114</line>
+-          <option name="timeStamp" value="6" />
+-        </line-breakpoint>
+         <line-breakpoint enabled="true" type="java-line">
+           <url>file://$PROJECT_DIR$/src/salle/url/edu/business/PlayersManager.java</url>
+           <line>92</line>
+@@ -235,11 +236,6 @@
+           <url>file://$PROJECT_DIR$/src/salle/url/edu/business/PlayersManager.java</url>
+           <line>102</line>
+           <option name="timeStamp" value="16" />
+-        </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
+-          <url>file://$PROJECT_DIR$/src/salle/url/edu/presentation/controller/PlayersController.java</url>
+-          <line>110</line>
+-          <option name="timeStamp" value="17" />
+         </line-breakpoint>
+         <line-breakpoint enabled="true" type="java-line">
+           <url>file://$PROJECT_DIR$/src/salle/url/edu/business/PlayersManager.java</url>
+Index: src/salle/url/edu/presentation/view/MasterView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package salle.url.edu.presentation.view;\n\nimport javax.swing.*;\nimport java.awt.*;\n\npublic class MasterView extends JFrame {\n\n    public static final int WIDTH = 1920;\n    public static final int HEIGHT = 1080;\n\n    public static final String START_VIEW = \"startView\";\n    public static final String LOGIN_VIEW = \"loginView\";\n    public static final String REGISTER_VIEW = \"registerView\";\n    public static final String ACCOUNT_VIEW = \"accountView\";\n    public static final String SETTINGS_VIEW = \"settingsView\";\n    public static final String GAME_CREATION_VIEW = \"gameCreationView\";\n    public static final String GAMES_MANAGER_VIEW = \"gamesManagerView\";\n    public static final String GAME_VIEW = \"gameView\";\n\n\n    CardLayout cardLayout;\n\n    public MasterView(){\n\n        setSize(WIDTH,HEIGHT);\n        setTitle(\"Between_us\");\n\n        cardLayout = new CardLayout();\n        this.setLayout(cardLayout);\n\n    }\n\n    /**\n     * Method that makes the tab visible according to the parameter\n     * @param visible boolean that tells to show or not show the tab\n     */\n    public void showWindow(boolean visible){ setVisible(visible);}\n\n    /**\n     *\n     * @param view\n     * @param constantView\n     */\n    public void addView(JPanel view, String constantView){\n\n        this.add(constantView, view);\n\n    }\n\n    /**\n     * Method that change to the view we want. We know each view thanks to the constants of this class\n     * @param constantView The constant of this class that indicates one of the views\n     */\n    public void changeView (String constantView){\n\n        cardLayout.show(this.getContentPane(),constantView);\n\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/salle/url/edu/presentation/view/MasterView.java b/src/salle/url/edu/presentation/view/MasterView.java
+--- a/src/salle/url/edu/presentation/view/MasterView.java	(revision 12f81968f741ec7b5fefba1dd741076d33a7b2c1)
++++ b/src/salle/url/edu/presentation/view/MasterView.java	(date 1651924240791)
+@@ -16,6 +16,7 @@
+     public static final String GAME_CREATION_VIEW = "gameCreationView";
+     public static final String GAMES_MANAGER_VIEW = "gamesManagerView";
+     public static final String GAME_VIEW = "gameView";
++    public static final String LOGIN_REGISTER_VIEW = "warning";
+ 
+ 
+     CardLayout cardLayout;
+Index: src/salle/url/edu/presentation/view/WarningView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package salle.url.edu.presentation.view;\nimport salle.url.edu.presentation.JImagePanel;\nimport salle.url.edu.presentation.controller.PlayersController;\n\nimport javax.imageio.ImageIO;\nimport javax.swing.*;\nimport java.awt.*;\nimport java.io.File;\nimport java.io.IOException;\n\npublic class WarningView extends JFrame {\n    public static final int WIDTH = 1920;\n    public static final int HEIGHT = 1080;\n    public static final String WARNING_ACCEPT = \"Accept button\";\n\n    private GridLayout WarningView;\n    private JButton acceptButton;\n\n    public WarningView(){\n\n        JImagePanel backgroundImage = new JImagePanel(\"files/Assets/Login_Register/LoginBackground.png\");\n        JImagePanel rectangleBackground = new JImagePanel(\"files/Assets/Login_Register/rectangleBackground.png\");\n\n        add(backgroundImage,BorderLayout.CENTER);\n\n        backgroundImage.setLayout(new GridBagLayout());\n        GridBagConstraints gbc = new GridBagConstraints();\n        GridBagConstraints gbc2 = new GridBagConstraints();\n        backgroundImage.setOpaque(false);\n        setTitle(\"Error Login_view\");\n\n        JPanel rect = new JPanel();\n        rectangleBackground.setLayout(new GridBagLayout());\n        rectangleBackground.setOpaque(false);\n        rectangleBackground.setPreferredSize(new Dimension(600,350));\n        rectangleBackground.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));\n        gbc2.fill = GridBagConstraints.BOTH;\n        gbc2.gridx = 0;\n        gbc2.gridy = 0;\n        gbc2.gridwidth = 1;\n        gbc2.gridheight = 1;\n        backgroundImage.add(rectangleBackground,gbc2);\n\n\n        //FOTO WARNING_______________________________________________________________________________\n        gbc.gridx = 0;\n        gbc.gridy = 0;\n        gbc.gridwidth = 2;\n        gbc.gridheight = 4;\n        gbc.insets = new Insets(30,0,10,10);\n        //gbc.ipadx = 2;\n        //gbc.weightx = 0.01;\n        gbc.anchor = GridBagConstraints.LINE_START;\n        JImagePanel image = new JImagePanel(\"files/Assets/Login_Register/warning.png\");\n        image.setPreferredSize(new Dimension(250,250));\n        image.setBorder(BorderFactory.createEmptyBorder(0,0,0,30));\n        image.setOpaque(false);\n        rectangleBackground.add(image, gbc);\n\n\n        //TEXT ERROR_________________________________________________________________________________\n        //gbc.weightx = 0;\n        gbc.gridx = 4;\n        gbc.gridy = 0;\n        gbc.gridwidth  = 3;\n        gbc.gridheight = 1;\n        gbc.anchor = GridBagConstraints.LINE_START;\n        //gbc.weightx = 10;\n        JLabel errorTitle = new JLabel(\"ERROR\");\n        errorTitle.setFont(new Font(\"Aclonica\", Font.BOLD, 30));\n        errorTitle.setBackground(Color.BLACK);\n        rectangleBackground.add(errorTitle, gbc);\n\n        //TEXT INCORRECT_______________________________________________________________________________\n        //gbc.weighty = 0.01;\n        gbc.gridx = 4;\n        gbc.gridy = 1;\n        gbc.gridwidth  = 3;\n        gbc.gridheight = 1;\n        gbc.anchor = GridBagConstraints.CENTER;\n        //gbc.anchor = GridBagConstraints.CENTER;\n        JLabel incorrectTitle = new JLabel(\"The user name or the\");\n        incorrectTitle.setFont(new Font(\"Aclonica\", Font.BOLD, 15));\n        incorrectTitle.setBackground(Color.BLACK);\n        rectangleBackground.add(incorrectTitle, gbc);\n\n        /*The user name\n        is already taken.*/\n\n        //TEXT INCORRECT PART2___________________________________________________________________________\n        gbc.gridx = 4;\n        gbc.gridy = 2;\n        gbc.gridwidth  = 3;\n        gbc.gridheight = 1;\n        gbc.anchor = GridBagConstraints.CENTER;\n        JLabel incorrectTitle2 = new JLabel(\"password is incorrect.\");\n        incorrectTitle2.setFont(new Font(\"Aclonica\", Font.BOLD, 15));\n        incorrectTitle2.setBackground(Color.BLACK);\n        rectangleBackground.add(incorrectTitle2, gbc);\n\n\n        //BUTTON ACCEPT_________________________________________________________________________________\n        //gbc.weighty = 0;\n        gbc.gridx = 4;\n        gbc.gridy = 3;\n        gbc.gridwidth  = 3;\n        gbc.gridheight = 1;\n        gbc.anchor = GridBagConstraints.LINE_END;\n        this.acceptButton = new JButton(\"Accept\");\n        this.acceptButton.setFont(new Font(\"Aclonica\", Font.BOLD, 20));\n        this.acceptButton.setPreferredSize(new Dimension(140, 50));\n        rectangleBackground.add(this.acceptButton, gbc);\n\n        //SIZE_____________________________________________________________________________________________\n        setSize(1920, 1080);\n        setPreferredSize(getSize());\n        setVisible(true);\n        setDefaultCloseOperation(EXIT_ON_CLOSE);\n    }\n    public void showWindow(){ setVisible(true);}\n\n    public void registerController(PlayersController controller){\n        this.acceptButton.setActionCommand(WARNING_ACCEPT);\n        this.acceptButton.addActionListener(controller);\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/salle/url/edu/presentation/view/WarningView.java b/src/salle/url/edu/presentation/view/WarningView.java
+--- a/src/salle/url/edu/presentation/view/WarningView.java	(revision 12f81968f741ec7b5fefba1dd741076d33a7b2c1)
++++ b/src/salle/url/edu/presentation/view/WarningView.java	(date 1652047691758)
+@@ -7,19 +7,25 @@
+ import java.awt.*;
+ import java.io.File;
+ import java.io.IOException;
++import java.sql.SQLOutput;
++import java.util.concurrent.Flow;
+ 
+-public class WarningView extends JFrame {
+-    public static final int WIDTH = 1920;
+-    public static final int HEIGHT = 1080;
++public class WarningView extends JPanel {
+     public static final String WARNING_ACCEPT = "Accept button";
++    public static final String LOGIN = "login";
++    public static final String REGISTER = "register";
+ 
+     private GridLayout WarningView;
+     private JButton acceptButton;
++    private String loginRegister;
++    private JImagePanel rectangleBackground;
++    private JImagePanel backgroundImage;
+ 
+-    public WarningView(){
++    public WarningView(String loginRegister, String Error){
+ 
+-        JImagePanel backgroundImage = new JImagePanel("files/Assets/Login_Register/LoginBackground.png");
+-        JImagePanel rectangleBackground = new JImagePanel("files/Assets/Login_Register/rectangleBackground.png");
++        this.loginRegister = loginRegister;
++        backgroundImage = new JImagePanel("files/Assets/Login_Register/LoginBackground.png");
++        rectangleBackground = new JImagePanel("files/Assets/Login_Register/rectangleBackground.png");
+ 
+         add(backgroundImage,BorderLayout.CENTER);
+ 
+@@ -27,7 +33,6 @@
+         GridBagConstraints gbc = new GridBagConstraints();
+         GridBagConstraints gbc2 = new GridBagConstraints();
+         backgroundImage.setOpaque(false);
+-        setTitle("Error Login_view");
+ 
+         JPanel rect = new JPanel();
+         rectangleBackground.setLayout(new GridBagLayout());
+@@ -41,15 +46,12 @@
+         gbc2.gridheight = 1;
+         backgroundImage.add(rectangleBackground,gbc2);
+ 
+-
+         //FOTO WARNING_______________________________________________________________________________
+         gbc.gridx = 0;
+         gbc.gridy = 0;
+         gbc.gridwidth = 2;
+         gbc.gridheight = 4;
+         gbc.insets = new Insets(30,0,10,10);
+-        //gbc.ipadx = 2;
+-        //gbc.weightx = 0.01;
+         gbc.anchor = GridBagConstraints.LINE_START;
+         JImagePanel image = new JImagePanel("files/Assets/Login_Register/warning.png");
+         image.setPreferredSize(new Dimension(250,250));
+@@ -57,50 +59,18 @@
+         image.setOpaque(false);
+         rectangleBackground.add(image, gbc);
+ 
+-
+         //TEXT ERROR_________________________________________________________________________________
+-        //gbc.weightx = 0;
+         gbc.gridx = 4;
+         gbc.gridy = 0;
+         gbc.gridwidth  = 3;
+         gbc.gridheight = 1;
+         gbc.anchor = GridBagConstraints.LINE_START;
+-        //gbc.weightx = 10;
+         JLabel errorTitle = new JLabel("ERROR");
+         errorTitle.setFont(new Font("Aclonica", Font.BOLD, 30));
+         errorTitle.setBackground(Color.BLACK);
+         rectangleBackground.add(errorTitle, gbc);
+ 
+-        //TEXT INCORRECT_______________________________________________________________________________
+-        //gbc.weighty = 0.01;
+-        gbc.gridx = 4;
+-        gbc.gridy = 1;
+-        gbc.gridwidth  = 3;
+-        gbc.gridheight = 1;
+-        gbc.anchor = GridBagConstraints.CENTER;
+-        //gbc.anchor = GridBagConstraints.CENTER;
+-        JLabel incorrectTitle = new JLabel("The user name or the");
+-        incorrectTitle.setFont(new Font("Aclonica", Font.BOLD, 15));
+-        incorrectTitle.setBackground(Color.BLACK);
+-        rectangleBackground.add(incorrectTitle, gbc);
+-
+-        /*The user name
+-        is already taken.*/
+-
+-        //TEXT INCORRECT PART2___________________________________________________________________________
+-        gbc.gridx = 4;
+-        gbc.gridy = 2;
+-        gbc.gridwidth  = 3;
+-        gbc.gridheight = 1;
+-        gbc.anchor = GridBagConstraints.CENTER;
+-        JLabel incorrectTitle2 = new JLabel("password is incorrect.");
+-        incorrectTitle2.setFont(new Font("Aclonica", Font.BOLD, 15));
+-        incorrectTitle2.setBackground(Color.BLACK);
+-        rectangleBackground.add(incorrectTitle2, gbc);
+-
+-
+         //BUTTON ACCEPT_________________________________________________________________________________
+-        //gbc.weighty = 0;
+         gbc.gridx = 4;
+         gbc.gridy = 3;
+         gbc.gridwidth  = 3;
+@@ -115,7 +85,6 @@
+         setSize(1920, 1080);
+         setPreferredSize(getSize());
+         setVisible(true);
+-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+     }
+     public void showWindow(){ setVisible(true);}
+ 
+@@ -123,4 +92,52 @@
+         this.acceptButton.setActionCommand(WARNING_ACCEPT);
+         this.acceptButton.addActionListener(controller);
+     }
++
++    public String getLoginRegister(){
++        return loginRegister;
++    }
++
++    public void updateWarningView(String loginRegister, String Error){
++        GridBagConstraints gbc = new GridBagConstraints();
++
++        if(loginRegister.equals(LOGIN)){
++            backgroundImage = new JImagePanel("files/Assets/Login_Register/LoginBackground.png");
++        }else if(loginRegister.equals(REGISTER)){
++            backgroundImage = new JImagePanel("files/Assets/Login_Register/RegisterBackground.png");
++        }
++
++        String[] ErrorSeparat = Error.split("\\s+");
++        System.out.println(ErrorSeparat+" ");
++
++        /*
++        Error split per paraules " ", recorrer array, JPanel flowLayout, posar add x paraula + " espacio ",
++         posar on va error + mirar funciona gbc.gridwidth  = 6;
++        */
++
++        //TEXT INCORRECT_______________________________________________________________________________
++        gbc.gridx = 4;
++        gbc.gridy = 1;
++        gbc.gridwidth  = 3;
++        gbc.gridheight = 1;
++        gbc.anchor = GridBagConstraints.CENTER;
++        //FlowLayout layoutIncorrect = new FlowLayout();
++        //Mirar com posar lo del flowLayout
++        JLabel incorrectTitle = new JLabel("Incorrect format of the email. It musn't contain ( ) and it must contain an (@) and a (.) after it");
++        incorrectTitle.setFont(new Font("Aclonica", Font.BOLD, 15));
++        incorrectTitle.setBackground(Color.BLACK);
++        rectangleBackground.setLayout(new FlowLayout());
++        rectangleBackground.add(incorrectTitle, gbc);
++
++        //TEXT INCORRECT PART2___________________________________________________________________________
++       /* gbc.gridx = 4;
++        gbc.gridy = 2;
++        gbc.gridwidth  = 3;
++        gbc.gridheight = 1;
++        gbc.anchor = GridBagConstraints.CENTER;
++        JLabel incorrectTitle2 = new JLabel(incorrect);
++        incorrectTitle2.setFont(new Font("Aclonica", Font.BOLD, 15));
++        incorrectTitle2.setBackground(Color.BLACK);
++        rectangleBackground.add(incorrectTitle2, gbc);
++*/
++    }
+ }
+Index: src/salle/url/edu/presentation/controller/PlayersController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package salle.url.edu.presentation.controller;\n\nimport salle.url.edu.business.Player;\nimport salle.url.edu.business.PlayersManager;\n\nimport java.awt.event.ActionEvent;\nimport java.awt.event.ActionListener;\nimport java.util.Scanner;\n\nimport salle.url.edu.business.PlayersManager;\nimport salle.url.edu.presentation.view.*;\nimport salle.url.edu.persistance.sql.SQLPlayerDAO;\n\npublic class PlayersController implements ActionListener {\n\n    //ERRORS____________________________________________________________________________________________________________\n    //LOGIN\n    public static final String LOGIN_ERROR = \"The username or the password are incorrect\";\n\n    //REGISTER\n    public static final String EMAIL_FORMAT_ERROR = \"Incorrect format of the email. It musn't contain ( ) and it must contain an (@) and a (.) after it\";\n    public static final String PASSWORD_FORMAT_ERROR = \"Incorrect format of the password. It must have minimum 1 capital letter, 1 number and 8 character length\";\n    public static final String PASSWORD_CONFIRMATION_ERROR = \"The password and the confirmation password don't coincide\";\n    public static final String USER_NAME_ALREADY_EXISTS = \"This user name is already taken\";\n    public static final String EMAIL_ALREADY_EXISTS = \"This email is already used\";\n\n\n    //ATRIBUTS__________________________________________________________________________________________________________\n    private PlayersManager playersManager;\n    private StartView startView;\n    private LoginView loginView;\n    private RegisterView registerView;\n    private AccountView accountView;\n    private SettingsView settingsView;\n    private MasterView masterView;\n    private boolean createdOK = false;\n    private boolean removedOK = false;\n    private boolean accountExists = false;\n\n    private Player loggedPlayer;\n\n    //CONSTRUCTORS______________________________________________________________________________________________________\n    public PlayersController(MasterView masterView){\n\n        this.masterView = masterView;\n        masterView.showWindow(true);\n\n        //CONNEXIÓ AMB BUSSINESS\n        this.playersManager = new PlayersManager(new SQLPlayerDAO());\n        //INTERFICIE GRÀFICA\n\n            //Start View\n            this.startView = new StartView();\n            startView.registerController(this);\n            masterView.addView( startView, MasterView.START_VIEW);\n            masterView.changeView(MasterView.START_VIEW);\n\n\n            //Login\n            this.loginView = new LoginView();\n            masterView.addView(loginView, MasterView.LOGIN_VIEW);\n            loginView.registerController(this);\n\n\n            //registre\n            this.registerView = new RegisterView();\n            registerView.registerController(this);\n            masterView.addView( registerView, MasterView.REGISTER_VIEW);\n\n            //account view\n            this.accountView = new AccountView();\n            accountView.registerController(this);\n            masterView.addView( accountView, MasterView.ACCOUNT_VIEW);\n\n            //Settings\n            this.settingsView = new SettingsView();\n            settingsView.registerController(this);\n            masterView.addView( settingsView, MasterView.SETTINGS_VIEW);\n\n\n    }\n\n    //INTERFICIE GRÀFICA________________________________________________________________________________________________\n    @Override\n    public void actionPerformed(ActionEvent e) {\n\n        //START------------------------------------------------------------------------------------\n        if (e.getActionCommand().equals(startView.START_LEAVE_BUTTON_COMMAND)) {\n            //System.out.println(\"Start, LEAVE PRESSED\");\n            System.exit(0);\n\n        } else if (e.getActionCommand().equals(startView.START_PLAY_BUTTON_COMMAND)) {\n            //System.out.println(\"Start, PLAY TRIANG PRESSED\");\n            masterView.changeView(MasterView.LOGIN_VIEW);\n\n\n        }\n\n\n        //LOGIN-------------------------------------------------------------------------------------\n        if (e.getActionCommand().equals(loginView.LOGIN_BACK_BUTTON_COMMAND)) {\n            //System.out.println(\"LOGIN, BACK PRESSED\");\n            masterView.changeView(MasterView.START_VIEW);\n\n\n        } else if (e.getActionCommand().equals(loginView.LOGIN_START_BUTTON_COMMAND)) {\n            //System.out.println(\"LOGIN, START PRESSED\");\n            ///* Ho commento per saltarme la verificacio i anar mes rapid\n            //System.out.println(\"password: \" + loginView.getPassword() + \" User: \" + loginView.getUserName());\n            if (playersManager.checkUserNamePlayer(loginView.getUserName())){ //Si ja està a la base de dades\n\n               if (playersManager.checkPasswordFromPlayer(loginView.getUserName(), loginView.getPassword())) { //comprovem password\n\n                    loggedPlayer = playersManager.getPlayer(loginView.getUserName());\n\n                   //TODO: Entrar a la conta del jugador\n                   System.out.println(\"Entró ñejejejejej\");\n                   //JA POT ENTRAR EN LA SEVA CONTA\n\n                   //JA POT ENTRAT EN LA SEVA CONTA\n                   masterView.changeView(MasterView.ACCOUNT_VIEW);\n\n               }else{\n\n                   //TODO: Mostrar error LOGIN_ERROR\n                   System.out.println(\":( contra incorrecte\");\n               }\n            }else{\n\n                //TODO: MOSTRAR ERROR LOGIN_ERROR\n                System.out.println(\":( You don't exist\");\n\n            }\n\n        } else if (e.getActionCommand().equals(loginView.LOGIN_REGISTER_BUTTON_COMMAND)) {\n            //System.out.println(\"LOGIN, REGISTER HERE PRESSED\");\n            masterView.changeView(MasterView.REGISTER_VIEW);\n\n        }\n\n\n        //REGISTER------------------------------------------------------------------------------------\n        if (e.getActionCommand().equals(registerView.REGISTER_BACK_BUTTON_COMMAND)) {\n            //System.out.println(\"REGISTER, BACK PRESSED\");\n            masterView.changeView(MasterView.START_VIEW);\n\n\n        } else if (e.getActionCommand().equals(registerView.REGISTER_START_BUTTON_COMMAND)) {\n            //System.out.println(\"REGISTER, START PRESSED\");\n\n            //TODO: Comprovar si s'ha insertat bé\n            //System.out.println(\"password: \" + registerView.getPassword() + \" User: \" + registerView.getUserName() + \"Email: \" + registerView.getEmail());\n            if (checkEmailFormat(registerView.getEmail()) ){ // Email té el format correcte\n\n                if (checkPasswordFormat(registerView.getPassword())) { //La contrassenya també té el format correcte\n\n                    if (registerView.getPassword().equals(registerView.getConfirmedPassword())) { //La contrassenya és igual a la confirmació de contrassenya\n\n                        if (playersManager.checkUserNamePlayer(registerView.getUserName())) { //ja existeix el nom d'usuari i per tant no el volem ficar\n\n                            System.out.println(\"ja està a la base de dades el UserName\");\n                            //TODO: Mostrar error ja existeix el nom d'usuari\n\n                        } else if (playersManager.checkEmailPlayer(registerView.getEmail())) { //No existeix el nom d'usuari però si el email, i per tant no el volem ficar\n\n                            System.out.println(\"ja està a la base de dades el email però no el UserName\");\n                            //TODO: Mostrar error ja existeix el mail\n\n                        } else if (registerView.getUserName() != null && registerView.getPassword() != null && registerView.getEmail() != null) { // TOT CORRECTE\n\n                            playersManager.createPlayer(registerView.getUserName(), registerView.getEmail(), registerView.getPassword());\n                            //System.out.println(\"Ze Creó Uzuario, ñejejejje :)\");\n                            //JA POT ENTRAT EN LA SEVA CONTA\n                            masterView.changeView(MasterView.ACCOUNT_VIEW);\n\n                        }\n                    }else{ //La contrassenya introduida és diferent a la confirmació de contrassenya introduida\n\n                        //TODO: Mostrar error les contrassenyes no coincideixen\n                        System.out.println(\"Les contrassenyes no coincideixen\");\n\n                    }\n\n                }else{ // La contrassenya té un format incorrecte\n\n                    //TODO Mostrar error el password té un format incorrecte\n                    System.out.println(\"La contrassenya té un format incorrecte\");\n\n                }\n\n            }else{ // El mail té un format incorrecte\n\n                System.out.println(\"Email amb format incorrecte\");\n                //TODO: Mostrar error mal format del email\n            }\n\n\n\n\n\n        } else if (e.getActionCommand().equals(registerView.REGISTER_LOGIN_BUTTON_COMMAND)) {\n            System.out.println(\"REGISTER, LOGIN HERE PRESSED\");\n\n            masterView.changeView(MasterView.LOGIN_VIEW);\n\n        }\n\n\n        //ACCOUNT------------------------------------------------------------------------------------\n        if (e.getActionCommand().equals(accountView.ACCOUNT_BACK)) {\n            //System.out.println(\"Start, LEAVE PRESSED\");\n            //TODO: FER QUE LA INFO DEL JUGADOR QUE ABANS HA INICIAT SESSIÓ ES TREGUI DE LA MEMÒRIA\n            masterView.changeView(MasterView.LOGIN_VIEW);\n\n        } else if (e.getActionCommand().equals(accountView.ACCOUNT_CONFIG)) {\n            //System.out.println(\"Start, PLAY TRIANG PRESSED\");\n\n            //TODO: VISTA DE CONFIGURACIÓ\n            masterView.changeView(MasterView.SETTINGS_VIEW);\n\n\n        } else if (e.getActionCommand().equals(accountView.ACCOUNT_GAMES)) {\n            System.out.println(\"Hellou\");\n\n            //TODO: VISTA DE GESTIÓ DE PARTIDES\n            //A partir d'aqui ja pot crear un joc\n            //Fico el metode aqui tot i que primer ha de anar el MainMEnu View I el Game Manager View\n            //I despres el GameCreation GUI Pero ara fico el metode de create Game ja que encara no esta fet\n            //TODO: Discutir sobre si s'ha de fer aixi o no:\n            // Opcio 1: Tornar al Main i desde alla cridar el GamesController\n            // Opcio 2: Crear el GamesController aqui mateix\n            //De moment faig la opcio 2 ja que es mes senzilla i aixi puc avançar\n\n            startGamesController();\n\n\n        } else if (e.getActionCommand().equals(accountView.ACCOUNT_STATS)) {\n\n            //TODO: VISTA DE ELS STATS\n\n        }\n\n        //SETTINGS------------------------------------------------------------------------------------\n        if (e.getActionCommand().equals(settingsView.SETTINGS_BACK_BUTTON_COMMAND)) {\n            //TODO: FER QUE TORNI A LA PANTALLA DE ACCOUNT\n            masterView.changeView(MasterView.ACCOUNT_VIEW);\n\n        } else if (e.getActionCommand().equals(settingsView.SETTINGS_DELETE_BUTTON_COMMAND)) {\n            //TODO: FER QUE LA INFO DEL JUGADOR EN CUESTIO ES TREGUI DE LA MEMÒRIA\n            masterView.changeView(MasterView.START_VIEW);\n        }\n    }\n\n    //Mètodes de verificació ___________________________________________________________________________________________________________\n\n    /**\n     * Method that checks if the mail format is correct\n     * @param email The email we want to check\n     * @return true if the mail format is correct\n     *         false if the mail is incorrect\n     */\n    private boolean checkEmailFormat(String email){\n\n        boolean format = false;\n\n        int total_arrova = 0;\n        for (int i = 0; i < email.length(); i++) {\n\n            if (email.charAt(i) == '@'){\n                total_arrova++;\n            }\n        }\n\n        if (total_arrova == 1 && !email.contains(\" \")) {\n            String[] dividedMail = email.split(\"@\");\n            if (dividedMail[1].contains(\".\")) {\n                format = true;\n            }\n        }\n\n        return format;\n\n    }\n\n    /**\n     * Method that checks if the password format is correct\n     *      * @param email The email we want to check\n     *      * @return true if the mail format is correct\n     *      *         false if the mail is incorrect\n     */\n    public boolean checkPasswordFormat(String password) {\n        int mayus = 0;\n        int min = 0;\n        if (password.length() < 8) {\n            System.out.println(\"Must be 8 in length\");\n            return false;\n        }\n        if (!password.matches(\".*[0-9].*\")) {\n            System.out.println(\"Must contain numbers\");\n            return false;\n        }\n        for (int i = 0; i < password.length(); i++) {\n            if(Character.isUpperCase(password.charAt(i))){\n                mayus++;\n            }\n            if(Character.isLowerCase(password.charAt(i))){\n                min++;\n            }\n        }\n        if(mayus < 1 || min < 1){\n            System.out.println(\"Must contain uppercase and lowercase letters\");\n            return false;\n        }\n        return true;\n    }\n\n    //Metodes interconexió amb GamesController__________________________________________________________________________________\n\n    //TODO: Mirar si fer-ho aixi o no\n    private void startGamesController() {\n        System.out.println(\"Hellou\");\n        GamesController gamesController = new GamesController(masterView);\n        gamesController.gameMenu(this.loggedPlayer);\n\n    }\n\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/salle/url/edu/presentation/controller/PlayersController.java b/src/salle/url/edu/presentation/controller/PlayersController.java
+--- a/src/salle/url/edu/presentation/controller/PlayersController.java	(revision 12f81968f741ec7b5fefba1dd741076d33a7b2c1)
++++ b/src/salle/url/edu/presentation/controller/PlayersController.java	(date 1652034290764)
+@@ -33,6 +33,7 @@
+     private AccountView accountView;
+     private SettingsView settingsView;
+     private MasterView masterView;
++    private WarningView warningView;
+     private boolean createdOK = false;
+     private boolean removedOK = false;
+     private boolean accountExists = false;
+@@ -77,6 +78,10 @@
+             settingsView.registerController(this);
+             masterView.addView( settingsView, MasterView.SETTINGS_VIEW);
+ 
++            //Warning
++            this.warningView = new WarningView(WarningView.LOGIN,"");
++            warningView.registerController(this);
++            masterView.addView( warningView, MasterView.LOGIN_REGISTER_VIEW);
+ 
+     }
+ 
+@@ -94,6 +99,15 @@
+             masterView.changeView(MasterView.LOGIN_VIEW);
+ 
+ 
++        }
++        //WARNING-------------------------------------------------------------------------------------
++        if (e.getActionCommand().equals(WarningView.WARNING_ACCEPT)) {
++            //System.out.println("LOGIN, BACK PRESSED");
++            if(warningView.getLoginRegister().equals(WarningView.LOGIN)) {
++                masterView.changeView(MasterView.LOGIN_VIEW);
++            }else if(warningView.getLoginRegister().equals(WarningView.REGISTER)){
++                masterView.changeView(MasterView.REGISTER_VIEW);
++            }
+         }
+ 
+ 
+@@ -123,11 +137,13 @@
+                }else{
+ 
+                    //TODO: Mostrar error LOGIN_ERROR
++                  //masterView.changeView(WarningView.LOGIN);
+                    System.out.println(":( contra incorrecte");
+                }
+             }else{
+ 
+                 //TODO: MOSTRAR ERROR LOGIN_ERROR
++                //masterView.changeView(WarningView.LOGIN);
+                 System.out.println(":( You don't exist");
+ 
+             }
+@@ -249,7 +265,12 @@
+             //TODO: FER QUE LA INFO DEL JUGADOR EN CUESTIO ES TREGUI DE LA MEMÒRIA
+             masterView.changeView(MasterView.START_VIEW);
+         }
++        /*if (e.getActionCommand().equals(WarningView.//botonsito)) {
++                // masterView.changeView(MasterView.ACCOUNT_VIEW);
++        }*/
+     }
++
++
+ 
+     //Mètodes de verificació ___________________________________________________________________________________________________________
+ 
+Index: src/salle/url/edu/presentation/controller/GamesController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package salle.url.edu.presentation.controller;\n\nimport salle.url.edu.business.*;\nimport salle.url.edu.business.Character;\nimport salle.url.edu.persistance.csv.CSVMapDAO;\nimport salle.url.edu.persistance.sql.SQLGameDAO;\nimport salle.url.edu.presentation.view.GameCreationView;\nimport salle.url.edu.presentation.view.MasterView;\nimport salle.url.edu.presentation.view.gameView.GameView;\n\nimport java.io.IOException;\nimport java.util.ArrayList;\nimport java.util.Scanner;\n\n/**\n * Controls everything from the games in general\n */\npublic class GamesController {\n\n    private GameManager gameManager;\n    private GameView gameView;\n    private MasterView masterView;\n    private GameCreationView gameCreationView;\n    private CurrentGameController currentGameController;\n\n    /**\n     * Default constructor that creates an instance of GameManager so that we can\n     * connect with the model\n     */\n    public GamesController(MasterView masterView) {\n\n        this.gameManager = new GameManager(new SQLGameDAO(), new CSVMapDAO());\n        this.masterView = masterView;\n\n        // GAME CREATION\n        this.gameCreationView = new GameCreationView();\n        this.gameCreationView.showWindow(true);\n    }\n\n    /**\n     * Shows the Game Management GUI so that the player can choose between:\n     *  1- Creating a new Game\n     *  2- Duplicating an existing Game\n     *  3- Deleting a Game\n     *  4- Start a new or already existing Game that hasn't finished\n     *  5- Exiting\n     */\n    public void gameMenu(Player currentPlayer){\n        System.out.println(\"What do you wish to do? \");\n        System.out.println(\"    1- Create Game\");\n        System.out.println(\"    2- Duplicate Game\");\n        System.out.println(\"    3- Delete Game\");\n        System.out.println(\"    4- Start Game\");\n        System.out.println(\"    5- Exit\");\n\n        Scanner sc = new Scanner(System.in);\n\n        switch (sc.nextInt()){\n            case 1:\n                createGame(currentPlayer);\n                //Crear joc\n\n\n                break;\n            case 2:\n                //Duplicar joc\n                break;\n\n            case 3:\n                //Eliminar joc\n                System.out.println(\"Introdueix el nom de la partia: \");\n                String gameNameToDelete = sc.nextLine();\n\n                break;\n\n            case 4:\n                //Començar partida ja començada/creada\n                break;\n            case 5:\n                //Exits\n                break;\n\n        }\n    }\n\n    public void createGame(Player currentPlayer) {\n        //HARDCODED GAME CREATION\n\n        /*\n\n        Scanner sc = new Scanner(System.in);\n\n        //Nom de la partida (unic per al usuari)\n        //TODO: S'ha de verificar que el nom de la partida no existeixi per el jugador\n        System.out.println(\"Introdueix el nom de la partida: \");\n        String name = sc.nextLine();\n        if (gameManager.checkGameExists(name)){\n            //ERROR, aquest nom ja existeix\n            System.out.println(\"Error, this name is already used\");\n        }else {\n            //Numero de jugadors (4-10)\n            System.out.println(\"Introdueix el numero de jugadors: \");\n            int numPlayers = sc.nextInt();\n            //Nombre d'impostors (1 - 3 // inferiors a 1/3 * numero jugadors )\n            //TODO: Verificar la condicio del  numero de impostors\n            System.out.println(\"Introdueix el numero de jugadors: \");\n            int numImpostors = sc.nextInt();\n            if (checkImpostors(numImpostors, numPlayers)) {\n                //Color Jugador (12 colors en total)\n                System.out.println(\"Introdueix el color del teu jugador: \");\n                CharacterColors color = CharacterColors.RED;\n                // Mapa amb JFileChooser\n                System.out.println(\"Esculleix un dels mapes: \");\n                int mapId = sc.nextInt();\n                Map map = gameManager.getMap(mapId);\n         */\n\n        Map map = gameManager.getMap(5);\n\n        Game game = new Game(\"sdf\", 8, 2, CharacterColors.RED, currentPlayer, map);\n        gameManager.addGame(game);\n\n        currentGameController = new CurrentGameController(masterView, game);\n\n    }\n\n    private boolean checkImpostors(int impostors, int players){\n        if (impostors <= players/3) return true;\n        return false;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/salle/url/edu/presentation/controller/GamesController.java b/src/salle/url/edu/presentation/controller/GamesController.java
+--- a/src/salle/url/edu/presentation/controller/GamesController.java	(revision 12f81968f741ec7b5fefba1dd741076d33a7b2c1)
++++ b/src/salle/url/edu/presentation/controller/GamesController.java	(date 1652078413117)
+@@ -68,7 +68,7 @@
+ 
+             case 3:
+                 //Eliminar joc
+-                System.out.println("Introdueix el nom de la partia: ");
++                System.out.println("Introdueix el nom de la partida: ");
+                 String gameNameToDelete = sc.nextLine();
+ 
+                 break;
+@@ -121,7 +121,31 @@
+         gameManager.addGame(game);
+ 
+         currentGameController = new CurrentGameController(masterView, game);
++    }
+ 
++    public void duplicateGame(String name, int numJugadors, int numImpostors, String Color, String Player,Map map){
++        //Passar el nom de la vista
++        //if (gameManager.checkGameExists(name)) {
++        //Ja existeix mostrar error
++        //}else{
++        //Tot estarà ja definit, s'agafarà de la vista de crear partida
++        //  Game game = new Game(name,numJugadors,numImpostors,Color,Player, map);
++       // gameManager.addGame(game);
++        // }
++    }
++
++    public void deleteGame() {
++        //System.out.println("Introdueix el nom de la partida: ");
++        //String name = sc.nextLine();
++        //if(//boto de confirmació seleccionat){
++            /*if (gameManager.checkGameExists(name)) {
++               gameManager.deleteGame(name);
++            }else{
++                System.out.println("Error, el nom de la partida no existeix ");
++            }*/
++        //}else{
++        //     System.out.println("Error, la partida no s'ha pogut eliminar");
++        // }
+     }
+ 
+     private boolean checkImpostors(int impostors, int players){
+Index: src/salle/url/edu/business/Game.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package salle.url.edu.business;\n\nimport java.awt.*;\nimport java.util.ArrayList;\nimport java.util.Random;\n\npublic class Game {\n\n    //ATRIBUTS----------------------------------------------------------------------------------------------------------\n    private String name;\n    private int numJugadors;\n    private int numImpostors;\n    private boolean started;\n    private boolean finished;\n    private String winner;\n    private ArrayList<Character> characters;\n    private Map map;\n\n    //Auxiliars\n    private CharacterColors[] colors;\n\n    //CONSTRUCTORS------------------------------------------------------------------------------------------------------\n    public Game(String name, int numJugadors, int  numImpostors, CharacterColors playerColor, Player currentPlayer, Map map) {\n        this.name = name;\n        this.numJugadors = numJugadors;\n        this.numImpostors = numImpostors;\n        this.started = false;\n        this.finished = false;\n        this.winner = null;\n\n        //Generem els jugadors de la partida\n        this.characters = new ArrayList<>();\n        currentPlayer.setColor(playerColor);\n        currentPlayer.setPosition(map.getInitialRoom());\n        characters.add(currentPlayer);\n\n\n        colors = CharacterColors.values();\n\n        for (int i = 0; i < numJugadors - 1 - numImpostors; i++){\n\n            NPC npc = new NPC(chooseRandomColor(currentPlayer.getColor()), map.getInitialRoom());\n            characters.add(npc);\n        }\n        for (int i = 0; i < numJugadors - 1 - numImpostors; i++){\n\n            Impostor imp = new Impostor(chooseRandomColor(currentPlayer.getColor()), map.getInitialRoom());\n            characters.add(imp);\n        }\n\n        this.map = map;\n    }\n\n\n\n    //METHODS-----------------------------------------------------------------------------------------------------------\n    private CharacterColors chooseRandomColor(CharacterColors playerColor) {\n        while (true) {\n            int rand = new Random().nextInt(CharacterColors.values().length);\n            if (colors[rand] != null && colors[rand] != playerColor) {\n                CharacterColors pick = colors[rand];\n                colors[rand] = null;\n                return pick;\n            }\n        }\n    }\n\n    public Map getMap() {\n        return map;\n    }\n\n\n    public ArrayList<Character> getCharacters() {\n        return characters;\n    }\n\n    public Character getCharacter(String name){\n        for (Character character: characters) {\n            if (name.equals(character.getColor().colorToString())) return character;\n        }\n        return null;\n    }\n}\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/salle/url/edu/business/Game.java b/src/salle/url/edu/business/Game.java
+--- a/src/salle/url/edu/business/Game.java	(revision 12f81968f741ec7b5fefba1dd741076d33a7b2c1)
++++ b/src/salle/url/edu/business/Game.java	(date 1652048319652)
+@@ -80,6 +80,10 @@
+         }
+         return null;
+     }
++
++    public String getName(){
++        return this.name;
++    }
+ }
+ 
+ 
